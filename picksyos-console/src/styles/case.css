@@ -1,0 +1,107 @@
+/* Case study page. Follows the author's portfolio case format (erdeniztunc.com/work):
+   warm paper, Source Serif 4 headings, IBM Plex Sans body, one 672 px column, hairline sections.
+   The flow diagram inside it uses the console's own tokens. */
+.cs{
+  --cs-paper:#faf8f4;--cs-ink:#1b1915;--cs-body:#4a453d;--cs-quiet:#6b6357;--cs-rule:#e4ded3;
+  --cs-frame:#d6cfc1;--cs-frame-bg:#f3efe7;--cs-link:#1740b8;--cs-btn:#1f4ed8;
+  --cs-serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+  --cs-sans:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --cs-mono:'IBM Plex Mono',ui-monospace,monospace;
+  min-height:100vh;background:var(--cs-paper);color:var(--cs-ink);font:400 17px/1.6 var(--cs-sans);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility
+}
+.cs ::selection{background:#d9e2fb;color:var(--cs-ink)}
+.cs a{color:inherit}
+.cs :focus-visible{outline:2px solid var(--cs-btn);outline-offset:3px;box-shadow:none;border-radius:4px}
+
+.cs__skip{position:absolute;left:12px;top:-60px;z-index:20;padding:8px 14px;border-radius:6px;background:var(--cs-ink);color:#fff!important;font-size:14.5px;text-decoration:none}
+.cs__skip:focus{top:12px}
+
+/* Top bar */
+.cs__nav{position:sticky;top:0;z-index:10;background:rgba(250,248,244,.88);backdrop-filter:saturate(1.2) blur(10px);-webkit-backdrop-filter:saturate(1.2) blur(10px);border-bottom:1px solid var(--cs-rule)}
+.cs__nav-in{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1008px;height:64px;margin:0 auto;padding:0 24px}
+.cs__brand{font:600 18px/1 var(--cs-serif);letter-spacing:-.01em;text-decoration:none}
+
+/* Column */
+.cs__wrap{max-width:672px;margin:0 auto;padding:0 24px}
+.cs__header{padding:72px 0 36px}
+.cs__back{display:inline-flex;margin-bottom:24px;font:400 12px/1.6 var(--cs-mono);letter-spacing:.06em;color:var(--cs-quiet)!important;text-decoration:none}
+.cs__back:hover{color:var(--cs-ink)!important}
+.cs__title{margin:0 0 16px;font:600 62px/1.08 var(--cs-serif);letter-spacing:-.025em;text-wrap:balance;outline:none}
+.cs__proof{margin:0;font:400 18px/1.45 var(--cs-serif);color:var(--cs-ink)}
+.cs__meta{margin:16px 0 0;font-size:14.5px;line-height:1.6;color:var(--cs-body)}
+.cs__note{margin:12px 0 16px;font-size:14.5px;line-height:1.55;font-style:italic;color:var(--cs-quiet)}
+
+.cs__tlink{display:inline-flex;gap:7px;padding-bottom:1px;border-bottom:1px solid transparent;font:500 15px/1.6 var(--cs-sans);color:var(--cs-link)!important;text-decoration:none}
+.cs__tlink:hover{border-bottom-color:currentColor}
+
+/* Sections */
+.cs__sec{padding:44px 0;border-top:1px solid var(--cs-rule)}
+.cs__sec h2{margin:0 0 16px;font:600 26px/1.08 var(--cs-serif);letter-spacing:-.015em}
+.cs__sec ul{margin:0 0 14px;padding-left:20px}
+.cs__sec li{margin-bottom:8px;color:var(--cs-body)}
+.cs__sec li::marker{color:var(--cs-quiet)}
+.cs__sec p{margin:0;line-height:1.65;color:var(--cs-body)}
+.cs__sec li a,.cs__sec p a{color:var(--cs-link);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+.cs__decision{padding-bottom:18px}
+.cs__decision+.cs__decision{padding-top:18px;border-top:1px solid var(--cs-rule)}
+.cs__decision h3{margin:0 0 8px;font:600 18px/1.08 var(--cs-serif);letter-spacing:-.01em;color:var(--cs-ink)}
+.cs__after{margin-top:24px!important}
+
+/* Figures: real screenshots in a quiet frame, one-line italic captions */
+.cs__figure{margin:24px 0 0}
+.cs__figure img{display:block;width:100%;height:auto;border:1px solid var(--cs-frame);border-radius:10px;background:var(--cs-frame-bg)}
+.cs__figure figcaption{margin-top:12px;font-size:14.5px;line-height:1.5;font-style:italic;color:var(--cs-body)}
+.cs__pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
+
+/* Closing actions */
+.cs__cta{display:flex;flex-wrap:wrap;align-items:center;gap:16px 28px;padding:44px 0 20px;border-top:1px solid var(--cs-rule)}
+.cs__all{margin-bottom:96px}
+.cs__btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;border-radius:8px;font:500 14.5px/1 var(--cs-sans);text-decoration:none;white-space:nowrap;transition:background-color .14s ease}
+.cs__btn--ink{min-height:36px;padding:0 14px;background:var(--cs-ink);color:#fff!important}
+.cs__btn--ink:hover{background:#3a362f}
+.cs__btn--primary{background:var(--cs-btn);color:#fff!important}
+.cs__btn--primary:hover{background:#1a43bd}
+.cs__btn--lg{min-height:50px;padding:0 26px;font-size:16px}
+
+/* Operator flow, drawn in the console's visual system */
+.fd{padding:28px 20px 24px;border:1px solid var(--cs-frame);border-radius:10px;background:var(--surface);font-family:var(--font-sans);color:var(--text)}
+.fd ol{list-style:none;margin:0;padding:0}
+.fd__rail,.fd__branch{display:flex;flex-direction:column;align-items:center}
+.fd__rail>li,.fd__branch>li{display:flex;flex-direction:column;align-items:center;margin:0}
+/* down arrow between steps */
+.fd__rail>li+li::before,.fd__branch>li+li::before{content:"";width:10px;height:18px;margin:2px 0;background:no-repeat center/10px 18px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 18'%3E%3Cpath d='M5 0v16M1.5 12.5 5 16.5l3.5-4' fill='none' stroke='%238a8f8a' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.fd__node{display:inline-flex;align-items:center;justify-content:center;max-width:290px;min-height:36px;padding:8px 16px;border:1px solid var(--border-strong);border-radius:var(--radius-pill);background:var(--surface);font:500 13px/1.3 var(--font-sans);color:var(--text);text-align:center}
+.fd__node--lime{border-color:transparent;background:var(--accent);color:var(--accent-ink)}
+.fd__node--ink{border-color:transparent;background:var(--text);color:var(--surface)}
+.fd__node--info{border-color:transparent;background:var(--info-bg);color:var(--info)}
+.fd__node--ok{border-color:transparent;background:var(--ok-bg);color:var(--ok)}
+.fd__node--task{flex-direction:column;gap:2px;border-radius:var(--radius-md);padding:10px 16px}
+.fd__stages{font:400 12px/1.5 var(--font-sans)}
+.fd__stage{white-space:nowrap}
+/* the branch point: a diamond, the one place the flow splits */
+.fd__decision-wrap::after{content:"";width:1px;height:16px;background:var(--border-strong)}
+.fd__decision{position:relative;display:grid;place-items:center;width:84px;height:84px;font:600 13px/1 var(--font-sans);color:var(--text)}
+.fd__decision::before{content:"";position:absolute;inset:14px;transform:rotate(45deg);border:1.5px solid var(--text);border-radius:4px;background:var(--surface)}
+.fd__decision>span{position:relative}
+.fd__branches{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.fd__branches::before{content:"";position:absolute;top:0;left:25%;right:25%;height:1px;background:var(--border-strong)}
+.fd__branch::before{content:"";width:1px;height:14px;background:var(--border-strong)}
+.fd__label{display:inline-flex;flex-direction:row!important;align-items:center;gap:6px;padding:2px 0;font:600 12px/1.3 var(--font-sans);letter-spacing:.02em}
+.fd__label--ok{color:var(--ok)}
+.fd__label--fail{color:var(--err)}
+.fd__return-in{display:inline-flex;align-items:center;gap:6px;font:500 13px/1.3 var(--font-sans);color:var(--ok)}
+
+@media (max-width:640px){
+  .cs__nav-in{height:56px;padding:0 16px}
+  .cs__wrap{padding:0 20px}
+  .cs__header{padding:48px 0 28px}
+  .cs__title{font-size:40px;line-height:1.1}
+  .cs__sec{padding:36px 0}
+  .cs__sec h2{font-size:24px}
+  .cs__pair{grid-template-columns:1fr}
+  .fd{padding:24px 12px 20px}
+  .fd__branches{grid-template-columns:1fr;gap:20px}
+  .fd__branches::before{display:none}
+}
+@media (prefers-reduced-motion:reduce){.cs__btn{transition:none}}

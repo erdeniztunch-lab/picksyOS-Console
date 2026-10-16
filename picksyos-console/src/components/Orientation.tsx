@@ -91,6 +91,9 @@ export function HelpContent() {
             <dd>simüle edilen olay</dd>
           </div>
         </dl>
+        <a href="#/" className="help__link">
+          Case study’yi oku
+        </a>
       </section>
 
       <div className="help__foot">

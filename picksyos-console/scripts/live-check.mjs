@@ -12,7 +12,7 @@ const check = (name, ok, detail = '') => {
 const browser = await puppeteer.launch({ executablePath: CHROME, headless: true, defaultViewport: { width: 1440, height: 900 } });
 const errors = [];
 
-async function fresh({ tourSeen = true } = {}) {
+async function fresh({ tourSeen = true, at = '#/queue' } = {}) {
   // A first visit needs its own clean browser context (localStorage is shared across pages).
   const page = tourSeen ? await browser.newPage() : await (await browser.createBrowserContext()).newPage();
   page.on('pageerror', (e) => errors.push(e.message));
@@ -25,7 +25,8 @@ async function fresh({ tourSeen = true } = {}) {
     window.__skew = 0;
     Date.now = () => real() + window.__skew;
   });
-  await page.goto(URL, { waitUntil: 'networkidle0' });
+  // The console lives at #/queue; the root is the case study.
+  await page.goto(URL + at, { waitUntil: 'networkidle0' });
   await sleep(1200); // skeleton (700 ms) + first ticks
   return page;
 }
@@ -374,6 +375,26 @@ const REMOTE = 5600;
   await sleep(1000);
   pr = await S.panel(p);
   check('task: cancelled while recovered → incident stays Recovered', !(await S.task(p)) && pr.chips.includes('Düzeldi'), pr.chips.join(','));
+  await p.close();
+}
+
+// ---------- case study (first screen) ----------
+{
+  const p = await fresh({ tourSeen: false, at: '' });
+  const cs = await p.evaluate(() => ({ h1: document.querySelector('h1')?.innerText, console: !!document.querySelector('.app, .queue'), tour: !!document.querySelector('.tour'), imgs: document.querySelectorAll('.cs img').length, disclaimer: document.querySelector('.cs__note')?.innerText }));
+  check('case study: first screen, not the console; disclaimer shown; no tour', cs.h1 === 'İstasyon uyarılarını karara dönüştürmek' && !cs.console && !cs.tour && cs.imgs === 4 && cs.disclaimer?.includes('Delivery One ile bağlantılı değildir'), JSON.stringify(cs));
+  const flow = await p.$$eval('.fd__stage', (s) => s.map((x) => x.innerText).join(','));
+  check('case study: flow diagram uses the task stage labels from the build', flow === 'Talep edildi,Kabul edildi,Sahada,Tamamlandı', flow);
+  await p.keyboard.press('a');
+  await skew(p, 95_000);
+  await clickText(p, 'Konsolu aç', 'a');
+  await sleep(1200);
+  const h = await S.header(p);
+  check('case study: demo clock waits while reading (still 14:00, INC-104 not yet recovered)', (await S.clock(p)) === '14:00' && h.includes('P2 2') && (await p.evaluate(() => location.hash)) === '#/queue', `${await S.clock(p)} ${h}`);
+  check('case study: shortcuts did nothing while reading; tour starts in the console', !(await S.sections(p))['İşlemde'].includes('INC-101') && !!(await p.$('.tour')));
+  await p.goto(URL + '#/');
+  await sleep(300);
+  check('console → #/ returns to the case study', (await p.$eval('h1', (e) => e.innerText)) === 'İstasyon uyarılarını karara dönüştürmek');
   await p.close();
 }
 

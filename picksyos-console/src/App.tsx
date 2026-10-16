@@ -1,5 +1,6 @@
 import { useEffect, useSyncExternalStore } from 'react';
 import { AppHeader } from './components/AppHeader';
+import { CaseStudy } from './components/CaseStudy';
 import { IncidentPanel } from './components/IncidentPanel';
 import { EmptyPane } from './components/Orientation';
 import { Tour } from './components/Tour';
@@ -37,6 +38,7 @@ function Main() {
   const R = e.route;
   if (R.view === 'station') return <StationPage id={R.id} from={R.from} />;
   if (R.view === 'parcel') return <ParcelPage id={R.id} from={R.from} />;
+  if (R.view === 'case') return null;
   const sel = R.incident ? e.db.incidents[R.incident] : undefined;
   const phone = e.isPhone;
   return (
@@ -63,6 +65,14 @@ export function App({ engine }: { engine: ConsoleEngine }) {
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
   }, [theme]);
+
+  // The case study is the first screen; the console opens from it.
+  if (engine.route.view === 'case')
+    return (
+      <EngineContext.Provider value={engine}>
+        <CaseStudy />
+      </EngineContext.Provider>
+    );
 
   return (
     <EngineContext.Provider value={engine}>

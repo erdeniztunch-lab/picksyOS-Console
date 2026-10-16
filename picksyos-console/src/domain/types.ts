@@ -156,7 +156,9 @@ export interface Db {
 export type QueueRoute = { view: 'queue'; incident: string | null; type: IncidentType[]; band: Band[] };
 export type StationRoute = { view: 'station'; id: string; from: string | null };
 export type ParcelRoute = { view: 'parcel'; id: string; from: string | null };
-export type Route = QueueRoute | StationRoute | ParcelRoute;
+/** The case study, the first screen a visitor sees (`#/` or no hash). */
+export type CaseRoute = { view: 'case' };
+export type Route = QueueRoute | StationRoute | ParcelRoute | CaseRoute;
 
 export interface Pending {
   key: TargetKey;

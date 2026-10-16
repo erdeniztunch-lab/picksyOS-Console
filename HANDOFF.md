@@ -9,7 +9,7 @@ From concept prototype to a production console. Do the steps in order. Each step
 | Screens, components, tokens, copy (Turkish UI) | Seed data in `engine.ts` (12 stations, 10 incidents) |
 | Ranking rule, state machines, actions catalogue | Demo clock (starts 14:00), scripted action outcomes |
 | Keyboard, focus, a11y behaviour | Field-service stages (simulated, D17) |
-| 57 live + 16 a11y checks | Demo kontrolleri menu, `?scene=` states, welcome/tour |
+| 62 live + 16 a11y checks | Demo kontrolleri menu, `?scene=` states, the case study page (`#/`), the tour |
 
 Spec lives in docs, not in code comments. If code and docs disagree, ask; do not guess.
 
@@ -20,7 +20,7 @@ cd picksyos-console
 npm install
 npm run dev                      # keep running
 npm run typecheck && npm run build
-npm run check:live               # expect 57/57
+npm run check:live               # expect 62/62
 npm run check:a11y               # expect 16/16
 ```
 
@@ -89,7 +89,7 @@ Prompt:
 ```
 In picksyos-console, move all seed data out of ConsoleEngine into a DataSource interface
 (stations, parcels, incidents, events, subscribe()). Keep a MockDataSource that returns
-today's seed exactly, so check:live stays 57/57. Engine and selectors must not import
+today's seed exactly, so check:live stays 62/62. Engine and selectors must not import
 mock data directly. No behaviour change. Run typecheck, build, check:live, check:a11y.
 ```
 
@@ -142,7 +142,8 @@ existing ownership notice with the new owner. Owner names come from the director
 
 - Demo kontrolleri menu, `?scene=`, demo clock → real time.
 - Footer disclaimer → remove only with brand approval.
-- Welcome dialog / tour: product decision; keep the tour if useful.
+- Case study page (`#/`): remove from the product build; the console route becomes the root.
+- Tour: product decision; keep it if useful.
 
 Prompt:
 ```

@@ -13,10 +13,11 @@ Requires Node 18+.
 ```bash
 cd picksyos-console
 npm install
-npm run dev          # http://localhost:5173
+npm run dev          # http://localhost:5173 (case study) · /#/queue (console)
 ```
 
-- The demo clock starts at **14:00** and runs in real time. Things happen on their own: INC-104 recovers at 14:01:30, and INC-101 drops from P1 to P2 at about 14:06 if nobody acts.
+- The first screen is the case study; "Konsolu aç" opens the console.
+- The demo clock starts at **14:00** when the console opens and runs in real time. Things happen on their own: INC-104 recovers at 14:01:30, and INC-101 drops from P1 to P2 at about 14:06 if nobody acts.
 - **Demo kontrolleri** (top right) holds the simulated events: the Operator/Supervisor role, theme, Reset, advancing a field task, a stress test, and a failed submit.
 - `?scene=<name>` freezes a scripted state, e.g. `?scene=inc102-failed&theme=dark`. The list is in `applyScene` in [`engine.ts`](picksyos-console/src/domain/engine.ts).
 - The UI is in Turkish; the docs are in English.
@@ -55,7 +56,7 @@ With the dev server running, from `picksyos-console/`:
 ```bash
 npm run typecheck
 npm run build
-npm run check:live   # 57 live behaviours in headless Chrome, real timers
+npm run check:live   # 62 live behaviours in headless Chrome, real timers
 npm run check:a11y   # 16 keyboard, focus, 200 % zoom and touch-target checks
 ```
 
@@ -64,7 +65,8 @@ Set `CHROME=` if Chrome is not at the default Windows path, and `URL=` if the de
 ## Status
 
 - **Built:** queue, incident panel, station and parcel pages, step bar, done card, trackable field tasks, both themes, phone layout, and keyboard support. WCAG 2.2 AA is the design target; it is verified by the a11y checks, not by an external audit.
-- **Not built yet:** a first-visit "about this project" dialog and a hands-on guided tour.
+- **Built for the reader:** a case study page as the first screen; a 3-step first-visit tour in the console.
+- **Not built yet:** a hands-on guided tour that walks one incident to closure.
 - **No usability testing has been done.** The success criteria in `product-brief.md` are design criteria.
 - Front end only: no back end, authentication or real integrations.
 

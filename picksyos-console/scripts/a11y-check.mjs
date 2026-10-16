@@ -101,7 +101,7 @@ check('phone: no tap target under 44 px', small.length === 0, small.slice(0, 8).
 await p.close();
 
 // 12 tour card not covering the top row
-p = await go(URL + '/', 1440, 900, true);
+p = await go(URL + '/#/queue', 1440, 900, true);
 const tov = await p.evaluate(() => { const c = document.querySelector('.tour').getBoundingClientRect(); const r = document.querySelector('[data-tour="top-row"]').getBoundingClientRect(); return !(c.bottom <= r.top || c.top >= r.bottom || c.right <= r.left || c.left >= r.right); });
 check('tour step 1 card does not cover the top row', !tov);
 await click(p, 'Turu atla'); await sleep(200);

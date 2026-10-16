@@ -100,7 +100,8 @@ Everything in this section is a DESIGN DECISION unless tagged otherwise. Field n
 
 ### Primary flow: clear the top incident (3 clicks from the queue to resolved)
 
-1. **Open the console.** The queue view loads with no incident selected. The header shows network status, Offline 4 · Signal delayed 1, and the band filter chips show P1 2 · P2 2 · P3 3. On a first visit, a 3-step tour points at the queue, the top row and the next-step button.
+0. **Read the case study.** The first screen (`#/`) is the case study page: problem, what was done, three decisions, the operator flow, the console, the engineering handoff and where it stands, with "Konsolu aç" / "Canlı prototipi aç →" leading to the console. The demo clock stands still while it is open, and console shortcuts do nothing there.
+1. **Open the console** (`#/queue`). The queue view loads with no incident selected. The header shows network status, Offline 4 · Signal delayed 1, and the band filter chips show P1 2 · P2 2 · P3 3. On a first visit, a 3-step tour points at the queue, the top row and the next-step button.
 2. **Spot the top incident.** The first row under "Needs attention" is INC-101: P1, Retrieval failure, WAL-01 Istanbul, with the why line "Recipient waiting at station · 1 parcel blocked" (the deciding reason first, in medium weight) and the countdown "1h 56m" in the right column. The panel's "Why P1" lists every reason, including "Deadline in 1h 56m". It ranks above the breached INC-102 because of the recipient-waiting rule (D10).
 3. **Open it (click 1).** The incident panel opens on the right and the row is highlighted.
 4. **Understand the context.**

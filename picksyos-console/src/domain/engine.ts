@@ -178,6 +178,7 @@ export class ConsoleEngine {
     this.trackMoves();
     const onHash = () => {
       this.route = parseHash(location.hash);
+      this.syncPause();
       if (this.route.view === 'queue') this.lastQ = location.hash;
       this.ui.pending = null;
       this.ui.demoOpen = false;
@@ -199,6 +200,7 @@ export class ConsoleEngine {
     window.addEventListener('popstate', onHash);
     window.addEventListener('resize', onResize);
     document.addEventListener('keydown', onKey);
+    this.syncPause();
     const tick = window.setInterval(() => this.tick(), 1000);
     const firstVisit = !this.scene && !storage.get(TOUR_KEY);
     const loadT = this.ui.loading
@@ -222,12 +224,27 @@ export class ConsoleEngine {
     };
   }
 
+  /**
+   * The demo clock stands still while the case study is open, so the scripted events
+   * (14:01:30 recovery, the 14:06 band drop) wait for the reader to reach the console.
+   */
+  private pausedAt: number | null = null;
+  private syncPause() {
+    const reading = this.route.view === 'case';
+    if (reading && this.pausedAt == null) this.pausedAt = Date.now();
+    if (!reading && this.pausedAt != null) {
+      this.t0 += Date.now() - this.pausedAt;
+      this.pausedAt = null;
+    }
+  }
+
   get isPhone() {
     return this.width <= PHONE_MAX;
   }
 
   now(): number {
-    return this.frozen != null ? this.A + this.frozen : this.A + (Date.now() - this.t0);
+    if (this.frozen != null) return this.A + this.frozen;
+    return this.A + ((this.pausedAt ?? Date.now()) - this.t0);
   }
 
   isMoved(id: string): boolean {
@@ -244,6 +261,7 @@ export class ConsoleEngine {
   }
 
   private tick() {
+    if (this.route.view === 'case') return;
     if (this.frozen == null && !this.db.pro02done && this.now() >= this.A + 90_000) this.recoverPro02();
     if (this.frozen == null)
       this.incidents().forEach((i) => {
@@ -1229,6 +1247,7 @@ export class ConsoleEngine {
    * so they still scroll the panel when focus is on its content.
    */
   private key(e: KeyboardEvent) {
+    if (this.route.view === 'case') return;
     const target = e.target as HTMLElement;
     const tag = (target.tagName || '').toLowerCase();
     const ui = this.ui;

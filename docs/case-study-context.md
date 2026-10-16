@@ -197,7 +197,7 @@ Sub-passes:
 - **10c, step bar + done card: done.** Owner feedback during this pass: the decision card felt cramped ("çok sıkışık"), and the station line "WAL-01 / İstanbul · Müşteri A / Kısmi arıza / Son sinyal 14:00 (güncel)" did not mean much. Both were addressed (section 5).
 - **Scenario walk-through: done.** All 10 scenarios were played as the target user, with real clicks and waits on desktop and phone. Eight fixes were applied (section 6).
 - **Field visit as a real work item: done** (owner request, 16 Oct 2026, D17). A request now creates a trackable field task with proposed, simulated stages (Talep edildi → Kabul edildi → Sahada → Tamamlandı, or İptal edildi). The inline confirm *is* the request (station, problem built from signals and the last failed action, impact, due, optional note; "Talebi gönder"). A task card sits in the decision zone; the task shows on the queue row, the station banner, the parcel page and the timeline (simulated steps tagged "Simüle"). Acceptance is simulated 10 s after the request; "Demo kontrolleri → Saha görevini ilerlet" moves it to On site and Completed, which closes the loop (station online, parcels ready, counts update). Cancel needs a reason and is not offered once on site; a station that recovers while a visit is open asks whether to cancel it. Explicitly not invented: technician names, contacts, tracking, maps, arrival estimates, SLA stats.
-- **10d, welcome dialog: NOT built yet.**
+- **10d, welcome dialog: replaced** by a case study page as the first screen (`#/`), in the author's portfolio case format, with real build screenshots and an HTML flow diagram; the demo clock waits while it is read.
 - **10e, hands-on 7-step tour: NOT built yet.**
 - **10f, docs sync, new checks, final critique and audit: NOT done yet.**
 
@@ -212,7 +212,7 @@ Sub-passes:
 - **Demo clock:** starts at 14:00 on the day it is opened and runs in real time.
 - **Scenes:** `?scene=inc101-confirm` etc. freeze the clock for screenshots. Available scenes: inc101, inc101-confirm, inc101-running, inc101-done, inc102-failed, inc102-field-confirm, inc102-awaiting, inc102-complete, inc105-owner, inc104-recovered, inc104-toast, inc108-locked, inc108-supervisor, inc103, inc106, inc091.
 - **Verification:**
-  - `npm run check:live`: 57 live behaviours, real timers (44 before the field-task work, plus 13 for it).
+  - `npm run check:live`: 62 live behaviours, real timers (44 before the field-task work, plus 13 for it, plus 5 for the case study page).
   - `npm run check:a11y`: 16 keyboard, focus, zoom and touch checks.
   - Typecheck and build.
   - All green after every pass.
@@ -397,7 +397,7 @@ Honest notes:
 |---|---|---|
 | Heuristic critique (10 Nielsen heuristics, 0–4 each) | **25/40 → 33/40** | Before Pass 1 → after Pass 7. Not re-run after Passes 8–10 (planned in 10f) |
 | Technical audit | 15/20 | After Pass 7. Pass 8 then fixed all its P1/P2 items. Not re-run since |
-| `check:live` | 57/57 | After the field-task work (44/44 after every earlier sub-pass) |
+| `check:live` | 62/62 | After the case study page (57/57 after the field-task work, 44/44 after every earlier sub-pass) |
 | `check:a11y` | 16/16 | Same |
 | Detector | Only documented false positives (the brand's Inter font; nested-card flags on the confirm and locked recommendation) | After Pass 7 |
 | Usability testing | **None** | — |
