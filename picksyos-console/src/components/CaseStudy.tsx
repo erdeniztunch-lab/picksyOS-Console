@@ -20,10 +20,10 @@ function FlowDiagram() {
   return (
     <div className="fd" data-theme="light">
       <ol className="fd__rail" aria-label="Ana akış">
-        <li><Node>Kuyruk: en üstteki olay</Node></li>
-        <li><Node>Olay: neden + son süre</Node></li>
+        <li><Node>Kuyrukta en üstteki olay</Node></li>
+        <li><Node>Neden önde, ne kadar süre var</Node></li>
         <li><Node tone="lime">Önerilen sonraki adım</Node></li>
-        <li><Node tone="ink">Satır içi onay</Node></li>
+        <li><Node tone="ink">Ne olacağını oku, onayla</Node></li>
         <li><Node tone="info">İşlem sürüyor</Node></li>
         <li className="fd__decision-wrap">
           <span className="fd__decision" aria-label="Sonuç: dallanma noktası">
@@ -39,8 +39,8 @@ function FlowDiagram() {
         </ol>
         <ol className="fd__branch fd__branch--fail" aria-label="Sonuç başarısız">
           <li className="fd__label fd__label--fail"><Icon name="x" size={12} strokeWidth={1.8} /> başarısız</li>
-          <li><Node tone="lime">Sıradaki adım: saha ziyareti iste</Node></li>
-          <li><Node tone="ink">Talebi onayla</Node></li>
+          <li><Node tone="lime">Yeni öneri: saha ziyareti iste</Node></li>
+          <li><Node tone="ink">Talebi gözden geçir, gönder</Node></li>
           <li>
             <span className="fd__node fd__node--info fd__node--task">
               <span>Saha görevi</span>
@@ -54,7 +54,7 @@ function FlowDiagram() {
               </span>
             </span>
           </li>
-          <li className="fd__return"><span className="fd__return-in"><Icon name="ret" size={12} strokeWidth={1.8} /> Olay kapandı’ya döner</span></li>
+          <li className="fd__return"><span className="fd__return-in"><Icon name="ret" size={12} strokeWidth={1.8} /> Görev tamamlanınca olay kapanır</span></li>
         </ol>
       </div>
     </div>
@@ -90,13 +90,13 @@ export function CaseStudy() {
           <header className="cs__header">
             <a className="cs__back" href="https://erdeniztunc.com/work">← Tüm çalışmalar</a>
             <h1 ref={h1} tabIndex={-1} className="cs__title">İstasyon uyarılarını karara dönüştürmek</h1>
-            <p className="cs__proof">Tek bir sıralı kuyruk ve tek bir sonraki adım üzerine kurulu bir operasyon konsolu konsepti.</p>
+            <p className="cs__proof">Paket istasyonlarını uzaktan izleyen operatörler için bir konsol konsepti: olaylar tek bir kuyrukta sıralanır, her olay bir sonraki adımı önerir.</p>
             <p className="cs__meta">
-              Product Designer (bağımsız konsept)<span aria-hidden="true"> · </span>Delivery One<span aria-hidden="true"> · </span>Otonom teslimat<span aria-hidden="true"> · </span>Konsept<span aria-hidden="true"> · </span>2026
+              Product Designer<span aria-hidden="true"> · </span>Delivery One<span aria-hidden="true"> · </span>Otonom teslimat<span aria-hidden="true"> · </span>Bağımsız konsept<span aria-hidden="true"> · </span>2026
             </p>
             <p className="cs__note">
-              Bu bağımsız bir konsept çalışmasıdır. Bağlam için Delivery One’ın herkese açık web stilini kullanır, ancak Delivery One ile
-              bağlantılı değildir ve onayını taşımaz. Tüm veriler temsilîdir.
+              Bağımsız bir konsept çalışmasıdır. Bağlam kurmak için Delivery One’ın web sitesindeki renkleri ve yazı tiplerini kullanır;
+              Delivery One ile bağlantılı değildir, onayını da taşımaz. Tüm veriler temsilîdir.
             </p>
             <a className="cs__tlink" href={CONSOLE}>Canlı prototipi aç →</a>
           </header>
@@ -108,9 +108,9 @@ export function CaseStudy() {
                 Delivery One, her paket istasyonunun <a href={FAQ}>7/24 uzaktan izlendiğini</a> ve sorunların çoğunun uzaktan çözüldüğünü
                 söylüyor.
               </li>
-              <li>Uzaktan müdahale işe yaramazsa saha ekibinin, müşteriyle yapılan sözleşmedeki süre içinde gelmesi gerekiyor.</li>
-              <li>Bu sinyallerin vardiyadaki kişi için nasıl karara dönüştüğünü gösteren, kamuya açık hiçbir şey yok.</li>
-              <li>Hedef üç soruyu yanıtlayan konsolu tasarlamaktı: Şu an neye bakmalıyım, bu neden önemli, ne yapabilirim?</li>
+              <li>Uzaktan çözülemeyen bir sorunda saha ekibinin, müşteriyle sözleşmede belirlenen süre içinde gelmesi gerekiyor.</li>
+              <li>Bu sinyallerin vardiyadaki operatörün önünde nasıl bir karara dönüştüğü ise kamuya açık hiçbir kaynakta anlatılmıyor.</li>
+              <li>Amacım, operatörün üç sorusuna cevap veren bir konsol tasarlamaktı: şu an neye bakmalıyım, bu neden önemli, ne yapabilirim?</li>
             </ul>
             <figure className="cs__figure">
               <img
@@ -119,7 +119,7 @@ export function CaseStudy() {
                 height={900}
                 alt="Konsolun açılış ekranı: solda öncelik sırasına göre olay kuyruğu, sağda açık olan en üstteki olay INC-101."
               />
-              <figcaption>Açılıştaki kuyruk. En üstteki satır neden ilk sırada olduğunu söylüyor, panel ise tek bir sonraki adım öneriyor.</figcaption>
+              <figcaption>Açılış ekranı. En üstteki satır neden ilk sırada olduğunu kendisi söylüyor; sağdaki panel bir sonraki adımı öneriyor.</figcaption>
             </figure>
           </section>
 
@@ -127,14 +127,14 @@ export function CaseStudy() {
             <h2 id="cs-did">Ne yaptım</h2>
             <ul>
               <li>
-                Delivery One’ın açıkça söylediklerini, benim varsaymak zorunda kaldıklarımdan ayırdım. Ortaya 10 hipotez ve şirkete sorulacak 8
-                soru çıktı.
+                Delivery One’ın açıkça söylediklerini, varsaymak zorunda kaldığım şeylerden ayırdım. Bundan 10 hipotez ve şirkete sorulacak 8 soru
+                çıktı.
               </li>
-              <li>Tek bir ekran çizmeden önce durumları, aksiyonları ve yazılı bir öncelik kuralını modelledim.</li>
-              <li>Delivery One’ın renklerini ve tipografisini bir gece vardiyasına ve WCAG AA kontrast standardına göre uyarladım.</li>
+              <li>Ekran çizmeye başlamadan önce olayın alabileceği durumları, aksiyonları ve yazılı bir öncelik kuralını modelledim.</li>
+              <li>Delivery One’ın renklerini ve tipografisini, gece vardiyasında saatlerce bakılacak bir ekrana uyarladım; kontrastı WCAG AA’ya göre ayarladım.</li>
               <li>
-                Çalışan bir prototip kurdum. Ardından onu tasarım kritiği, sıralı tasarım turları ve 10 senaryoluk bir deneme ile geliştirdim. Bu
-                süreç boyunca otomatik kontroller ürünün davranışını sabit tuttu.
+                Çalışan bir prototip kurdum, sonra tasarım kritiği, art arda tasarım turları ve hedef kullanıcı gözüyle oynanan 10 senaryoyla
+                geliştirdim. Bu sırada otomatik kontroller, görsel değişikliklerin davranışı bozmadığını doğruladı.
               </li>
             </ul>
           </section>
@@ -142,22 +142,22 @@ export function CaseStudy() {
           <section className="cs__sec" aria-labelledby="cs-decisions">
             <h2 id="cs-decisions">Üç karar</h2>
             <div className="cs__decision">
-              <h3>Bekleyen insan, kaçmış süreden önce gelir.</h3>
-              <p>Teslim kapağında bekleyen bir alıcı 10 dakika boyunca listenin en üstünde kalır. Sonra sıralama yeniden son süreye göre işler.</p>
+              <h3>Kapakta bekleyen alıcı, süresi geçmiş olaydan önce gelir.</h3>
+              <p>Teslim kapağının önünde bekleyen bir alıcı varsa olay 10 dakika boyunca listenin en üstünde kalır, sonra sıralama yeniden son süreye döner. Süresi zaten geçmiş bir olay birkaç dakika bekleyebilir; kapaktaki kişi bekleyemez.</p>
             </div>
             <div className="cs__decision">
-              <h3>Okunabilen kurallarla sırala.</h3>
-              <p>Gizli bir puan yok, her satır kendi gerekçesini yazıyor. İlk kritik, yazılı kuralın gerçek sırayla çeliştiğini yakaladı. Bunu düzelttim.</p>
+              <h3>Sıralamayı yazılı bir kural belirler.</h3>
+              <p>Gizli bir risk puanı yok; her satır neden o sırada olduğunu yazıyor. İlk tasarım kritiğinde kuralın metninin ekrandaki sırayla çeliştiği ortaya çıktı: metin, kapakta bekleyen alıcıyı hiç anmıyordu. Metni, kodun gerçekte yaptığıyla aynı olacak şekilde düzelttim.</p>
             </div>
             <div className="cs__decision">
-              <h3>Bilinmeyen, sağlıklı değildir.</h3>
-              <p>Sinyali kesilen bir istasyon gri, kesik çizgili ve son veri saatiyle gösterilir. Hiçbir zaman sorunsuz görünmez.</p>
+              <h3>Haber alınamayan istasyon sağlıklı sayılmaz.</h3>
+              <p>Sinyali gecikmiş ya da kesilmiş bir istasyon gri, kesik çizgili ve son verinin saatiyle gösterilir; sorunsuz bir istasyon gibi görünmez.</p>
             </div>
             <figure className="cs__figure">
               <FlowDiagram />
               <figcaption>
-                Operatör akışı: En üstteki olayı aç, önerilen adımı çalıştır, onayla, sonucu gör. Adım başarısız olursa sıradaki adım saha
-                ziyareti olur.
+                Operatör akışı: en üstteki olayı aç, önerilen adımı çalıştır, onayla, sonucu gör. Uzaktan çözüm tutmazsa öneri saha ziyaretine
+                döner.
               </figcaption>
             </figure>
           </section>
@@ -173,8 +173,8 @@ export function CaseStudy() {
                 alt="INC-101 karar kartı: Tespit'ten Kapandı'ya adım çubuğu, Neden P1 gerekçeleri, son süre çubuğu ve önerilen adım Teslimi yeniden dene."
               />
               <figcaption>
-                Tek bir karar kartı. Olayın neden bu sırada olduğunu, sözleşmeye göre kalan süreyi, önerilen adımı ve tespitten kapanışa uzanan adım
-                çubuğunu gösteriyor.
+                Karar kartı. Olayın neden bu sırada olduğu, sözleşmeye göre kalan süre, önerilen adım ve olayın tespitten kapanışa kadar hangi
+                aşamada olduğu aynı kartta.
               </figcaption>
             </figure>
             <figure className="cs__figure">
@@ -195,7 +195,7 @@ export function CaseStudy() {
                 />
               </div>
               <figcaption>
-                Başarısız bir uzaktan müdahale, takip edilebilen bir saha görevine dönüşür. Kapanan olay ise operatörü doğrudan sıradakine götürür.
+                Uzaktan müdahale tutmazsa iş, aşamaları izlenebilen bir saha görevine dönüşür. Olay kapandığında kart, sıradaki olayı gösterir.
               </figcaption>
             </figure>
             <p className="cs__after">
@@ -206,10 +206,10 @@ export function CaseStudy() {
           <section className="cs__sec" aria-labelledby="cs-handoff">
             <h2 id="cs-handoff">Mühendislere devir</h2>
             <ul>
-              <li>Prototipi ürüne taşıyacak ekip için adım adım bir devir dokümanı yazdım.</li>
-              <li>Neyin gerçek (ekranlar, kurallar, davranış), neyin taklit (veri, saat, sonuçlar) olduğunu ayırdım.</li>
-              <li>Hiçbir değişiklikte bozulmaması gereken 9 kuralı ve geliştirmeye başlamadan Delivery One’a sorulacak 6 soruyu listeledim.</li>
-              <li>Her adım için kopyalanıp kullanılabilecek bir prompt ve bir bitti tanımı ekledim. Otomatik kontroller her değişiklikte aynı davranışı doğrular.</li>
+              <li>Prototipi gerçek ürüne taşıyacak mühendisler için adım adım bir devir dokümanı hazırladım.</li>
+              <li>Dokümanın başında neyin kalacağı (ekranlar, kurallar, davranış) ve neyin değişeceği (örnek veri, demo saati, senaryolu sonuçlar) ayrı ayrı yazıyor.</li>
+              <li>Hangi değişiklik yapılırsa yapılsın korunması gereken 9 kuralı ve geliştirmeye başlamadan önce Delivery One’dan cevap alınması gereken 6 soruyu listeledim.</li>
+              <li>Her adımın yanında, kodlama asistanına olduğu gibi verilebilecek bir prompt ve adımın ne zaman bitmiş sayılacağı var. Mevcut otomatik kontroller, her değişiklikte davranışın aynı kaldığını doğruluyor.</li>
             </ul>
             <a className="cs__tlink" href={`${REPO}/blob/main/HANDOFF.md`}>Devir dokümanını oku →</a>
           </section>
@@ -217,9 +217,9 @@ export function CaseStudy() {
           <section className="cs__sec" aria-labelledby="cs-now">
             <h2 id="cs-now">Şu an nerede</h2>
             <p>
-              Bu çalışma, Delivery One’ın katılımı olmadan hazırlanmış bağımsız bir konsept. İstasyonlar, paketler ve hedef süreler temsilî,
-              kullanılabilirlik testi de yapılmadı. Daha ileri gitmeden önce Delivery One’a şunları sorardım: İstasyonları kim izliyor, gerçekte
-              hangi olaylar yaşanıyor, bunları nasıl önceliklendiriyorlar ve paketlerin bir bekleme süresi var mı?
+              Bu çalışmayı Delivery One’ın katılımı olmadan, bağımsız bir konsept olarak hazırladım. İstasyonlar, paketler ve hedef süreler
+              temsilî; kullanılabilirlik testi yapmadım. Devam etmeden önce Delivery One’a şunları sorardım: istasyonları kim izliyor, en sık hangi
+              olaylar yaşanıyor, bunları nasıl önceliklendiriyorlar ve paketlerin istasyonda bekleme süresi var mı?
             </p>
           </section>
 
