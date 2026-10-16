@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+:root,[data-theme="light"]{--canvas:#f7f7f6;--surface:#ffffff;--sunken:#f2f2f2;--border:#e8eae8;--border-strong:#8a8f8a;--text:#111312;--text-2:#3d423e;--text-muted:#5f645f;--accent:#84b926;--accent-ink:#0a0b0a;--accent-text:#4a6b22;--accent-soft:#eef6df;--focus:#4a6b22;--focus-halo:#84b92673;--ok:#3f6e14;--ok-bg:#e8f2de;--warn:#8a5a06;--warn-bg:#fbf1dc;--err:#a8321f;--err-bg:#f9e4e0;--info:#335f7c;--info-bg:#e2edf3;--unk:#565b57;--unk-bg:#f2f2f2;--unk-border:#8a8f8a;--p1-bg:#111312;--p1-fg:#ffffff;--p2-line:#111312;--p2-fg:#111312;--p3-line:#bfc3bf;--p3-fg:#5f645f;--moved:#fbf1dc;--skeleton:#e8eae8;--shadow-2:0 8px 24px rgba(10,11,10,.10),0 1px 2px rgba(10,11,10,.08);color-scheme:light}
+[data-theme="dark"]{--canvas:#0a0b0a;--surface:#111312;--sunken:#1b1e1c;--border:#2a2e2b;--border-strong:#6e736f;--text:#f2f2f2;--text-2:#c6cac6;--text-muted:#9ca19c;--accent:#a6e22e;--accent-ink:#0a0b0a;--accent-text:#a6e22e;--accent-soft:#1c2610;--focus:#a6e22e;--focus-halo:#a6e22e59;--ok:#8fcb5c;--ok-bg:#18240f;--warn:#e8b552;--warn-bg:#2a200c;--err:#f2856f;--err-bg:#2e1612;--info:#86b6d6;--info-bg:#0f1f29;--unk:#b1b6b1;--unk-bg:#1b1e1c;--unk-border:#7d827d;--p1-bg:#f2f2f2;--p1-fg:#0a0b0a;--p2-line:#f2f2f2;--p2-fg:#f2f2f2;--p3-line:#3d423e;--p3-fg:#9ca19c;--moved:#2a200c;--skeleton:#2a2e2b;--shadow-2:0 8px 24px rgba(0,0,0,.5),0 1px 2px rgba(0,0,0,.4);color-scheme:dark}
+@keyframes dcspin{to{transform:rotate(360deg)}}
+@keyframes dcpulse{0%,100%{opacity:1}50%{opacity:.45}}
+html,body{margin:0;height:100%}
+body{font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button,textarea{font-family:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px;box-shadow:0 0 0 6px var(--focus-halo)}
+a{color:var(--accent-text)}a:hover{color:var(--text)}
+@media (prefers-reduced-motion:reduce){*{animation-duration:0s!important;transition:none!important}}
+</style>
+</helmet>
+<div data-theme="{{ theme }}" style="height:100vh;display:flex;flex-direction:column;background:var(--canvas);color:var(--text);font:400 14px/1.5 Inter,system-ui,sans-serif;font-feature-settings:'tnum' 1;overflow:hidden;position:relative">
+
+  <sc-if value="{{ isDesk }}" hint-placeholder-val="{{ true }}">
+    <header style="flex:none;display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--border);position:relative;z-index:20">
+      <a href="#/queue" style="font:600 15px/1.2 Inter;letter-spacing:-.01em;color:var(--text);text-decoration:none">PicksyOS Operations Console<span style="color:var(--accent-text)">.</span></a>
+      <nav aria-label="Network summary" style="display:flex;flex-wrap:wrap;gap:4px;margin-left:auto">
+        <button onClick="{{ hdr.onP1 }}" title="Filter: P1" style="display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 10px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--text);font:500 12px/1 Inter;cursor:pointer"><span style="font:600 11px/1 'JetBrains Mono';padding:3px 4px;border-radius:4px;background:var(--p1-bg);color:var(--p1-fg)">P1</span><span style="font-family:'JetBrains Mono'">{{ hdr.p1 }}</span></button>
+        <button onClick="{{ hdr.onP2 }}" title="Filter: P2" style="display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 10px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--text);font:500 12px/1 Inter;cursor:pointer"><span style="font:600 11px/1 'JetBrains Mono';padding:2px 3px;border-radius:4px;border:1px solid var(--p2-line);color:var(--p2-fg)">P2</span><span style="font-family:'JetBrains Mono'">{{ hdr.p2 }}</span></button>
+        <button onClick="{{ hdr.onP3 }}" title="Filter: P3" style="display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 10px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--text);font:500 12px/1 Inter;cursor:pointer"><span style="font:500 11px/1 'JetBrains Mono';padding:2px 3px;border-radius:4px;border:1px solid var(--p3-line);color:var(--p3-fg)">P3</span><span style="font-family:'JetBrains Mono'">{{ hdr.p3 }}</span></button>
+        <button onClick="{{ hdr.onOffline }}" title="Filter: Station offline" style="display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 10px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--err);font:500 12px/1 Inter;cursor:pointer"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="6" cy="6" r="4.5"></circle><path d="M4.2 4.2l3.6 3.6M7.8 4.2L4.2 7.8"></path></svg><span style="color:var(--text)">Offline <span style="font-family:'JetBrains Mono'">{{ hdr.offline }}</span></span></button>
+        <button onClick="{{ hdr.onDelayed }}" title="Open the delayed station" style="display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 10px;border-radius:999px;border:1px dashed var(--unk-border);background:transparent;color:var(--unk);font:500 12px/1 Inter;cursor:pointer"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="6" cy="6" r="4.5"></circle><path d="M6 3.6V6l1.6 1"></path></svg><span style="color:var(--text)">Signal delayed <span style="font-family:'JetBrains Mono'">{{ hdr.delayed }}</span></span></button>
+      </nav>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+        <span title="Demo clock" style="font:500 13px/1 'JetBrains Mono';color:var(--text-2)">{{ hdr.clock }}</span>
+        <div style="display:inline-flex;align-items:center;gap:6px">
+          <div role="group" aria-label="Role" style="display:inline-flex;padding:2px;border-radius:999px;background:var(--sunken)">
+            <button onClick="{{ setOperator }}" aria-pressed="{{ isOperator }}" style="{{ roleOpStyle }}">Operator</button>
+            <button onClick="{{ setSupervisor }}" aria-pressed="{{ isSupervisor }}" style="{{ roleSupStyle }}">Supervisor</button>
+          </div>
+          <span style="display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:6px;border:1px solid var(--border-strong);font:500 11px/1 'JetBrains Mono';color:var(--text-2)">Proposed</span>
+        </div>
+        <button onClick="{{ toggleTheme }}" style="height:30px;padding:0 12px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--text);font:500 12px/1 Inter;cursor:pointer">{{ themeLabel }}</button>
+        <div style="position:relative">
+          <button onClick="{{ toggleDemo }}" aria-expanded="{{ demoOpen }}" style="display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:999px;border:1px solid var(--border-strong);background:transparent;color:var(--text);font:500 12px/1 Inter;cursor:pointer">Demo controls<svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 4.5l3 3 3-3"></path></svg></button>
+          <sc-if value="{{ demoOpen }}">
+            <div style="position:absolute;right:0;top:38px;width:320px;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow-2);overflow:hidden;z-index:30">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--border)"><span style="font:500 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Simulated events</span><span style="display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:6px;background:var(--sunken);font:500 11px/1 'JetBrains Mono';color:var(--text-2)">Demo control</span></div>
+              <sc-for list="{{ demoItems }}" as="d" hint-placeholder-count="3">
+                <button onClick="{{ d.onClick }}" aria-disabled="{{ d.disabled }}" style="{{ d.style }}"><span style="font:500 13px/1.3 Inter">{{ d.label }}</span><span style="font:400 12px/1.35 Inter;color:var(--text-muted)">{{ d.sub }}</span></button>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </header>
+  </sc-if>
+
+  <sc-if value="{{ isPhone }}" hint-placeholder-val="{{ false }}">
+    <header style="flex:none;display:flex;flex-direction:column;background:var(--surface);border-bottom:1px solid var(--border);position:relative;z-index:20">
+      <div style="display:flex;align-items:center;gap:8px;padding:6px 6px 6px 12px">
+        <a href="#/queue" style="font:600 14px/1.2 Inter;color:var(--text);text-decoration:none">PicksyOS Operations<span style="color:var(--accent-text)">.</span></a>
+        <span style="margin-left:auto;font:500 12px/1 'JetBrains Mono';color:var(--text-2)">{{ hdr.clock }}</span>
+        <button onClick="{{ toggleMenu }}" aria-expanded="{{ menuOpen }}" aria-label="Role, theme and demo controls" style="width:44px;height:44px;border-radius:999px;border:1px solid var(--border-strong);background:transparent;color:var(--text);font:600 16px/1 Inter;cursor:pointer">⋯</button>
+      </div>
+      <nav aria-label="Network summary" style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid var(--border)">
+        <button onClick="{{ hdr.onP1 }}" style="height:44px;border:none;border-right:1px solid var(--border);background:transparent;color:var(--text);font:600 12px/1 'JetBrains Mono';cursor:pointer">P1 {{ hdr.p1 }}</button>
+        <button onClick="{{ hdr.onP2 }}" style="height:44px;border:none;border-right:1px solid var(--border);background:transparent;color:var(--text);font:600 12px/1 'JetBrains Mono';cursor:pointer">P2 {{ hdr.p2 }}</button>
+        <button onClick="{{ hdr.onP3 }}" style="height:44px;border:none;border-right:1px solid var(--border);background:transparent;color:var(--text);font:500 12px/1 'JetBrains Mono';cursor:pointer">P3 {{ hdr.p3 }}</button>
+        <button onClick="{{ hdr.onOffline }}" aria-label="Stations offline" style="height:44px;border:none;border-right:1px solid var(--border);background:transparent;color:var(--err);font:600 12px/1 'JetBrains Mono';cursor:pointer">✕ {{ hdr.offline }}</button>
+        <button onClick="{{ hdr.onDelayed }}" aria-label="Stations signal delayed" style="height:44px;border:none;background:transparent;color:var(--unk);font:600 12px/1 'JetBrains Mono';cursor:pointer;text-decoration:underline dashed;text-underline-offset:4px">◷ {{ hdr.delayed }}</button>
+      </nav>
+      <sc-if value="{{ menuOpen }}">
+        <div style="display:flex;flex-direction:column;gap:12px;padding:12px;border-top:1px solid var(--border)">
+          <div style="display:flex;align-items:center;gap:8px">
+            <div role="group" aria-label="Role" style="display:inline-flex;padding:2px;border-radius:999px;background:var(--sunken)">
+              <button onClick="{{ setOperator }}" aria-pressed="{{ isOperator }}" style="{{ roleOpStyle }}">Operator</button>
+              <button onClick="{{ setSupervisor }}" aria-pressed="{{ isSupervisor }}" style="{{ roleSupStyle }}">Supervisor</button>
+            </div>
+            <span style="display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:6px;border:1px solid var(--border-strong);font:500 11px/1 'JetBrains Mono';color:var(--text-2)">Proposed</span>
+            <button onClick="{{ toggleTheme }}" style="margin-left:auto;height:44px;padding:0 14px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--text);font:500 13px/1 Inter;cursor:pointer">{{ themeLabel }}</button>
+          </div>
+          <div style="display:flex;flex-direction:column;border:1px solid var(--border);border-radius:10px;overflow:hidden">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-bottom:1px solid var(--border)"><span style="font:500 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Simulated events</span><span style="display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:6px;background:var(--sunken);font:500 11px/1 'JetBrains Mono';color:var(--text-2)">Demo control</span></div>
+            <sc-for list="{{ demoItems }}" as="d" hint-placeholder-count="3">
+              <button onClick="{{ d.onClick }}" aria-disabled="{{ d.disabled }}" style="{{ d.style }}"><span style="font:500 14px/1.3 Inter">{{ d.label }}</span><span style="font:400 12px/1.35 Inter;color:var(--text-muted)">{{ d.sub }}</span></button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+    </header>
+  </sc-if>
+
+  <div role="note" style="flex:none;padding:5px 20px;background:var(--sunken);border-bottom:1px solid var(--border);font:400 12px/1.4 Inter;color:var(--text-2)">Independent concept. Not affiliated with or endorsed by Delivery One. Illustrative data.</div>
+
+  <main style="flex:1;min-height:0;display:flex;position:relative">
+
+    <sc-if value="{{ isQueue }}" hint-placeholder-val="{{ true }}">
+      <sc-if value="{{ showQ }}" hint-placeholder-val="{{ true }}">
+        <section aria-label="Incident queue" style="{{ qColStyle }}">
+          <div style="flex:none;display:flex;flex-direction:column;gap:8px;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--surface)">
+            <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center">
+              <span style="font:500 11px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-right:2px">Type</span>
+              <span style="display:inline-flex;align-items:center;height:18px;padding:0 5px;border-radius:6px;border:1px dashed var(--border-strong);font:500 10px/1 'JetBrains Mono';color:var(--text-2);margin-right:4px">Illustrative</span>
+              <sc-for list="{{ typeChips }}" as="f" hint-placeholder-count="4">
+                <button onClick="{{ f.onClick }}" aria-pressed="{{ f.pressed }}" style="{{ f.style }}"><sc-if value="{{ f.pressed }}"><svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.3l2.4 2.4 4.6-5"></path></svg></sc-if>{{ f.label }}<span style="font:500 12px/1 'JetBrains Mono';opacity:.75">{{ f.count }}</span></button>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center">
+              <span style="font:500 11px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-right:6px">Band</span>
+              <sc-for list="{{ bandChips }}" as="f" hint-placeholder-count="3">
+                <button onClick="{{ f.onClick }}" aria-pressed="{{ f.pressed }}" style="{{ f.style }}"><sc-if value="{{ f.pressed }}"><svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.3l2.4 2.4 4.6-5"></path></svg></sc-if>{{ f.label }}<span style="font:500 12px/1 'JetBrains Mono';opacity:.75">{{ f.count }}</span></button>
+              </sc-for>
+              <sc-if value="{{ hasFilter }}"><button onClick="{{ clearFilters }}" style="height:30px;padding:0 8px;border:none;background:transparent;color:var(--text);font:500 12px/1 Inter;text-decoration:underline;text-underline-offset:3px;cursor:pointer">Clear filters</button></sc-if>
+            </div>
+          </div>
+          <div style="flex:1;min-height:0;overflow:auto">
+            <sc-for list="{{ sections }}" as="s" hint-placeholder-count="2">
+              <div role="group" aria-label="{{ s.title }}">
+                <div style="position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:8px;padding:0 16px 0 0;background:var(--sunken);border-bottom:1px solid var(--border)">
+                  <button onClick="{{ s.toggle }}" aria-expanded="{{ s.open }}" style="flex:1;display:flex;align-items:center;gap:8px;min-height:36px;padding:0 0 0 16px;border:none;background:transparent;color:var(--text);cursor:pointer;text-align:left">
+                    <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="var(--text-2)" stroke-width="1.6" stroke-linecap="round"><path d="{{ s.chev }}"></path></svg>
+                    <span style="font:600 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase">{{ s.title }}</span>
+                    <span style="font:500 12px/1 'JetBrains Mono';color:var(--text-muted)">{{ s.count }}</span>
+                  </button>
+                  <span onMouseEnter="{{ s.tipOn }}" onMouseLeave="{{ s.tipOff }}" onFocus="{{ s.tipOn }}" onBlur="{{ s.tipOff }}" tabIndex="0" style="position:relative;font:400 12px/1 Inter;color:var(--text-muted);text-decoration:underline dotted;text-underline-offset:3px;white-space:nowrap">{{ s.note }}
+                    <sc-if value="{{ s.tip }}"><span role="tooltip" style="position:absolute;right:0;top:20px;width:300px;padding:10px 12px;border-radius:10px;background:var(--text);color:var(--surface);font:400 12px/1.45 Inter;text-decoration:none;white-space:normal;box-shadow:var(--shadow-2);z-index:5">{{ ruleText }}</span></sc-if>
+                  </span>
+                </div>
+                <sc-if value="{{ s.open }}">
+                  <sc-if value="{{ s.loading }}">
+                    <div style="display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:6px 12px;padding:14px 16px;border-bottom:1px solid var(--border)"><span style="grid-row:span 2;width:30px;height:22px;border-radius:6px;background:var(--skeleton);animation:dcpulse 1.4s ease-in-out infinite"></span><span style="height:14px;width:60%;border-radius:4px;background:var(--skeleton);animation:dcpulse 1.4s ease-in-out infinite"></span><span style="height:14px;width:48px;border-radius:4px;background:var(--skeleton);animation:dcpulse 1.4s ease-in-out infinite"></span><span style="grid-column:2 / 4;height:12px;width:85%;border-radius:4px;background:var(--skeleton);animation:dcpulse 1.4s ease-in-out infinite"></span></div>
+                    <div style="display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:6px 12px;padding:14px 16px;border-bottom:1px solid var(--border)"><span style="grid-row:span 2;width:30px;height:22px;border-radius:6px;background:var(--skeleton);animation:dcpulse 1.4s ease-in-out infinite"></span><span style="height:14px;width:50%;border-radius:4px;background:var(--skeleton);animation:dcpulse 1.4s ease-in-out infinite"></span><span style="height:14px;width:48px;border-radius:4px;background:var(--skeleton);animation:dcpulse 1.4s ease-in-out infinite"></span><span style="grid-column:2 / 4;height:12px;width:70%;border-radius:4px;background:var(--skeleton);animation:dcpulse 1.4s ease-in-out infinite"></span></div>
+                    <div style="display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:6px 12px;padding:14px 16px;border-bottom:1px solid var(--border)"><span style="grid-row:span 2;width:30px;height:22px;border-radius:6px;background:var(--skeleton);animation:dcpulse 1.4s ease-in-out infinite"></span><span style="height:14px;width:65%;border-radius:4px;background:var(--skeleton);animation:dcpulse 1.4s ease-in-out infinite"></span><span style="height:14px;width:48px;border-radius:4px;background:var(--skeleton);animation:dcpulse 1.4s ease-in-out infinite"></span><span style="grid-column:2 / 4;height:12px;width:80%;border-radius:4px;background:var(--skeleton);animation:dcpulse 1.4s ease-in-out infinite"></span></div>
+                  </sc-if>
+                  <sc-for list="{{ s.rows }}" as="r" hint-placeholder-count="3">
+                    <button type="button" onClick="{{ r.onClick }}" aria-current="{{ r.sel }}" style="{{ r.style }}" style-hover="box-shadow:inset 0 0 0 1px var(--border-strong)">
+                      <span style="grid-row:1 / span 3;align-self:start;display:flex">
+                        <sc-if value="{{ r.isBand }}"><span style="{{ r.band.style }}">{{ r.band.label }}</span></sc-if>
+                        <sc-if value="{{ r.notBand }}"><span style="{{ r.leadStyle }}"><svg viewBox="0 0 12 12" width="12" height="12" fill="{{ r.lead.fill }}" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="{{ r.lead.style }}"><path d="{{ r.lead.d }}"></path></svg></span></sc-if>
+                      </span>
+                      <span style="display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px;min-width:0"><span style="font:500 14px/1.3 Inter;color:var(--text)">{{ r.type }}</span><span style="font:500 13px/1.3 'JetBrains Mono';color:var(--text-2)">{{ r.station }}</span><span style="font:400 13px/1.3 Inter;color:var(--text-muted)">{{ r.city }}</span><span style="font:400 12px/1.3 'JetBrains Mono';color:var(--text-muted)">{{ r.id }}</span></span>
+                      <span style="{{ r.dl.style }}"><sc-if value="{{ r.dl.hasIcon }}"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="{{ r.dl.icon }}"></path></svg></sc-if>{{ r.dl.text }}</span>
+                      <span style="grid-column:2 / 4;font:400 13px/1.45 Inter;color:var(--text-2);text-wrap:pretty">{{ r.why }}</span>
+                      <sc-if value="{{ r.hasChips }}">
+                        <span style="grid-column:2 / 4;display:flex;flex-wrap:wrap;gap:6px">
+                          <sc-for list="{{ r.chips }}" as="c"><span style="{{ c.style }}"><svg viewBox="0 0 12 12" width="10" height="10" fill="{{ c.icon.fill }}" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="{{ c.icon.style }}"><path d="{{ c.icon.d }}"></path></svg>{{ c.label }}</span></sc-for>
+                        </span>
+                      </sc-if>
+                    </button>
+                  </sc-for>
+                  <sc-if value="{{ s.isEmpty }}">
+                    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:18px 16px;border-bottom:1px solid var(--border);font:500 14px/1.45 Inter;color:var(--text)"><span>{{ s.emptyText }}</span><sc-if value="{{ s.hasClear }}"><button onClick="{{ clearFilters }}" style="padding:0;border:none;background:transparent;color:var(--accent-text);font:500 14px/1.45 Inter;text-decoration:underline;text-underline-offset:3px;cursor:pointer">Clear filter</button></sc-if></div>
+                  </sc-if>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{ showP }}" hint-placeholder-val="{{ true }}">
+        <section aria-label="Incident detail" style="{{ pColStyle }}">
+          <sc-if value="{{ noSel }}" hint-placeholder-val="{{ true }}">
+            <div style="padding:48px 32px;color:var(--text-muted);font:400 14px/1.5 Inter">Select an incident to see its parcels, signals and actions.</div>
+          </sc-if>
+          <sc-if value="{{ hasSel }}" hint-placeholder-val="{{ false }}">
+            <div style="{{ pInnerStyle }}">
+              <sc-if value="{{ isPhone }}"><button onClick="{{ backToQueue }}" style="order:0;align-self:flex-start;display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 14px 0 8px;border-radius:999px;border:1px solid var(--border-strong);background:transparent;color:var(--text);font:500 14px/1 Inter;cursor:pointer"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M7.5 2.5L4 6l3.5 3.5"></path></svg>Back to queue</button></sc-if>
+
+              <div style="order:1;display:flex;flex-direction:column;gap:10px">
+                <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px">
+                  <span style="font:500 13px/1 'JetBrains Mono';color:var(--text-muted)">{{ p.id }}</span>
+                  <sc-if value="{{ p.ranked }}"><span style="{{ p.band.style }}">{{ p.band.label }}</span></sc-if>
+                  <span style="{{ p.status.style }}"><svg viewBox="0 0 12 12" width="11" height="11" fill="{{ p.status.icon.fill }}" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="{{ p.status.icon.style }}"><path d="{{ p.status.icon.d }}"></path></svg>{{ p.status.label }}</span>
+                  <sc-if value="{{ p.hasOwnerChip }}"><span style="display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 8px 0 3px;border-radius:999px;background:var(--sunken);color:var(--text);font:500 12px/1 Inter"><span style="width:16px;height:16px;border-radius:999px;background:var(--border-strong);color:var(--surface);font:600 9px/16px Inter;text-align:center">B</span>{{ p.owner }}</span></sc-if>
+                  <span style="display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:6px;border:1px dashed var(--border-strong);font:500 11px/1 'JetBrains Mono';color:var(--text-2)">Illustrative type</span>
+                  <sc-if value="{{ p.stress }}"><span style="display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:6px;border:1px dashed var(--border-strong);font:500 11px/1 'JetBrains Mono';color:var(--text-2)">Stress test · illustrative</span></sc-if>
+                  <sc-if value="{{ p.canAck }}"><button onClick="{{ p.onAck }}" style="{{ p.ackStyle }}"><sc-if value="{{ p.ackBusy }}"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" style="animation:dcspin .9s linear infinite"><path d="M6 1.5a4.5 4.5 0 1 1-4.5 4.5"></path></svg></sc-if>{{ p.ackText }}</button></sc-if>
+                </div>
+                <h2 ref="{{ headRef }}" tabIndex="-1" style="margin:0;font:600 20px/1.25 Inter;letter-spacing:-.02em">{{ p.type }}</h2>
+                <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px">
+                  <a href="{{ p.stHref }}" style="font:500 13px/1 'JetBrains Mono';color:var(--text);text-underline-offset:3px">{{ p.stationId }}</a>
+                  <span style="font:400 13px/1 Inter;color:var(--text-muted)">{{ p.stMeta }}</span>
+                  <span style="{{ p.stChip.style }}"><svg viewBox="0 0 12 12" width="11" height="11" fill="{{ p.stChip.icon.fill }}" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="{{ p.stChip.icon.d }}"></path></svg>{{ p.stChip.label }}</span>
+                  <span style="{{ p.fresh.style }}">{{ p.fresh.text }}</span>
+                </div>
+                <sc-if value="{{ p.ranked }}">
+                  <div style="display:flex;flex-direction:column;gap:4px">
+                    <span style="font:500 11px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Why {{ p.band.label }} · Proposed rule</span>
+                    <ul style="margin:0;padding:0 0 0 18px;font:400 14px/1.6 Inter;color:var(--text-2)"><sc-for list="{{ p.why }}" as="w"><li>{{ w }}</li></sc-for></ul>
+                  </div>
+                </sc-if>
+                <div style="display:flex;flex-wrap:wrap;gap:12px 28px;padding-top:12px;border-top:1px solid var(--border)">
+                  <sc-for list="{{ p.facts }}" as="f">
+                    <div style="display:flex;flex-direction:column;gap:4px"><span style="font:500 11px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">{{ f.k }}</span><span style="{{ f.style }}"><sc-if value="{{ f.hasIcon }}"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="{{ f.icon }}"></path></svg></sc-if>{{ f.v }}</span><sc-if value="{{ f.hasSub }}"><span style="font:400 12px/1.3 Inter;color:var(--text-muted)">{{ f.sub }}</span></sc-if></div>
+                  </sc-for>
+                </div>
+              </div>
+
+              <sc-if value="{{ p.ownerNotice.has }}">
+                <div style="order:2;display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;border:1px solid var(--info);background:var(--info-bg);color:var(--text)">
+                  <span style="flex:1 1 220px;font:500 14px/1.45 Inter">{{ p.ownerNotice.text }}</span>
+                  <sc-if value="{{ p.ownerNotice.canTake }}"><button onClick="{{ p.ownerNotice.onTake }}" style="height:32px;padding:0 14px;border-radius:999px;border:1px solid var(--border-strong);background:var(--surface);color:var(--text);font:500 13px/1 Inter;cursor:pointer">Take over</button></sc-if>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ p.result.has }}">
+                <div role="status" style="{{ p.result.style }}"><svg viewBox="0 0 12 12" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:3px"><path d="{{ p.result.icon }}"></path></svg><span style="flex:1 1 200px;font:500 14px/1.45 Inter">{{ p.result.text }}</span><sc-if value="{{ p.result.hasRetry }}"><button onClick="{{ p.result.onRetry }}" style="height:30px;padding:0 12px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;font:500 12px/1 Inter;cursor:pointer">Retry</button></sc-if></div>
+              </sc-if>
+
+              <div style="{{ p.actStyle }}">
+                <sc-if value="{{ p.rec.has }}">
+                  <div style="display:flex;flex-direction:column;gap:2px"><span style="font:500 11px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-text)">Recommended · Proposed action</span><span style="font:400 14px/1.45 Inter;color:var(--text-2)">{{ p.rec.reason }}</span></div>
+                </sc-if>
+                <sc-if value="{{ p.note.has }}">
+                  <div style="{{ p.note.style }}"><svg viewBox="0 0 12 12" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:3px"><path d="{{ p.note.icon }}"></path></svg><span style="font:500 14px/1.45 Inter">{{ p.note.text }}</span></div>
+                </sc-if>
+                <sc-if value="{{ p.bar.hasActions }}">
+                  <div style="display:flex;flex-wrap:wrap;gap:8px 8px;align-items:flex-start">
+                    <sc-for list="{{ p.bar.actions }}" as="a" hint-placeholder-count="2">
+                      <div style="display:flex;flex-direction:column;gap:4px;position:relative;max-width:260px">
+                        <button aria-disabled="{{ a.disabled }}" onClick="{{ a.onClick }}" onMouseEnter="{{ a.onEnter }}" onMouseLeave="{{ a.onLeave }}" onFocus="{{ a.onEnter }}" onBlur="{{ a.onLeave }}" style="{{ a.style }}"><sc-if value="{{ a.spinner }}"><svg viewBox="0 0 12 12" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" style="animation:dcspin .9s linear infinite"><path d="M6 1.5a4.5 4.5 0 1 1-4.5 4.5"></path></svg></sc-if><sc-if value="{{ a.locked }}"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3.5 5.5h5a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1zM4 5.5V4a2 2 0 0 1 4 0v1.5"></path></svg></sc-if>{{ a.text }}</button>
+                        <sc-if value="{{ a.hasReason }}"><span style="font:400 12px/1.4 Inter;color:var(--text-2);padding-left:4px">{{ a.reason }}</span></sc-if>
+                        <sc-if value="{{ a.tip }}"><span role="tooltip" style="position:absolute;bottom:calc(100% + 8px);left:0;width:280px;padding:10px 12px;border-radius:10px;background:var(--text);color:var(--surface);font:400 12px/1.45 Inter;box-shadow:var(--shadow-2);z-index:6">{{ a.tipText }}</span></sc-if>
+                      </div>
+                    </sc-for>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ p.bar.running }}"><span style="font:400 12px/1.4 Inter;color:var(--text-muted)">Action running. Other actions are disabled.</span></sc-if>
+                <sc-if value="{{ p.bar.owner.has }}">
+                  <div role="group" style="display:flex;flex-direction:column;gap:10px;padding:12px 14px;border-radius:10px;border:1px solid var(--info);background:var(--info-bg);color:var(--text)">
+                    <span style="font:500 14px/1.45 Inter">{{ p.bar.owner.text }}</span>
+                    <div style="display:flex;flex-wrap:wrap;gap:8px"><button ref="{{ confirmRef }}" onClick="{{ p.bar.owner.onContinue }}" style="height:36px;padding:0 16px;border-radius:999px;border:none;background:var(--text);color:var(--surface);font:500 13px/1 Inter;cursor:pointer">Take over and continue</button><button onClick="{{ p.bar.owner.onCancel }}" style="height:36px;padding:0 10px;border-radius:999px;border:none;background:transparent;color:var(--text);font:500 13px/1 Inter;text-decoration:underline;text-underline-offset:3px;cursor:pointer">Cancel</button></div>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ p.bar.confirm.has }}">
+                  <div role="group" aria-label="Confirm" style="display:flex;flex-direction:column;gap:10px;padding:12px 14px;border-radius:10px;border:1px solid var(--border-strong);background:var(--sunken)">
+                    <span style="font:500 11px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Confirm · {{ p.bar.confirm.title }}</span>
+                    <span style="font:400 14px/1.45 Inter;color:var(--text)">{{ p.bar.confirm.text }}</span>
+                    <sc-if value="{{ p.bar.confirm.needsNote }}"><label style="display:flex;flex-direction:column;gap:4px;font:500 12px/1.3 Inter;color:var(--text-2)">Note (required)<textarea rows="2" value="{{ p.bar.confirm.note }}" onChange="{{ p.bar.confirm.onNote }}" style="font:400 14px/1.4 Inter;padding:8px 10px;border-radius:6px;border:1px solid var(--border-strong);background:var(--surface);color:var(--text);resize:vertical"></textarea></label></sc-if>
+                    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px"><button ref="{{ confirmRef }}" onClick="{{ p.bar.confirm.onConfirm }}" aria-disabled="{{ p.bar.confirm.dis }}" style="{{ p.bar.confirm.style }}">Confirm</button><button onClick="{{ p.bar.confirm.onCancel }}" style="height:36px;padding:0 10px;border-radius:999px;border:none;background:transparent;color:var(--text);font:500 13px/1 Inter;text-decoration:underline;text-underline-offset:3px;cursor:pointer">Cancel</button><span style="margin-left:auto;font:400 11px/1 'JetBrains Mono';color:var(--text-muted)">Esc cancels · Proposed</span></div>
+                  </div>
+                </sc-if>
+              </div>
+
+              <sc-if value="{{ p.context.has }}">
+                <div style="order:5;display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:8px 14px;border-radius:10px;background:var(--sunken);font:400 13px/1.45 Inter;color:var(--text-2)"><span>Context:</span><span>{{ p.context.text }}</span><a href="{{ p.context.href }}" style="font-family:'JetBrains Mono';color:var(--text);text-underline-offset:3px">({{ p.context.id }})</a></div>
+              </sc-if>
+
+              <sc-if value="{{ p.parcels.has }}">
+                <div style="order:6;display:flex;flex-direction:column;border:1px solid var(--border);border-radius:10px;background:var(--surface);overflow:hidden">
+                  <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px;padding:10px 14px;border-bottom:1px solid var(--border)"><span style="font:600 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase">{{ p.parcels.title }}</span><span style="font:500 12px/1 'JetBrains Mono';color:var(--text-muted)">{{ p.parcels.count }}</span><span style="font:500 12px/1.3 Inter;color:var(--text-2)">{{ p.parcels.blockedText }}</span><span style="margin-left:auto;font:400 11px/1.3 'JetBrains Mono';color:var(--text-muted)">Hold period illustrative</span></div>
+                  <sc-for list="{{ p.parcels.rows }}" as="pr" hint-placeholder-count="2">
+                    <a href="{{ pr.href }}" style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text);text-decoration:none" style-hover="background:var(--sunken)">
+                      <span style="display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline"><span style="font:500 13px/1.3 'JetBrains Mono'">{{ pr.id }}</span><span style="font:400 13px/1.3 Inter;color:var(--text-muted)">{{ pr.comp }}</span></span>
+                      <span style="font:400 12px/1.3 'JetBrains Mono';color:var(--text-muted)">Hold until {{ pr.hold }}</span>
+                      <span style="grid-column:1 / 3;display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ pr.flags }}" as="c"><span style="{{ c.style }}"><svg viewBox="0 0 12 12" width="11" height="11" fill="{{ c.icon.fill }}" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="{{ c.icon.d }}"></path></svg>{{ c.label }}</span></sc-for></span>
+                    </a>
+                  </sc-for>
+                  <sc-if value="{{ p.parcels.hasMore }}"><button onClick="{{ p.parcels.onMore }}" style="height:40px;border:none;background:transparent;color:var(--text);font:500 13px/1 Inter;text-decoration:underline;text-underline-offset:3px;cursor:pointer">{{ p.parcels.moreLabel }}</button></sc-if>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ p.hasSignals }}">
+                <div style="order:7;display:flex;flex-direction:column;gap:8px;padding:12px 14px;border:1px solid var(--border);border-radius:10px;background:var(--surface)">
+                  <div style="display:flex;gap:8px;align-items:baseline"><span style="font:600 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase">Grouped signals</span><span style="font:500 12px/1 'JetBrains Mono';color:var(--text-muted)">{{ p.signalCount }}</span><span style="display:inline-flex;align-items:center;height:18px;padding:0 5px;border-radius:6px;border:1px dashed var(--border-strong);font:500 10px/1 'JetBrains Mono';color:var(--text-2)">Illustrative</span></div>
+                  <sc-for list="{{ p.signals }}" as="sg"><div style="display:grid;grid-template-columns:48px minmax(0,1fr);gap:12px;font:400 13px/1.45 Inter;color:var(--text-2)"><span style="font:500 12px/1.45 'JetBrains Mono';color:var(--text-muted)">{{ sg.time }}</span><span>{{ sg.text }}</span></div></sc-for>
+                </div>
+              </sc-if>
+
+              <div style="order:8;display:flex;flex-direction:column;gap:6px;padding:12px 14px;border:1px solid var(--border);border-radius:10px;background:var(--surface)">
+                <div style="display:flex;gap:8px;align-items:baseline"><span style="font:600 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase">Timeline</span><span style="display:inline-flex;align-items:center;height:18px;padding:0 5px;border-radius:6px;border:1px solid var(--border-strong);font:500 10px/1 'JetBrains Mono';color:var(--text-2)">Proposed log</span></div>
+                <sc-for list="{{ p.timeline }}" as="e" hint-placeholder-count="3"><div style="display:grid;grid-template-columns:48px 92px minmax(0,1fr);gap:10px;padding:5px 0;border-top:1px solid var(--border);font:400 13px/1.45 Inter;color:var(--text-2)"><span style="font:500 12px/1.45 'JetBrains Mono';color:var(--text-muted)">{{ e.time }}</span><span style="font:500 12px/1.45 Inter;color:var(--text)">{{ e.actor }}</span><span style="display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline"><span>{{ e.text }}</span><sc-if value="{{ e.hasOutcome }}"><span style="{{ e.oStyle }}">{{ e.outcome }}</span></sc-if></span></div></sc-for>
+              </div>
+            </div>
+          </sc-if>
+        </section>
+      </sc-if>
+    </sc-if>
+
+    <sc-if value="{{ isStation }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:1;min-width:0;overflow:auto">
+        <div style="max-width:1120px;margin:0 auto;padding:20px 20px 48px;display:flex;flex-direction:column;gap:20px">
+          <nav aria-label="Breadcrumb" style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;font:500 13px/1.3 'JetBrains Mono'"><sc-for list="{{ s.crumbs }}" as="b"><span style="display:inline-flex;gap:6px;align-items:center"><sc-if value="{{ b.sep }}"><span style="color:var(--text-muted)">›</span></sc-if><sc-if value="{{ b.isLink }}"><a href="{{ b.href }}" style="color:var(--text-2);text-underline-offset:3px">{{ b.label }}</a></sc-if><sc-if value="{{ b.isCur }}"><span aria-current="page" style="color:var(--text)">{{ b.label }}</span></sc-if></span></sc-for></nav>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+              <h1 style="margin:0;font:600 24px/1.2 'JetBrains Mono';letter-spacing:-.02em">{{ s.id }}</h1>
+              <span style="{{ s.stChip.style }}"><svg viewBox="0 0 12 12" width="11" height="11" fill="{{ s.stChip.icon.fill }}" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="{{ s.stChip.icon.d }}"></path></svg>{{ s.stChip.label }}</span>
+              <span style="{{ s.fresh.style }}"><sc-if value="{{ s.fresh.stale }}"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="6" cy="6" r="4.5"></circle><path d="M6 3.6V6l1.6 1"></path></svg></sc-if>{{ s.fresh.text }}</span>
+            </div>
+            <span style="font:400 14px/1.4 Inter;color:var(--text-2)">{{ s.meta }}</span>
+          </div>
+          <div style="{{ s.statsStyle }}">
+            <sc-for list="{{ s.stats }}" as="f"><div style="display:flex;flex-direction:column;gap:4px;min-width:120px"><span style="font:500 11px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">{{ f.k }}</span><span style="{{ f.style }}">{{ f.v }}</span><sc-if value="{{ f.hasSub }}"><span style="font:400 12px/1.3 'JetBrains Mono';color:var(--text-muted)">{{ f.sub }}</span></sc-if></div></sc-for>
+          </div>
+          <sc-if value="{{ s.result.has }}">
+            <div role="status" style="{{ s.result.style }}"><svg viewBox="0 0 12 12" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:3px"><path d="{{ s.result.icon }}"></path></svg><span style="flex:1 1 200px;font:500 14px/1.45 Inter">{{ s.result.text }}</span><sc-if value="{{ s.result.hasRetry }}"><button onClick="{{ s.result.onRetry }}" style="height:30px;padding:0 12px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;font:500 12px/1 Inter;cursor:pointer">Retry</button></sc-if></div>
+          </sc-if>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start">
+              <sc-for list="{{ s.bar.actions }}" as="a">
+                <div style="display:flex;flex-direction:column;gap:4px;max-width:280px">
+                  <button aria-disabled="{{ a.disabled }}" onClick="{{ a.onClick }}" style="{{ a.style }}"><sc-if value="{{ a.spinner }}"><svg viewBox="0 0 12 12" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" style="animation:dcspin .9s linear infinite"><path d="M6 1.5a4.5 4.5 0 1 1-4.5 4.5"></path></svg></sc-if>{{ a.text }}</button>
+                  <sc-if value="{{ a.hasReason }}"><span style="font:400 12px/1.4 Inter;color:var(--text-2);padding-left:4px">{{ a.reason }}</span></sc-if>
+                </div>
+              </sc-for>
+            </div>
+            <sc-if value="{{ s.bar.confirm.has }}">
+              <div role="group" aria-label="Confirm" style="max-width:640px;display:flex;flex-direction:column;gap:10px;padding:12px 14px;border-radius:10px;border:1px solid var(--border-strong);background:var(--sunken)">
+                <span style="font:500 11px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Confirm · {{ s.bar.confirm.title }}</span>
+                <span style="font:400 14px/1.45 Inter;color:var(--text)">{{ s.bar.confirm.text }}</span>
+                <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px"><button ref="{{ confirmRef }}" onClick="{{ s.bar.confirm.onConfirm }}" style="{{ s.bar.confirm.style }}">Confirm</button><button onClick="{{ s.bar.confirm.onCancel }}" style="height:36px;padding:0 10px;border-radius:999px;border:none;background:transparent;color:var(--text);font:500 13px/1 Inter;text-decoration:underline;text-underline-offset:3px;cursor:pointer">Cancel</button><span style="margin-left:auto;font:400 11px/1 'JetBrains Mono';color:var(--text-muted)">Esc cancels · Proposed</span></div>
+              </div>
+            </sc-if>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:16px;align-items:start">
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <div style="display:flex;flex-direction:column;border:1px solid var(--border);border-radius:10px;background:var(--surface);overflow:hidden">
+                <div style="display:flex;gap:8px;align-items:baseline;padding:10px 14px;border-bottom:1px solid var(--border)"><span style="font:600 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase">Open incidents</span><span style="font:500 12px/1 'JetBrains Mono';color:var(--text-muted)">{{ s.incCount }}</span></div>
+                <sc-for list="{{ s.incidents }}" as="i">
+                  <a href="{{ i.href }}" style="display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:6px 12px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text);text-decoration:none" style-hover="background:var(--sunken)">
+                    <sc-if value="{{ i.isBand }}"><span style="{{ i.band.style }}">{{ i.band.label }}</span></sc-if>
+                    <sc-if value="{{ i.notBand }}"><span style="width:30px"></span></sc-if>
+                    <span style="display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center"><span style="font:500 14px/1.3 Inter">{{ i.type }}</span><span style="font:400 12px/1.3 'JetBrains Mono';color:var(--text-muted)">{{ i.id }}</span><span style="{{ i.status.style }}"><svg viewBox="0 0 12 12" width="10" height="10" fill="{{ i.status.icon.fill }}" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="{{ i.status.icon.d }}"></path></svg>{{ i.status.label }}</span></span>
+                    <span style="{{ i.dl.style }}"><sc-if value="{{ i.dl.hasIcon }}"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="{{ i.dl.icon }}"></path></svg></sc-if>{{ i.dl.text }}</span>
+                  </a>
+                </sc-for>
+                <sc-if value="{{ s.noInc }}"><div style="padding:14px;font:400 14px/1.45 Inter;color:var(--text-2)">No open incidents on this station.</div></sc-if>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px;padding:12px 14px;border:1px solid var(--border);border-radius:10px;background:var(--surface)">
+                <div style="display:flex;gap:8px;align-items:baseline"><span style="font:600 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase">Station history</span><span style="font:400 12px/1 Inter;color:var(--text-muted)">last 20</span></div>
+                <sc-for list="{{ s.history }}" as="e"><div style="display:grid;grid-template-columns:76px 84px minmax(0,1fr);gap:10px;padding:5px 0;border-top:1px solid var(--border);font:400 13px/1.45 Inter;color:var(--text-2)"><span style="font:500 12px/1.45 'JetBrains Mono';color:var(--text-muted)">{{ e.time }}</span><span style="font:500 12px/1.45 Inter;color:var(--text)">{{ e.actor }}</span><span style="display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline"><span>{{ e.text }}</span><sc-if value="{{ e.hasOutcome }}"><span style="{{ e.oStyle }}">{{ e.outcome }}</span></sc-if></span></div></sc-for>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;border:1px solid var(--border);border-radius:10px;background:var(--surface);overflow:hidden">
+              <div style="display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline;padding:10px 14px;border-bottom:1px solid var(--border)"><span style="font:600 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase">Parcels held</span><span style="font:500 12px/1 'JetBrains Mono';color:var(--text-muted)">{{ s.pCount }}</span><span style="font:500 12px/1.3 Inter;color:var(--text-2)">{{ s.pBlocked }}</span><span style="margin-left:auto;font:400 11px/1.3 'JetBrains Mono';color:var(--text-muted)">Hold period illustrative</span></div>
+              <sc-for list="{{ s.parcels }}" as="pr" hint-placeholder-count="4">
+                <a href="{{ pr.href }}" style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text);text-decoration:none" style-hover="background:var(--sunken)">
+                  <span style="display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline"><span style="font:500 13px/1.3 'JetBrains Mono'">{{ pr.id }}</span><span style="font:400 13px/1.3 Inter;color:var(--text-muted)">{{ pr.comp }}</span></span>
+                  <span style="font:400 12px/1.3 'JetBrains Mono';color:var(--text-muted)">Hold until {{ pr.hold }}</span>
+                  <span style="grid-column:1 / 3;display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ pr.flags }}" as="c"><span style="{{ c.style }}"><svg viewBox="0 0 12 12" width="11" height="11" fill="{{ c.icon.fill }}" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="{{ c.icon.d }}"></path></svg>{{ c.label }}</span></sc-for></span>
+                </a>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isParcel }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:1;min-width:0;overflow:auto">
+        <div style="max-width:960px;margin:0 auto;padding:20px 20px 48px;display:flex;flex-direction:column;gap:20px">
+          <nav aria-label="Breadcrumb" style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;font:500 13px/1.3 'JetBrains Mono'"><sc-for list="{{ pc.crumbs }}" as="b"><span style="display:inline-flex;gap:6px;align-items:center"><sc-if value="{{ b.sep }}"><span style="color:var(--text-muted)">›</span></sc-if><sc-if value="{{ b.isLink }}"><a href="{{ b.href }}" style="color:var(--text-2);text-underline-offset:3px">{{ b.label }}</a></sc-if><sc-if value="{{ b.isCur }}"><span aria-current="page" style="color:var(--text)">{{ b.label }}</span></sc-if></span></sc-for></nav>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <h1 style="margin:0;font:600 24px/1.2 'JetBrains Mono';letter-spacing:-.02em">{{ pc.id }}</h1>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center"><sc-for list="{{ pc.flags }}" as="c"><span style="{{ c.style }}"><svg viewBox="0 0 12 12" width="11" height="11" fill="{{ c.icon.fill }}" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="{{ c.icon.d }}"></path></svg>{{ c.label }}</span></sc-for></div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;font:400 14px/1.4 Inter;color:var(--text-2)"><a href="{{ pc.stHref }}" style="font:500 13px/1 'JetBrains Mono';color:var(--text);text-underline-offset:3px">{{ pc.stationId }}</a><span>{{ pc.comp }}</span><span>·</span><span>Recipient •• {{ pc.digits }}</span></div>
+          </div>
+          <sc-if value="{{ pc.result.has }}">
+            <div role="status" style="{{ pc.result.style }}"><svg viewBox="0 0 12 12" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:3px"><path d="{{ pc.result.icon }}"></path></svg><span style="flex:1 1 200px;font:500 14px/1.45 Inter">{{ pc.result.text }}</span><sc-if value="{{ pc.result.hasRetry }}"><button onClick="{{ pc.result.onRetry }}" style="height:30px;padding:0 12px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;font:500 12px/1 Inter;cursor:pointer">Retry</button></sc-if></div>
+          </sc-if>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <span style="font:500 11px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Actions · Proposed</span>
+            <sc-if value="{{ pc.bar.hasActions }}">
+              <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start">
+                <sc-for list="{{ pc.bar.actions }}" as="a">
+                  <div style="display:flex;flex-direction:column;gap:4px;position:relative;max-width:260px">
+                    <button aria-disabled="{{ a.disabled }}" onClick="{{ a.onClick }}" onMouseEnter="{{ a.onEnter }}" onMouseLeave="{{ a.onLeave }}" onFocus="{{ a.onEnter }}" onBlur="{{ a.onLeave }}" style="{{ a.style }}"><sc-if value="{{ a.spinner }}"><svg viewBox="0 0 12 12" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" style="animation:dcspin .9s linear infinite"><path d="M6 1.5a4.5 4.5 0 1 1-4.5 4.5"></path></svg></sc-if><sc-if value="{{ a.locked }}"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3.5 5.5h5a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1zM4 5.5V4a2 2 0 0 1 4 0v1.5"></path></svg></sc-if>{{ a.text }}</button>
+                    <sc-if value="{{ a.hasReason }}"><span style="font:400 12px/1.4 Inter;color:var(--text-2);padding-left:4px">{{ a.reason }}</span></sc-if>
+                    <sc-if value="{{ a.tip }}"><span role="tooltip" style="position:absolute;bottom:calc(100% + 8px);left:0;width:280px;padding:10px 12px;border-radius:10px;background:var(--text);color:var(--surface);font:400 12px/1.45 Inter;box-shadow:var(--shadow-2);z-index:6">{{ a.tipText }}</span></sc-if>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+            <sc-if value="{{ pc.bar.running }}"><span style="font:400 12px/1.4 Inter;color:var(--text-muted)">Action running. Other actions are disabled.</span></sc-if>
+            <sc-if value="{{ pc.noActions }}"><span style="font:400 14px/1.45 Inter;color:var(--text-2)">{{ pc.noActionsText }}</span></sc-if>
+            <sc-if value="{{ pc.bar.owner.has }}">
+              <div role="group" style="max-width:640px;display:flex;flex-direction:column;gap:10px;padding:12px 14px;border-radius:10px;border:1px solid var(--info);background:var(--info-bg);color:var(--text)">
+                <span style="font:500 14px/1.45 Inter">{{ pc.bar.owner.text }}</span>
+                <div style="display:flex;flex-wrap:wrap;gap:8px"><button ref="{{ confirmRef }}" onClick="{{ pc.bar.owner.onContinue }}" style="height:36px;padding:0 16px;border-radius:999px;border:none;background:var(--text);color:var(--surface);font:500 13px/1 Inter;cursor:pointer">Take over and continue</button><button onClick="{{ pc.bar.owner.onCancel }}" style="height:36px;padding:0 10px;border-radius:999px;border:none;background:transparent;color:var(--text);font:500 13px/1 Inter;text-decoration:underline;text-underline-offset:3px;cursor:pointer">Cancel</button></div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ pc.bar.confirm.has }}">
+              <div role="group" aria-label="Confirm" style="max-width:640px;display:flex;flex-direction:column;gap:10px;padding:12px 14px;border-radius:10px;border:1px solid var(--border-strong);background:var(--sunken)">
+                <span style="font:500 11px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Confirm · {{ pc.bar.confirm.title }}</span>
+                <span style="font:400 14px/1.45 Inter;color:var(--text)">{{ pc.bar.confirm.text }}</span>
+                <sc-if value="{{ pc.bar.confirm.needsNote }}"><label style="display:flex;flex-direction:column;gap:4px;font:500 12px/1.3 Inter;color:var(--text-2)">Note (required)<textarea rows="2" value="{{ pc.bar.confirm.note }}" onChange="{{ pc.bar.confirm.onNote }}" style="font:400 14px/1.4 Inter;padding:8px 10px;border-radius:6px;border:1px solid var(--border-strong);background:var(--surface);color:var(--text);resize:vertical"></textarea></label></sc-if>
+                <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px"><button ref="{{ confirmRef }}" onClick="{{ pc.bar.confirm.onConfirm }}" aria-disabled="{{ pc.bar.confirm.dis }}" style="{{ pc.bar.confirm.style }}">Confirm</button><button onClick="{{ pc.bar.confirm.onCancel }}" style="height:36px;padding:0 10px;border-radius:999px;border:none;background:transparent;color:var(--text);font:500 13px/1 Inter;text-decoration:underline;text-underline-offset:3px;cursor:pointer">Cancel</button><span style="margin-left:auto;font:400 11px/1 'JetBrains Mono';color:var(--text-muted)">Esc cancels · Proposed</span></div>
+              </div>
+            </sc-if>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:12px 32px;padding:14px;border:1px solid var(--border);border-radius:10px;background:var(--surface)">
+            <div style="display:flex;flex-direction:column;gap:4px"><span style="font:500 11px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Arrived</span><span style="font:500 14px/1.3 'JetBrains Mono'">{{ pc.arrived }}</span></div>
+            <div style="display:flex;flex-direction:column;gap:4px"><span style="font:500 11px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Hold until</span><span style="font:500 14px/1.3 'JetBrains Mono'">{{ pc.hold }}</span><span style="font:400 12px/1.3 Inter;color:var(--text-muted)">Illustrative hold period</span></div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:16px;align-items:start">
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <div style="display:flex;flex-direction:column;gap:6px;padding:12px 14px;border:1px solid var(--border);border-radius:10px;background:var(--surface)">
+                <span style="font:600 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase">Notifications</span>
+                <sc-for list="{{ pc.notifs }}" as="nf"><div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:6px 0;border-top:1px solid var(--border)"><span style="font:500 13px/1.3 Inter;min-width:48px">{{ nf.ch }}</span><span style="font:500 12px/1.3 'JetBrains Mono';color:var(--text-muted)">{{ nf.time }}</span><span style="{{ nf.chip.style }}"><svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="{{ nf.chip.icon.d }}"></path></svg>{{ nf.chip.label }}</span></div></sc-for>
+              </div>
+              <div style="display:flex;flex-direction:column;border:1px solid var(--border);border-radius:10px;background:var(--surface);overflow:hidden">
+                <div style="padding:10px 14px;border-bottom:1px solid var(--border)"><span style="font:600 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase">Linked incidents</span></div>
+                <sc-for list="{{ pc.incidents }}" as="i">
+                  <a href="{{ i.href }}" style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 12px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text);text-decoration:none" style-hover="background:var(--sunken)">
+                    <sc-if value="{{ i.isBand }}"><span style="{{ i.band.style }}">{{ i.band.label }}</span></sc-if>
+                    <sc-if value="{{ i.notBand }}"><span style="width:30px"></span></sc-if>
+                    <span style="display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center"><span style="font:500 14px/1.3 Inter">{{ i.type }}</span><span style="font:400 12px/1.3 'JetBrains Mono';color:var(--text-muted)">{{ i.id }}</span><span style="{{ i.status.style }}"><svg viewBox="0 0 12 12" width="10" height="10" fill="{{ i.status.icon.fill }}" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="{{ i.status.icon.d }}"></path></svg>{{ i.status.label }}</span></span>
+                  </a>
+                </sc-for>
+                <sc-if value="{{ pc.noInc }}"><div style="padding:14px;font:400 14px/1.45 Inter;color:var(--text-2)">No linked incidents.</div></sc-if>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;padding:12px 14px;border:1px solid var(--border);border-radius:10px;background:var(--surface)">
+              <span style="font:600 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase">Parcel history</span>
+              <sc-for list="{{ pc.history }}" as="e"><div style="display:grid;grid-template-columns:76px 84px minmax(0,1fr);gap:10px;padding:5px 0;border-top:1px solid var(--border);font:400 13px/1.45 Inter;color:var(--text-2)"><span style="font:500 12px/1.45 'JetBrains Mono';color:var(--text-muted)">{{ e.time }}</span><span style="font:500 12px/1.45 Inter;color:var(--text)">{{ e.actor }}</span><span style="display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline"><span>{{ e.text }}</span><sc-if value="{{ e.hasOutcome }}"><span style="{{ e.oStyle }}">{{ e.outcome }}</span></sc-if></span></div></sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <div aria-live="polite" style="{{ toastWrap }}">
+      <sc-for list="{{ toasts }}" as="t"><div role="status" style="display:flex;align-items:center;gap:12px;padding:10px 12px 10px 14px;border-radius:10px;background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow-2);font:500 13px/1.3 Inter;color:var(--text)"><span>{{ t.text }}</span><button onClick="{{ t.onView }}" style="padding:0;border:none;background:transparent;color:var(--accent-text);font:500 13px/1.3 Inter;text-decoration:underline;text-underline-offset:3px;cursor:pointer">View</button></div></sc-for>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const MIN=60000,DAY=1440*MIN;
+function rng(s){return function(){s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const TYPES={offline:'Station offline',retrieval:'Retrieval failure',notification:'Code notification failed',expired:'Pickup window expired'};
+const TGT={A:2,B:4,C:8};
+const STATIONS=[['LIT-01','Lite','A','Ankara',true,22,null],['LIT-02','Lite','B','Ankara',true,15,null],['LIT-03','Lite','B','Ankara',true,18,-265],['LIT-04','Lite','B','Ankara',true,7,-35],['LIT-05','Lite','C','Ankara',true,20,null],['LIT-06','Lite','C','Ankara',true,12,'lag'],['PRO-01','Pro','A','Istanbul',true,30,null],['PRO-02','Pro','B','Istanbul',true,9,-12],['PRO-03','Pro','C','Istanbul',true,25,null],['WAL-01','Wall','A','Istanbul',true,40,null],['WAL-02','Wall','C','Istanbul',false,32,-180],['WAL-03','Wall','A','Istanbul',false,40,null]];
+const SP=[['PCL-0107','WAL-01','Slot 3-14',-1300,null,'42'],['PCL-0118','WAL-01','Slot 5-02',-230,null,'17'],['PCL-0350','LIT-03','Module 2 · M-05',-1580,null,'08'],['PCL-0351','LIT-03','Module 3 · XL-01',-345,null,'63'],['PCL-0520','PRO-02','Slot 2-03',-1170,null,'29'],['PCL-0405','LIT-04','Module 2 · M-02',-3115,null,'71'],['PCL-0412','LIT-04','Module 1 · S-03',-41,[-40,false],'55'],['PCL-0233','PRO-01','Slot 1-08',-112,[-110,false],'90'],['PCL-0301','LIT-02','Module 1 · L-01',-4620,null,'36'],['PCL-0610','LIT-06','Module 1 · S-09',-375,null,'14']];
+const C=r=>`M6 ${6-r}a${r} ${r} 0 1 1 0 ${2*r}a${r} ${r} 0 1 1 0 ${-2*r}z`;
+const IC={dot:C(3.5),ring:C(4),ack:C(4)+C(1.3),clock:C(4.5)+'M6 3.6V6l1.6 1',x:C(4.5)+'M4.2 4.2l3.6 3.6M7.8 4.2L4.2 7.8',slash:C(4.5)+'M2.9 9.1l6.2-6.2',tri:'M6 1.8l4.4 7.9H1.6zM6 5v1.8',check:'M2.5 6.3l2.4 2.4 4.6-5',recover:'M9.6 6.4A3.6 3.6 0 1 1 8.5 3.4M8.8 1.6v2.2H6.6',lock:'M3.5 5.5h5a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1zM4 5.5V4a2 2 0 0 1 4 0v1.5',ret:'M5 3L2.5 5.5 5 8M2.5 5.5h5a2 2 0 0 1 0 4H6',spin:'M6 1.5a4.5 4.5 0 1 1-4.5 4.5'};
+const ic=n=>({d:IC[n],fill:n==='dot'?'currentColor':'none',style:n==='spin'?{animation:'dcspin .9s linear infinite'}:{}});
+const TONE={ok:{background:'var(--ok-bg)',color:'var(--ok)'},warn:{background:'var(--warn-bg)',color:'var(--warn)'},err:{background:'var(--err-bg)',color:'var(--err)'},errLine:{border:'1px solid var(--err)',color:'var(--err)'},info:{background:'var(--info-bg)',color:'var(--info)'},unk:{background:'var(--unk-bg)',color:'var(--unk)',border:'1px dashed var(--unk-border)'},neutral:{border:'1px solid var(--border-strong)',color:'var(--text)'},quiet:{border:'1px solid var(--border)',color:'var(--text-2)'},owner:{background:'var(--sunken)',color:'var(--text)'},tag:{border:'1px dashed var(--border-strong)',color:'var(--text-2)'}};
+const chip=(tone,icon,label,sq,sm)=>({style:Object.assign({display:'inline-flex',alignItems:'center',gap:5,height:sm?20:22,padding:'0 8px',borderRadius:sq?6:999,font:`500 ${sm?11:12}px/1 Inter`,boxSizing:'border-box',whiteSpace:'nowrap'},TONE[tone]),icon:ic(icon),label});
+const BASE={display:'inline-flex',alignItems:'center',justifyContent:'center',gap:8,height:36,padding:'0 16px',borderRadius:999,font:'500 14px/1 Inter',cursor:'pointer',boxSizing:'border-box',whiteSpace:'nowrap'};
+const BV={primary:{border:'none',background:'var(--accent)',color:'var(--accent-ink)'},secondary:{border:'1px solid var(--border-strong)',background:'transparent',color:'var(--text)'},disabled:{border:'1px dashed var(--border-strong)',background:'transparent',color:'var(--text-muted)',cursor:'not-allowed'},ink:{border:'none',background:'var(--text)',color:'var(--surface)'}};
+const BANDS={P1:{background:'var(--p1-bg)',color:'var(--p1-fg)'},P2:{border:'1.5px solid var(--p2-line)',color:'var(--p2-fg)'},P3:{border:'1px solid var(--p3-line)',color:'var(--p3-fg)',fontWeight:500}};
+const bandVM=b=>({label:b,style:Object.assign({display:'inline-flex',alignItems:'center',justifyContent:'center',minWidth:30,height:22,padding:'0 5px',borderRadius:6,font:"600 12px/1 'JetBrains Mono'",boxSizing:'border-box',flex:'none'},BANDS[b])});
+const ACT={ack:{label:'Acknowledge',ing:'Acknowledging…'},takeOver:{label:'Take over',ing:'Taking over…',noOwner:true},retry:{label:'Retry dispense',ing:'Retrying dispense…',remote:true,confirm:true},oos:{label:'Set station out of service',ing:'Setting out of service…',confirm:true},rts:{label:'Return to service',ing:'Returning to service…',confirm:true},backup:{label:'Switch to backup connection',ing:'Switching to backup…',remote:true},requestField:{label:'Request field visit',ing:'Requesting field visit…',confirm:true},cancelField:{label:'Cancel field visit',ing:'Cancelling…',confirm:true},close:{label:'Confirm and close',ing:'Closing…'},reopen:{label:'Reopen',ing:'Reopening…'},resend:{label:'Resend code',ing:'Resending code…',remote:true},other:{label:'Send by other channel',ing:'Sending by email…',remote:true},unreachable:{label:'Close as unreachable',ing:'Closing…',confirm:true,note:true},markReturn:{label:'Mark for return',ing:'Marking for return…',remote:true,confirm:true,supervisor:true},extend:{label:'Extend hold +2 days',ing:'Extending hold…',remote:true,confirm:true}};
+const RES={success:{tone:'ok',icon:'check'},failure:{tone:'err',icon:'x'},info:{tone:'info',icon:'ack'},submitFailed:{tone:'errLine',icon:'tri'}};
+const RULE='P1: recipient waiting (first 10 min), deadline breached or 30 min away or less, or no pickups with 10+ parcels blocked. P2: no pickups, deadline 2 h away or less, or 1+ parcel blocked. P3: everything else; Pickup window expired is always P3. Sorted by deadline, then parcels blocked. Proposed rule, thresholds illustrative.';
+
+class Component extends DCLogic {
+  state={v:0};
+  boot(){
+    const q=new URLSearchParams(location.search);this.scene=q.get('scene');
+    const a=new Date();a.setHours(14,0,0,0);this.A=a.getTime();this.t0=Date.now();
+    this.frozen=this.scene?0:null;
+    let th=q.get('theme');if(!th){try{th=localStorage.getItem('picksy-theme')}catch(e){}}
+    this.ui={theme:th==='dark'?'dark':'light'};this.timers=[];this.w=window.innerWidth;
+    this.reset(true);
+    if(this.scene){this.applyScene(this.scene);history.replaceState(null,'',this.routeHash(this.route));}
+  }
+  componentDidMount(){
+    this.mounted=true;
+    this.onHash=()=>{this.route=this.parse();if(this.route.view==='queue')this.lastQ=location.hash;this.ui.pending=null;this.ui.demoOpen=false;this.ui.menuOpen=false;this.bump()};
+    this.onResize=()=>{this.w=window.innerWidth;this.bump()};
+    this.onKey=e=>this.key(e);
+    this.onDoc=e=>{if(this.ui.demoOpen&&!e.target.closest('[aria-expanded]')&&!e.target.closest('[style*="z-index: 30"]')){this.ui.demoOpen=false;this.bump()}};
+    window.addEventListener('hashchange',this.onHash);window.addEventListener('popstate',this.onHash);window.addEventListener('resize',this.onResize);document.addEventListener('keydown',this.onKey);document.addEventListener('mousedown',this.onDoc);
+    this.tickT=setInterval(()=>this.tick(),1000);
+    if(this.ui.loading&&!this.scene)setTimeout(()=>{this.ui.loading=false;this.bump()},700);
+    this.bump();
+  }
+  componentWillUnmount(){this.mounted=false;clearInterval(this.tickT);this.timers.forEach(clearTimeout);window.removeEventListener('hashchange',this.onHash);window.removeEventListener('popstate',this.onHash);window.removeEventListener('resize',this.onResize);document.removeEventListener('keydown',this.onKey);document.removeEventListener('mousedown',this.onDoc)}
+  componentDidUpdate(){if(this.focusHead&&this.headEl){this.focusHead=false;try{this.headEl.focus({preventScroll:true})}catch(e){}}}
+  bump(){if(this.mounted)this.setState(s=>({v:s.v+1}))}
+  now(){return this.frozen!=null?this.A+this.frozen:this.A+(Date.now()-this.t0)}
+  tick(){
+    if(this.frozen==null&&!this.db.pro02done&&this.now()>=this.A+90000)this.recoverPro02();
+    const t=Date.now();this.ui.toasts=this.ui.toasts.filter(x=>x.until>t);this.bump();
+  }
+  reset(initial){
+    this.timers.forEach(clearTimeout);this.timers=[];this.busy=null;this.prevPos={};this.movedAt={};this.rand=rng(5);this.t0=Date.now();
+    Object.assign(this.ui,{role:'operator',pending:null,note:'',demoOpen:false,menuOpen:false,toasts:[],tip:null,ruleTip:false,failNext:false,collapsed:{need:false,inHand:false,recovered:false,resolved:true},showAll:{},loading:!!initial&&!this.scene});
+    this.seed();
+    if(initial)this.route=this.parse();else{this.route={view:'queue',incident:null,type:[],band:[]};history.pushState(null,'',this.routeHash(this.route))}
+    this.lastQ=this.route.view==='queue'?this.routeHash(this.route):'#/queue';
+  }
+  parse(){
+    const h=location.hash.replace(/^#\/?/,'');const [path,qs]=h.split('?');const q=new URLSearchParams(qs||'');const seg=(path||'').split('/');
+    if(seg[0]==='stations'&&seg[1])return{view:'station',id:seg[1],from:q.get('from')};
+    if(seg[0]==='parcels'&&seg[1])return{view:'parcel',id:seg[1],from:q.get('from')};
+    const sp=k=>(q.get(k)||'').split(',').filter(Boolean);
+    return{view:'queue',incident:q.get('incident'),type:sp('type'),band:sp('band')};
+  }
+  routeHash(r){
+    if(r.view==='station')return`#/stations/${r.id}${r.from?'?from='+r.from:''}`;
+    if(r.view==='parcel')return`#/parcels/${r.id}${r.from?'?from='+r.from:''}`;
+    const p=[];if(r.incident)p.push('incident='+r.incident);if(r.type&&r.type.length)p.push('type='+r.type.join(','));if(r.band&&r.band.length)p.push('band='+r.band.join(','));
+    return'#/queue'+(p.length?'?'+p.join('&'):'');
+  }
+  setQ(patch,push){
+    const r=this.route.view==='queue'?this.route:{view:'queue',incident:null,type:[],band:[]};
+    const n=Object.assign({},r,patch,{view:'queue'});const h=this.routeHash(n);
+    if(push)history.pushState(null,'',h);else history.replaceState(null,'',h);
+    this.route=n;this.lastQ=h;this.bump();
+  }
+  go(h){location.hash=h}
+  // ---------- data ----------
+  log(o){this.db.events.push(Object.assign({},o,{t:o.t!=null?o.t:this.now(),seq:this.db.seq++}))}
+  ev(inc,actor,text,outcome,t){this.log({inc:inc.id,st:inc.stationId,pcl:inc.type!=='offline'?inc.parcelIds[0]:undefined,actor,text,outcome,t})}
+  seed(){
+    const at=m=>this.A+m*MIN;const r=rng(20261016);
+    const db={stations:{},parcels:{},byStation:{},incidents:{},order:[],events:[],seq:0,ft:32,pro02done:false,stress:false};this.db=db;
+    STATIONS.forEach(([id,model,c,city,lte,held,seen])=>{db.stations[id]={id,model,cust:c,customer:'Customer '+c,city,lte,held,target:TGT[c],seen:seen==null?null:seen==='lag'?'lag':at(seen),oos:false,result:null};db.byStation[id]=[]});
+    const used=new Set(SP.map(s=>s[0]));
+    const addP=(id,st,comp,arr,nf,dg)=>{const p={id,stationId:st,comp,arrived:at(arr),hold:at(arr)+3*DAY,status:'ready',digits:dg,notifs:[{ch:'SMS',t:nf?at(nf[0]):at(arr+1),ok:nf?nf[1]:true}]};db.parcels[id]=p;db.byStation[st].push(id);
+      this.log({st,pcl:id,t:p.arrived,actor:'System',text:'Arrived · '+comp});this.log({st,pcl:id,t:p.notifs[0].t,actor:'System',text:'Pickup code sent by SMS',outcome:p.notifs[0].ok?'Delivered':'Not delivered'})};
+    SP.forEach(s=>addP(...s));
+    STATIONS.forEach(([id,model,,,,held])=>{const comps=new Set(db.byStation[id].map(x=>db.parcels[x].comp));while(db.byStation[id].length<held){let pid;do{pid='PCL-'+String(1+Math.floor(r()*999)).padStart(4,'0')}while(used.has(pid));used.add(pid);let comp;do{comp=model==='Lite'?`Module ${1+Math.floor(r()*3)} · ${['S','M','L','XL'][Math.floor(r()*4)]}-${String(1+Math.floor(r()*12)).padStart(2,'0')}`:`Slot ${1+Math.floor(r()*6)}-${String(1+Math.floor(r()*16)).padStart(2,'0')}`}while(comps.has(comp));comps.add(comp);addP(pid,id,comp,-(30+Math.floor(r()*4050)),null,String(Math.floor(r()*100)).padStart(2,'0'))}});
+    const I=o=>{const st=db.stations[o.stationId];const inc=Object.assign({parcelIds:[],status:'open',owner:null,ownerSince:null,ownerNote:null,outcomes:{},sendFails:0,backupFailed:false,retryFailed:false,task:null,result:null,running:null,resolvedAt:null,resolvedBy:null,outcome:null,recoveredAt:null,stress:false,source:'contract'},o);
+      inc.openedAt=at(o.opened);inc.targetH=inc.source==='contract'?st.target:8;inc.deadlineAt=inc.openedAt+inc.targetH*60*MIN;inc.signals=(o.sig||[]).map(([m,text])=>({t:at(m),text}));
+      db.incidents[inc.id]=inc;db.order.push(inc.id);inc.signals.forEach(s=>this.ev(inc,'System','Signal: '+s.text,null,s.t));this.ev(inc,'System','Incident opened',null,inc.openedAt);return inc};
+    I({id:'INC-101',type:'retrieval',stationId:'WAL-01',parcelIds:['PCL-0107'],opened:-4,sig:[[-5,'Pickup code accepted'],[-4,'Dispense timeout'],[-4,'Hatch light curtain: no parcel']]});
+    I({id:'INC-102',type:'offline',stationId:'LIT-03',opened:-255,outcomes:{backup:false},sig:[[-265,'Heartbeat missing since 09:35'],[-255,'Door sensors: no data'],[-255,'Lock controller: no data']]});
+    const i103=I({id:'INC-103',type:'offline',stationId:'WAL-02',opened:-170,sig:[[-180,'Heartbeat missing since 11:00']]});
+    Object.assign(i103,{status:'awaitingField',owner:'Operator B',ownerSince:at(-170),ownerNote:'Field visit requested by Operator B at 11:10.',task:{id:'FT-031',due:i103.deadlineAt,by:'Operator B',status:'requested'}});this.ev(i103,'Operator B','Field visit requested · FT-031 due 19:10',null,at(-170));
+    I({id:'INC-104',type:'offline',stationId:'PRO-02',opened:-2,sig:[[-12,'Heartbeat missing since 13:48'],[-12,'CCTV stream lost']]});
+    const i105=I({id:'INC-105',type:'offline',stationId:'LIT-04',opened:-25,outcomes:{backup:false},sig:[[-35,'Heartbeat missing since 13:25'],[-36,'Mains power lost']]});
+    Object.assign(i105,{status:'acknowledged',owner:'Operator B',ownerSince:at(-20),ownerNote:'Acknowledged by Operator B at 13:40.'});this.ev(i105,'Operator B','Acknowledged',null,at(-20));
+    I({id:'INC-106',type:'notification',stationId:'LIT-04',parcelIds:['PCL-0412'],opened:-40,source:'internal',outcomes:{resend:false,other:true},sig:[[-40,'SMS not delivered']]});
+    I({id:'INC-107',type:'notification',stationId:'PRO-01',parcelIds:['PCL-0233'],opened:-110,source:'internal',sig:[[-110,'SMS not delivered']]});
+    I({id:'INC-108',type:'expired',stationId:'LIT-02',parcelIds:['PCL-0301'],opened:-300,source:'internal',sig:[[-300,'Hold period ended']]});
+    const i91=I({id:'INC-091',type:'retrieval',stationId:'WAL-03',opened:-238});Object.assign(i91,{status:'resolved',owner:'Operator B',resolvedAt:at(-225),resolvedBy:'Operator B',outcome:'Retry dispense succeeded'});this.ev(i91,'Operator B','Retry dispense started',null,at(-227));this.ev(i91,'Operator B','Resolved · Retry dispense succeeded','Succeeded',at(-225));
+    const i90=I({id:'INC-090',type:'notification',stationId:'PRO-03',opened:-150,source:'internal'});Object.assign(i90,{status:'resolved',owner:'Operator B',resolvedAt:at(-138),resolvedBy:'Operator B',outcome:'Code resent, delivered'});this.ev(i90,'Operator B','Resend code started',null,at(-139));this.ev(i90,'Operator B','Resolved · Code resent, delivered','Succeeded',at(-138));
+  }
+  stress(){
+    const db=this.db;if(db.stress)return;db.stress=true;const r=rng(7);const at=m=>this.A+m*MIN;
+    const busy=new Set();db.order.forEach(k=>db.incidents[k].parcelIds.forEach(p=>busy.add(p)));
+    const ids=Object.keys(db.stations);const robo=['PRO-01','PRO-03','WAL-01','WAL-03'];
+    for(let i=0;i<40;i++){
+      const retr=i%4===0;const stId=retr?robo[(i/4)%4]:ids[i%12];
+      const cand=db.byStation[stId].filter(p=>!busy.has(p)&&db.parcels[p].status==='ready');const pid=cand[Math.floor(r()*cand.length)];busy.add(pid);
+      const id='INC-'+(201+i);const st=db.stations[stId];const opened=retr?-(15+Math.floor(r()*96)):-(10+Math.floor(r()*450));
+      const inc={id,type:retr?'retrieval':'notification',stationId:stId,parcelIds:[pid],status:'open',owner:null,ownerSince:null,ownerNote:null,outcomes:{},sendFails:0,backupFailed:false,retryFailed:false,task:null,result:null,running:null,resolvedAt:null,resolvedBy:null,outcome:null,recoveredAt:null,stress:true,source:retr?'contract':'internal',openedAt:at(opened)};
+      inc.targetH=retr?st.target:8;inc.deadlineAt=inc.openedAt+inc.targetH*60*MIN;
+      inc.signals=retr?[{t:inc.openedAt,text:'Dispense timeout'},{t:inc.openedAt,text:'Hatch light curtain: no parcel'}]:[{t:inc.openedAt,text:'SMS not delivered'}];
+      if(!retr)db.parcels[pid].notifs.push({ch:'SMS',t:inc.openedAt,ok:false});
+      db.incidents[id]=inc;db.order.push(id);inc.signals.forEach(s=>this.ev(inc,'System','Signal: '+s.text,null,s.t));this.ev(inc,'System','Incident opened (stress test, illustrative)',null,inc.openedAt);
+    }
+    this.ui.collapsed.inHand=true;this.ui.collapsed.resolved=true;
+  }
+  // ---------- derived ----------
+  inc(k){return this.db.incidents[k]}
+  lastSeen(st){const n=this.now();const live=n-(((n-this.A)%MIN)+MIN)%MIN;if(st.seen==null)return live;if(st.seen==='lag')return live-6*MIN;return st.seen}
+  stState(st){if(st.oos)return'oos';const d=(this.now()-this.lastSeen(st))/MIN;if(d>10)return'offline';if(d>3)return'delayed';if(this.db.order.some(k=>{const i=this.db.incidents[k];return i.type==='retrieval'&&i.stationId===st.id&&i.status!=='resolved'}))return'degraded';return'online'}
+  openRetrFor(pid){return this.db.order.map(k=>this.db.incidents[k]).find(i=>i.type==='retrieval'&&i.status!=='resolved'&&i.parcelIds.includes(pid))}
+  hm(ms){const d=new Date(ms);return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')}
+  day(ms){const a=new Date(this.A);a.setHours(0,0,0,0);const b=new Date(ms);b.setHours(0,0,0,0);const k=Math.round((b-a)/86400000);return k===0?'Today':k>0?'D+'+k:'D'+k}
+  dt(ms){return this.day(ms)+' '+this.hm(ms)}
+  durTxt(m){return m>=60?Math.floor(m/60)+' h '+(m%60)+' m':m+' min'}
+  durShort(m){return m>=60?Math.floor(m/60)+' h '+(m%60)+' m':m+' m'}
+  srcText(inc){return inc.source==='contract'?`Contract target ${inc.targetH} h (illustrative)`:'Internal target 8 h (proposed)'}
+  derive(inc){
+    const n=this.now(),st=this.db.stations[inc.stationId],ss=this.stState(st);const stopped=ss==='offline'||ss==='oos';let blocked=0;
+    if(inc.status!=='resolved'){
+      if(inc.type==='offline'&&stopped)blocked=this.db.byStation[st.id].filter(p=>this.db.parcels[p].status==='ready').length;
+      if(inc.type==='retrieval'){const p=this.db.parcels[inc.parcelIds[0]];if(p&&p.status==='ready')blocked=1}
+    }
+    const noPickups=(inc.type==='offline'||inc.type==='retrieval')&&stopped&&inc.status!=='resolved';
+    const leftMin=(inc.deadlineAt-n)/MIN;const waiting=inc.type==='retrieval'&&inc.status!=='resolved'&&n<inc.openedAt+10*MIN;
+    let band='P3';
+    if(inc.type!=='expired'){if(waiting||leftMin<=30||(noPickups&&blocked>=10))band='P1';else if(noPickups||leftMin<=120||blocked>=1)band='P2'}
+    const why=[];const pl=b=>b+' parcel'+(b===1?'':'s')+' blocked';
+    if(waiting)why.push('Recipient waiting at station');
+    if(inc.type!=='expired'){if(leftMin<0)why.push('Breached '+this.durTxt(Math.floor(-leftMin))+' ago');else if(leftMin<=120)why.push('Deadline in '+this.durTxt(Math.ceil(leftMin)))}
+    if(noPickups)why.push('No pickups possible · '+pl(blocked));else if(blocked>=1)why.push(pl(blocked));
+    if(inc.type==='notification')why.push('Code not delivered · parcel otherwise fine');
+    if(inc.type==='expired')why.push('Hold expired (illustrative hold period)');
+    return{band,why,blocked,waiting,leftMin,noPickups,ss,st};
+  }
+  countdown(inc,big){
+    const left=inc.deadlineAt-this.now();const f=`500 ${big?14:13}px/1.2 'JetBrains Mono'`;
+    if(left<0){const m=Math.floor(-left/MIN);return{text:'−'+this.durShort(m),hasIcon:true,icon:IC.tri,breached:true,style:{display:'inline-flex',alignItems:'center',gap:4,height:22,padding:'0 7px',borderRadius:6,background:'var(--err-bg)',color:'var(--err)',font:f,fontWeight:600,whiteSpace:'nowrap',justifySelf:'end',alignSelf:'start'}}}
+    const m=Math.ceil(left/MIN);const soon=m<=30;
+    return{text:this.durShort(m),hasIcon:soon,icon:IC.clock,breached:false,style:{display:'inline-flex',alignItems:'center',gap:4,color:soon?'var(--warn)':'var(--text)',font:f,fontWeight:soon?600:500,whiteSpace:'nowrap',justifySelf:'end',alignSelf:'start',paddingTop:2}};
+  }
+  pFlags(p){
+    if(p.status==='pickedUp')return[chip('quiet','check','Picked up',1)];if(p.status==='markedForReturn')return[chip('quiet','ret','Marked for return',1)];
+    const ss=this.stState(this.db.stations[p.stationId]);const out=[];
+    if(ss==='offline')out.push(chip('err','lock','Blocked: station offline',1));if(ss==='oos')out.push(chip('err','lock','Blocked: out of service',1));
+    if(this.openRetrFor(p.id))out.push(chip('err','lock','Blocked: retrieval fault',1));
+    const last=p.notifs[p.notifs.length-1];if(last&&!last.ok)out.push(chip('warn','tri','Code not delivered',1));
+    if(this.now()>p.hold)out.push(chip('warn','clock','Hold expired',1));
+    if(!out.length)out.push(ss==='delayed'?chip('unk','clock','Ready · availability unknown',1):chip('ok','dot','Ready for pickup',1));
+    return out;
+  }
+  pRank(p){const f=this.pFlags(p)[0].label;return f.startsWith('Blocked')?0:f==='Code not delivered'?1:f==='Hold expired'?2:f.startsWith('Ready')?3:4}
+  statusChip(s,sm){const m={open:['neutral','ring','Open'],acknowledged:['info','ack','Acknowledged'],inProgress:['info','spin','Action in progress'],awaitingField:['info','clock','Awaiting field service'],recovered:['ok','recover','Recovered'],resolved:['ok','check','Resolved']}[s];const c=chip(m[0],m[1],m[2],0,sm);return c}
+  stChip(ss){const m={online:['ok','dot','Online'],degraded:['warn','tri','Degraded'],delayed:['unk','clock','Signal delayed'],offline:['err','x','Offline'],oos:['errLine','slash','Out of service']}[ss];return chip(m[0],m[1],m[2])}
+  avail(ss){return{online:'All',degraded:'Partial',delayed:'Unknown',offline:'None',oos:'None'}[ss]}
+  rec(inc){
+    const st=this.db.stations[inc.stationId];
+    if(inc.status!=='open'&&inc.status!=='acknowledged')return null;
+    if(inc.type==='retrieval')return inc.retryFailed?(st.oos?{id:'requestField',reason:'Parcel still stuck and station is out of service. A technician needs to visit.'}:{id:'oos',reason:'Parcel still stuck after retry. Set out of service, then request a field visit.'}):{id:'retry',reason:'Recipient code accepted, parcel did not reach hatch.'};
+    if(inc.type==='offline')return st.lte&&!inc.backupFailed?{id:'backup',reason:'LTE backup available on this station.'}:{id:'requestField',reason:st.lte?'Backup connection failed. The station needs a technician.':'No LTE backup on this station. The station needs a technician.'};
+    if(inc.type==='notification')return inc.sendFails===0?{id:'resend',reason:'The last SMS with the pickup code was not delivered.'}:inc.sendFails===1?{id:'other',reason:'Resend failed. Try email.'}:{id:'unreachable',reason:'Two attempts failed.'};
+    return{id:'markReturn',reason:`Hold period ended ${this.hm(this.db.parcels[inc.parcelIds[0]].hold)} (illustrative).`};
+  }
+  actionsFor(inc){
+    const st=this.db.stations[inc.stationId];const L=[];const add=(aid,o)=>L.push(Object.assign({aid},o||{}));const p=this.db.parcels[inc.parcelIds[0]];
+    if(['open','acknowledged','inProgress'].includes(inc.status)){
+      if(inc.type==='retrieval'){add('retry',p.status!=='ready'?{disabled:1,reason:'Parcel is no longer in the station'}:{});add('oos',st.oos?{disabled:1,reason:'Station already out of service'}:{});add('requestField')}
+      if(inc.type==='offline'){add('backup',!st.lte?{disabled:1,reason:'No LTE backup on this station'}:{});add('requestField')}
+      if(inc.type==='notification'){add('resend');add('other',inc.sendFails<1?{disabled:1,reason:'Available after a failed resend'}:{});add('unreachable',inc.sendFails<2?{disabled:1,reason:'Available after 2 failed attempts'}:{})}
+      if(inc.type==='expired'){add('markReturn',this.ui.role!=='supervisor'?{locked:1,reason:'Supervisor approval needed'}:{});add('extend')}
+    }else if(inc.status==='awaitingField'){add('cancelField',{primary:1});if(inc.type==='offline'&&!st.lte)add('backup',{disabled:1,reason:'No LTE backup on this station'})}else if(inc.status==='recovered')add('close');else if(inc.status==='resolved')add('reopen');
+    const r=this.rec(inc);if(r){const i=L.findIndex(a=>a.aid===r.id);if(i>0)L.unshift(L.splice(i,1)[0]);if(i>=0)L[0].primary=1}
+    else if(L.length&&['awaitingField','recovered','resolved'].includes(inc.status)&&inc.status!=='awaitingField')L[0].primary=1;
+    if(inc.status==='inProgress'||(this.busy&&this.busy.key===inc.id))L.forEach(a=>{a.disabled=1;a.reason=''});
+    return L;
+  }
+  confirmText(key,aid){
+    const inc=this.inc(key);const st=inc?this.db.stations[inc.stationId]:this.db.stations[key.slice(3)];const p=inc&&this.db.parcels[inc.parcelIds[0]];
+    const ready=this.db.byStation[st.id].filter(x=>this.db.parcels[x].status==='ready').length;
+    switch(aid){
+      case'retry':return`Moves ${p.id} to the hatch at ${st.id}. The recipient may be waiting.`;
+      case'oos':return`Stops pickups and drop-offs at ${st.id}. All ${ready} parcels are blocked until it is returned to service.`;
+      case'rts':return`Restarts pickups and drop-offs at ${st.id}. Its ${ready} parcels become available again.`;
+      case'requestField':return`Creates a field task due ${this.hm(inc.deadlineAt)}${inc.deadlineAt<this.now()?', already breached':''}. ${this.srcText(inc)}.`;
+      case'cancelField':return`Cancels field task ${inc.task.id}. The incident returns to Acknowledged.`;
+      case'unreachable':return`Closes as Recipient unreachable. ${p.id} stays in the station until its hold period ends.`;
+      case'markReturn':return`Irreversible. ${p.id} leaves the recipient's reach and goes back to the carrier.`;
+      case'extend':return`Extends the hold on ${p.id} to ${this.dt(p.hold+2*DAY)} (illustrative hold period).`;
+    }return'';
+  }
+  // ---------- actions ----------
+  act(key,aid,o){
+    o=o||{};const def=ACT[aid];const inc=this.inc(key);const ui=this.ui;
+    if(inc&&!def.noOwner&&inc.owner&&inc.owner!=='You'&&!o.tookOver){ui.pending={key,aid,mode:'owner'};return this.bump()}
+    if(def.confirm&&!o.confirmed){ui.pending={key,aid,mode:'confirm',tookOver:o.tookOver};ui.note='';return this.bump()}
+    ui.pending=null;const target=inc||this.db.stations[key.slice(3)];
+    if(ui.failNext){ui.failNext=false;target.result={kind:'submitFailed',text:'Could not send. Nothing changed.',retry:aid,t:this.now()};this.log({inc:inc&&inc.id,st:inc?inc.stationId:target.id,actor:'You',text:def.label+': request not sent',outcome:'Failed'});return this.bump()}
+    if(inc&&inc.status==='open'&&aid!=='takeOver'){inc.owner='You';inc.ownerSince=this.now()}
+    target.result=null;
+    if(def.remote){inc.status='inProgress';inc.running=aid;this.ev(inc,'You',def.label+' started');this.bump();if(o.fast)this.finish(key,aid);else if(!o.noFinish)this.timers.push(setTimeout(()=>this.finish(key,aid),3000+Math.floor(this.rand()*2000)))}
+    else{this.busy={key,aid};this.bump();const f=()=>{this.busy=null;this.apply(key,aid,o.note)};if(o.fast)f();else this.timers.push(setTimeout(f,700))}
+  }
+  takeOverAnd(key,aid){const inc=this.inc(key);const prev=inc.owner;inc.owner='You';inc.ownerSince=this.now();inc.ownerNote=null;this.ev(inc,'You','Taken over from '+prev);this.ui.pending=null;this.act(key,aid,{tookOver:true})}
+  res(target,kind,text,retry){target.result={kind,text,retry,t:this.now()}}
+  resolve(inc,outcome,by){inc.status='resolved';inc.resolvedAt=this.now();inc.resolvedBy=by;inc.outcome=outcome;inc.running=null;this.ev(inc,by,'Resolved · '+outcome,'Succeeded')}
+  notSel(inc,text){if(this.route.view!=='queue'||this.route.incident!==inc.id)this.toast(text,inc.id)}
+  toast(text,incId){this.ui.toasts.push({text,incId,until:this.frozen!=null?Infinity:Date.now()+6000})}
+  finish(key,aid){
+    const inc=this.inc(key);if(!inc||inc.status!=='inProgress')return;inc.running=null;const ok=inc.outcomes[aid]!==false;const st=this.db.stations[inc.stationId];const p=this.db.parcels[inc.parcelIds[0]];const fail=()=>{inc.status='acknowledged'};
+    if(aid==='retry'){if(ok){p.status='pickedUp';this.ev(inc,'System','Parcel reached hatch · picked up by recipient');this.resolve(inc,'Retry dispense succeeded','You');this.res(inc,'success','Parcel delivered to hatch. Incident resolved.')}else{fail();inc.retryFailed=true;this.ev(inc,'System','Parcel still stuck','Failed');this.res(inc,'failure','Parcel still stuck. Set the station out of service and request a field visit.','retry')}}
+    if(aid==='backup'){if(ok){st.seen=null;this.ev(inc,'System','Heartbeat received over LTE backup');this.resolve(inc,'Backup connection restored','You');this.res(inc,'success','Backup connection active. Station online. Incident resolved.')}else{fail();inc.backupFailed=true;this.ev(inc,'System','No response on LTE backup','Failed');this.res(inc,'failure','No response on LTE backup. Station still offline.','backup')}}
+    if(aid==='resend'||aid==='other'){const ch=aid==='resend'?'SMS':'Email';p.notifs.push({ch,t:this.now(),ok});this.ev(inc,'System',`Pickup code sent by ${ch}`,ok?'Delivered':'Not delivered');if(ok){this.resolve(inc,ch==='SMS'?'Code resent, delivered':'Code delivered by email','You');this.res(inc,'success',`Code delivered by ${ch==='SMS'?'SMS':'email'}. Incident resolved.`)}else{fail();inc.sendFails++;this.res(inc,'failure',`Code not delivered by ${ch==='SMS'?'SMS':'email'}.`,aid)}}
+    if(aid==='markReturn'){if(ok){p.status='markedForReturn';this.resolve(inc,'Marked for return','You');this.res(inc,'success',`${p.id} marked for return. Incident resolved.`)}else{fail();this.res(inc,'failure','Carrier did not accept, retry.','markReturn')}}
+    if(aid==='extend'){p.hold+=2*DAY;this.ev(inc,'System','Hold extended to '+this.dt(p.hold));this.resolve(inc,'Hold extended +2 days','You');this.res(inc,'success',`Hold extended to ${this.dt(p.hold)}. Parcel ready. Incident resolved.`)}
+    this.notSel(inc,`${inc.id} ${inc.status==='resolved'?'resolved':'action failed'}`);this.bump();
+  }
+  apply(key,aid,note){
+    const inc=this.inc(key);const st=inc?this.db.stations[inc.stationId]:this.db.stations[key.slice(3)];const tgt=inc||st;const p=inc&&this.db.parcels[inc.parcelIds[0]];
+    switch(aid){
+      case'ack':inc.status='acknowledged';inc.owner='You';this.ev(inc,'You','Acknowledged');this.res(inc,'info','Acknowledged. You own this incident.');break;
+      case'takeOver':{const prev=inc.owner;inc.owner='You';inc.ownerSince=this.now();inc.ownerNote=null;this.ev(inc,'You','Taken over from '+prev);this.res(inc,'info','You own this incident. The takeover is logged.');break}
+      case'requestField':{const id='FT-0'+(this.db.ft++);inc.task={id,due:inc.deadlineAt,by:'You',status:'requested'};inc.status='awaitingField';const br=inc.deadlineAt<this.now();this.ev(inc,'You',`Field visit requested · ${id} due ${this.hm(inc.deadlineAt)}`);this.res(inc,'info',`Field task ${id} requested, due ${this.hm(inc.deadlineAt)}${br?' (already breached)':''}.`);break}
+      case'cancelField':inc.task.status='cancelled';this.ev(inc,'You',`Field visit cancelled · ${inc.task.id}`);this.res(inc,'info',`Field task ${inc.task.id} cancelled.`);inc.task=null;inc.status='acknowledged';break;
+      case'close':this.resolve(inc,'Recovered on its own, confirmed','You');this.res(inc,'success','Closed. Incident resolved.');break;
+      case'reopen':inc.status='acknowledged';inc.owner='You';inc.resolvedAt=null;inc.outcome=null;inc.recoveredAt=null;this.ev(inc,'You','Reopened');this.res(inc,'info','Reopened. You own this incident.');break;
+      case'oos':st.oos=true;this.log({inc:inc&&inc.id,st:st.id,actor:'You',text:'Set out of service'});this.res(tgt,'info',`${st.id} is out of service. Pickups and drop-offs stopped.`);break;
+      case'rts':st.oos=false;this.log({st:st.id,actor:'You',text:'Returned to service'});this.res(tgt,'success',`${st.id} is back in service.`);break;
+      case'unreachable':this.ev(inc,'You','Note: '+(note||''));this.resolve(inc,'Recipient unreachable','You');this.res(inc,'success','Closed as Recipient unreachable.');break;
+    }this.bump();
+  }
+  completeTask(id){
+    const inc=this.inc(id);if(!inc||inc.status!=='awaitingField')return;const st=this.db.stations[inc.stationId];inc.task.status='completed';
+    this.ev(inc,'Field (demo)',`Field task ${inc.task.id} completed`);if(inc.type==='offline'){st.seen=null;this.ev(inc,'System','Heartbeat received')}
+    this.resolve(inc,'Field task completed','Field (demo)');this.res(inc,'success',`Field task ${inc.task.id} completed. Incident resolved.${st.oos?' Station is still out of service.':''}`);
+    this.notSel(inc,`${inc.id} resolved by field task`);this.bump();
+  }
+  recoverPro02(){
+    this.db.pro02done=true;const st=this.db.stations['PRO-02'];st.seen=null;const inc=this.inc('INC-104');
+    if(inc&&['open','acknowledged','awaitingField'].includes(inc.status)){inc.status='recovered';inc.recoveredAt=this.now();this.ev(inc,'System','Heartbeat returned · condition cleared');this.notSel(inc,'INC-104 recovered')}
+    this.bump();
+  }
+  applyScene(name){
+    const F={fast:true,confirmed:true,tookOver:true};const run=(k,a)=>this.act(k,a,F);
+    const sel=(id,x)=>{this.route=Object.assign({view:'queue',incident:id,type:[],band:[]},x||{})};
+    const page=(view,id,from)=>{this.route={view,id,from}};
+    const done101=()=>run('INC-101','retry');const fail102=()=>run('INC-102','backup');const await102=()=>{fail102();run('INC-102','requestField')};
+    const all=()=>{done101();await102();this.completeTask('INC-102');this.completeTask('INC-103');this.frozen=2*MIN;this.recoverPro02();run('INC-104','close');run('INC-105','backup');run('INC-105','requestField');this.completeTask('INC-105');run('INC-106','resend');run('INC-106','other');run('INC-107','resend');run('INC-108','extend');this.db.order.forEach(k=>this.db.incidents[k].result=null)};
+    switch(name){
+      case'load':sel(null);break;
+      case'loading':this.ui.loading=true;sel(null);break;
+      case'inc101':sel('INC-101');break;
+      case'inc101-confirm':sel('INC-101');this.ui.pending={key:'INC-101',aid:'retry',mode:'confirm'};break;
+      case'inc101-running':sel('INC-101');this.act('INC-101','retry',{confirmed:true,noFinish:true});break;
+      case'inc101-done':sel('INC-101');done101();break;
+      case'inc102-failed':sel('INC-102');fail102();break;
+      case'inc102-field-confirm':sel('INC-102');fail102();this.ui.pending={key:'INC-102',aid:'requestField',mode:'confirm'};break;
+      case'inc102-awaiting':sel('INC-102');await102();break;
+      case'inc102-complete':sel('INC-102');await102();this.completeTask('INC-102');break;
+      case'inc105-owner':sel('INC-105');this.ui.pending={key:'INC-105',aid:'backup',mode:'owner'};break;
+      case'inc104-recovered':this.frozen=2*MIN;sel('INC-104');this.recoverPro02();break;
+      case'inc104-toast':this.frozen=2*MIN;sel(null);this.recoverPro02();break;
+      case'inc108-locked':sel('INC-108');this.ui.tip='INC-108:markReturn';break;
+      case'inc108-supervisor':this.ui.role='supervisor';sel('INC-108');this.ui.pending={key:'INC-108',aid:'markReturn',mode:'confirm'};break;
+      case'inc103':sel('INC-103');break;
+      case'inc106':sel('INC-106');break;
+      case'inc091':this.ui.collapsed.resolved=false;sel('INC-091');break;
+      case'submit-failed':sel('INC-107');this.ui.failNext=true;run('INC-107','resend');break;
+      case'empty':all();sel(null);this.ui.collapsed.resolved=true;break;
+      case'filtered-empty':done101();await102();this.db.order.forEach(k=>this.db.incidents[k].result=null);sel(null,{band:['P1']});break;
+      case'stress':this.stress();sel(null);break;
+      case'stress-filter':this.stress();sel(null,{type:['retrieval'],band:['P1']});break;
+      case'st-LIT-06':page('station','LIT-06');break;
+      case'st-LIT-04':page('station','LIT-04','INC-105');break;
+      case'st-WAL-02':page('station','WAL-02','INC-103');break;
+      case'st-LIT-03':page('station','LIT-03','INC-102');break;
+      case'st-WAL-01-oos':done101();this.act('st:WAL-01','oos',F);this.db.stations['WAL-01'].result=null;page('station','WAL-01');break;
+      case'pcl-0412':page('parcel','PCL-0412','INC-105');break;
+      case'pcl-0107-picked':done101();page('parcel','PCL-0107','INC-101');break;
+      case'pcl-0301':page('parcel','PCL-0301','INC-108');break;
+      case'pcl-0610':page('parcel','PCL-0610');break;
+      default:sel(null);
+    }
+  }
+  key(e){
+    const tag=(e.target.tagName||'').toLowerCase();const ui=this.ui;
+    if(tag==='textarea'||tag==='input'){if(e.key==='Escape'){ui.pending=null;this.bump()}return}
+    if(e.metaKey||e.ctrlKey||e.altKey)return;const k=e.key;
+    if(this.gWait){this.gWait=false;if(k==='q'||k==='Q'){e.preventDefault();this.go(this.lastQ||'#/queue');return}}
+    if(k==='g'||k==='G'){this.gWait=true;setTimeout(()=>{this.gWait=false},1200);return}
+    if(k==='Escape'){if(ui.pending)ui.pending=null;else if(ui.demoOpen||ui.menuOpen){ui.demoOpen=false;ui.menuOpen=false}else if(this.route.view==='queue'&&this.route.incident)this.setQ({incident:null});this.bump();return}
+    if(this.route.view!=='queue')return;
+    if(k==='ArrowDown'||k==='ArrowUp'){e.preventDefault();const ids=this.visIds||[];if(!ids.length)return;let i=ids.indexOf(this.route.incident);i=i<0?0:Math.max(0,Math.min(ids.length-1,i+(k==='ArrowDown'?1:-1)));this.select(ids[i]);return}
+    if(k==='Enter'&&tag!=='button'&&tag!=='a'){if(!this.route.incident&&this.visIds&&this.visIds.length)this.select(this.visIds[0]);else{this.focusHead=true;this.bump()}return}
+    const inc=this.route.incident&&this.inc(this.route.incident);if(!inc||tag==='button'&&(k===' '))return;
+    if((k==='a'||k==='A')&&inc.status==='open'){e.preventDefault();this.act(inc.id,'ack')}
+    if(k==='r'||k==='R'){const r=this.rec(inc);if(!r)return;const a=this.actionsFor(inc).find(x=>x.aid===r.id);if(a&&!a.disabled&&!a.locked){e.preventDefault();this.act(inc.id,r.id)}}
+  }
+  select(id){this.ui.pending=null;this.ui.tip=null;this.focusHead=true;this.setQ({incident:id},this.w<768)}
+  // ---------- view models ----------
+  resultVM(target,key){
+    const r=target&&target.result;if(!r)return{has:false};const k=RES[r.kind];
+    return{has:true,text:r.text,icon:IC[k.icon],hasRetry:!!r.retry&&(r.kind==='submitFailed'||r.kind==='failure'),onRetry:()=>this.act(key,r.retry),style:Object.assign({display:'flex',flexWrap:'wrap',gap:10,alignItems:'flex-start',padding:'10px 14px',borderRadius:10,order:3},TONE[k.tone])};
+  }
+  avm(key,a,inc,isPhone){
+    const def=ACT[a.aid];const busy=(this.busy&&this.busy.key===key&&this.busy.aid===a.aid)||(inc&&inc.running===a.aid);const ui=this.ui;
+    const dis=!!(a.disabled||a.locked)&&!busy;
+    const style=Object.assign({},BASE,isPhone?{height:44}:{},busy?Object.assign({},a.primary?BV.primary:BV.secondary,{cursor:'progress'}):dis?BV.disabled:a.primary?BV.primary:BV.secondary);
+    const tid=key+':'+a.aid;
+    return{text:busy?def.ing:def.label,style,spinner:!!busy,locked:!!a.locked,disabled:dis||!!busy,hasReason:!!a.reason,reason:a.reason||'',tip:!!a.locked&&ui.tip===tid,tipText:"Irreversible: the parcel leaves the recipient's reach. Needs a supervisor. In this concept, use the role switch to try it.",
+      onEnter:()=>{if(a.locked){ui.tip=tid;this.bump()}},onLeave:()=>{if(ui.tip===tid){ui.tip=null;this.bump()}},
+      onClick:()=>{if(dis||busy){if(a.locked){ui.tip=tid;this.bump()}return}this.act(key,a.aid)}};
+  }
+  barVM(keys,list,isPhone){
+    const ui=this.ui;const pd=ui.pending&&keys.includes(ui.pending.key)?ui.pending:null;const d=pd&&ACT[pd.aid];const inc=pd&&this.inc(pd.key);
+    const running=list.some(x=>x.spinner);
+    const cdis=!!(pd&&d.note&&!ui.note.trim());
+    return{actions:list,hasActions:list.length>0,running,
+      confirm:{has:!!(pd&&pd.mode==='confirm'),title:d?d.label:'',text:pd?this.confirmText(pd.key,pd.aid):'',needsNote:!!(d&&d.note),note:ui.note,onNote:e=>{ui.note=e.target.value;this.bump()},dis:cdis,
+        style:Object.assign({},BASE,{height:isPhone?44:36,font:'500 13px/1 Inter'},cdis?BV.disabled:BV.ink),onConfirm:()=>{if(cdis)return;this.act(pd.key,pd.aid,{confirmed:true,tookOver:pd.tookOver,note:ui.note})},onCancel:()=>{ui.pending=null;this.bump()}},
+      owner:{has:!!(pd&&pd.mode==='owner'),text:inc&&inc.owner?`Owned by ${inc.owner} since ${this.hm(inc.ownerSince)}. Taking over is logged.`:'',onContinue:()=>this.takeOverAnd(pd.key,pd.aid),onCancel:()=>{ui.pending=null;this.bump()}}};
+  }
+  evVM(e,withDay){const oc=e.outcome;const bad=oc==='Failed'||oc==='Not delivered';return{time:withDay?this.dt(e.t).replace('Today ',''):this.hm(e.t),actor:e.actor,text:e.text,hasOutcome:!!oc,outcome:oc||'',oStyle:{font:'500 11px/1.6 Inter',padding:'0 6px',borderRadius:6,background:bad?'var(--err-bg)':'var(--ok-bg)',color:bad?'var(--err)':'var(--ok)'}}}
+  pRow(p,from){return{id:p.id,comp:p.comp,hold:this.dt(p.hold),flags:this.pFlags(p),href:`#/parcels/${p.id}${from?'?from='+from:''}`}}
+  incLink(inc){const d=this.D[inc.id];const ranked=inc.status==='open'||inc.status==='acknowledged';return{id:inc.id,type:TYPES[inc.type],isBand:ranked,notBand:!ranked,band:bandVM(d.band),status:this.statusChip(inc.status,1),dl:inc.status==='resolved'?{text:this.hm(inc.resolvedAt),style:{font:"500 13px/1 'JetBrains Mono'",color:'var(--text-muted)'}}:this.countdown(inc),href:'#/queue?incident='+inc.id}}
+  freshVM(st,ss){const ls=this.lastSeen(st);const ago=Math.round((this.now()-ls)/MIN);
+    if(ss==='delayed')return{stale:true,text:`Signal delayed · as of ${this.hm(ls)} (${ago} min ago)`,style:{display:'inline-flex',alignItems:'center',gap:6,height:22,padding:'0 8px',borderRadius:6,border:'1px dashed var(--unk-border)',color:'var(--unk)',font:"500 12px/1 'JetBrains Mono'"}};
+    if(ss==='offline')return{stale:true,text:`Last seen ${this.hm(ls)} (${this.durShort(ago)} ago)`,style:{display:'inline-flex',alignItems:'center',gap:6,font:"500 12px/1 'JetBrains Mono'",color:'var(--err)'}};
+    return{stale:false,text:`Last seen ${this.hm(ls)} (fresh)`,style:{font:"500 12px/1 'JetBrains Mono'",color:'var(--text-muted)'}}}
+  panelVM(inc,isPhone){
+    const d=this.D[inc.id],st=d.st,ss=d.ss,ui=this.ui;const ranked=inc.status==='open'||inc.status==='acknowledged';const p0=inc.parcelIds[0]&&this.db.parcels[inc.parcelIds[0]];
+    let plist=inc.type==='offline'?this.db.byStation[st.id].map(x=>this.db.parcels[x]).filter(p=>p.status==='ready'):(p0?[p0]:[]);
+    const all=ui.showAll[inc.id];
+    const facts=[];
+    if(inc.status==='resolved'){facts.push({k:'Resolved',v:this.hm(inc.resolvedAt),style:{font:"500 14px/1.2 'JetBrains Mono'"}},{k:'By',v:inc.resolvedBy,style:{font:'500 14px/1.2 Inter'}},{k:'Outcome',v:inc.outcome,style:{font:'500 14px/1.2 Inter'}})}
+    else{const cd=this.countdown(inc,1);facts.push({k:inc.status==='awaitingField'?`Task ${inc.task.id} due ${this.hm(inc.deadlineAt)}`:`Deadline ${this.hm(inc.deadlineAt)}`,v:cd.text,style:Object.assign({},cd.style,{justifySelf:'start',paddingTop:0}),hasIcon:cd.hasIcon,icon:cd.icon,hasSub:true,sub:this.srcText(inc)})}
+    facts.push({k:'Opened',v:this.hm(inc.openedAt),style:{font:"500 14px/1.2 'JetBrains Mono'"}});
+    if(inc.status!=='resolved')facts.push({k:'Owner',v:inc.owner||'None',style:{font:'500 14px/1.2 Inter',color:inc.owner?'var(--text)':'var(--text-muted)'}});
+    const list=this.actionsFor(inc).map(a=>this.avm(inc.id,a,inc,isPhone));
+    const r=this.rec(inc);
+    let note={has:false};
+    const N=(tone,icon,text)=>({has:true,icon:IC[icon],text,style:Object.assign({display:'flex',gap:10,alignItems:'flex-start',padding:'10px 14px',borderRadius:10},TONE[tone])});
+    if(inc.status==='awaitingField')note=N('info','clock',`Field task ${inc.task.id} due ${this.hm(inc.task.due)}${inc.task.due<this.now()?' (breached)':''} · requested by ${inc.task.by}. Monitoring only.`);
+    if(inc.status==='recovered')note=N('ok','recover',`Condition cleared at ${this.hm(inc.recoveredAt)}. Confirm to close.`);
+    if(inc.status==='resolved')note=N('ok','check',`Resolved ${this.hm(inc.resolvedAt)} by ${inc.resolvedBy} · ${inc.outcome}. Read only.`);
+    const ctx=inc.type!=='offline'?this.db.order.map(k=>this.db.incidents[k]).find(i=>i.type==='offline'&&i.stationId===inc.stationId&&i.status!=='resolved'):null;
+    const ackBusy=this.busy&&this.busy.key===inc.id&&this.busy.aid==='ack';
+    const ownB=inc.owner&&inc.owner!=='You';
+    return{id:inc.id,type:TYPES[inc.type],ranked,band:bandVM(d.band),why:d.why,status:this.statusChip(inc.status),hasOwnerChip:!!ownB,owner:inc.owner,stress:inc.stress,
+      canAck:inc.status==='open',ackBusy:!!ackBusy,ackText:ackBusy?'Acknowledging…':'Acknowledge',onAck:()=>{if(!ackBusy)this.act(inc.id,'ack')},ackStyle:Object.assign({},BASE,BV.secondary,{height:isPhone?44:30,padding:'0 12px',font:'500 12px/1 Inter',marginLeft:'auto'}),
+      stationId:st.id,stHref:`#/stations/${st.id}?from=${inc.id}`,stMeta:`${st.city} · ${st.customer}`,stChip:this.stChip(ss),fresh:this.freshVM(st,ss),facts,
+      ownerNotice:{has:!!ownB&&!(ui.pending&&ui.pending.key===inc.id&&ui.pending.mode==='owner'),text:inc.ownerNote||`Owned by ${inc.owner} since ${this.hm(inc.ownerSince||inc.openedAt)}.`,canTake:inc.status!=='resolved',onTake:()=>this.act(inc.id,'takeOver')},
+      result:this.resultVM(inc,inc.id),rec:{has:!!r,reason:r?r.reason:''},note,bar:this.barVM([inc.id],list,isPhone),
+      actStyle:Object.assign({display:'flex',flexDirection:'column',gap:12,padding:16,border:'1px solid var(--border)',borderRadius:14,background:'var(--surface)'},isPhone?{order:20,position:'sticky',bottom:0,margin:'0 -12px',borderRadius:'14px 14px 0 0',boxShadow:'var(--shadow-2)',zIndex:3}:{order:4}),
+      context:{has:!!ctx,text:ctx?'Station also offline':'',id:ctx?ctx.id:'',href:ctx?'#/queue?incident='+ctx.id:''},
+      parcels:{has:plist.length>0,title:inc.type==='offline'?'Affected parcels':'Parcel',count:plist.length,blockedText:`${d.blocked} blocked`,rows:plist.slice(0,all?999:5).map(p=>this.pRow(p,inc.id)),hasMore:plist.length>5,moreLabel:all?'Show fewer':`Show all ${plist.length}`,onMore:()=>{ui.showAll[inc.id]=!all;this.bump()}},
+      hasSignals:inc.signals.length>0,signalCount:inc.signals.length,signals:inc.signals.map(s=>({time:this.hm(s.t),text:s.text})),
+      timeline:this.db.events.filter(e=>e.inc===inc.id).sort((a,b)=>b.t-a.t||b.seq-a.seq).map(e=>this.evVM(e))};
+  }
+  stationVM(id,from,isPhone){
+    const st=this.db.stations[id];if(!st)return null;const ss=this.stState(st);const stale=ss==='delayed'||ss==='offline';const ls=this.lastSeen(st);
+    const ps=this.db.byStation[id].map(x=>this.db.parcels[x]).filter(p=>p.status==='ready'||p.status==='pickedUp'||p.status==='markedForReturn');
+    const held=ps.filter(p=>p.status==='ready');const sorted=held.slice().sort((a,b)=>this.pRank(a)-this.pRank(b)||a.arrived-b.arrived);
+    const blocked=held.filter(p=>this.pRank(p)===0).length;
+    const incs=this.db.order.map(k=>this.db.incidents[k]).filter(i=>i.stationId===id&&i.status!=='resolved');
+    const openRetr=incs.find(i=>i.type==='retrieval');
+    const key='st:'+id;const a=st.oos?{aid:'rts',primary:0,disabled:!!openRetr,reason:openRetr?`Open retrieval failure (${openRetr.id})`:''}:{aid:'oos'};
+    const list=[this.avm(key,a,null,isPhone)];
+    const sv=v=>Object.assign({font:"500 14px/1.3 'JetBrains Mono'"},stale?{color:'var(--unk)'}:{});
+    const asOf=stale?'as of '+this.hm(ls):'';
+    const crumbs=[{label:'Queue',href:this.lastQ||'#/queue'}];if(from)crumbs.push({label:from,href:'#/queue?incident='+from});crumbs.push({label:id});
+    return{id,meta:`${st.model} · ${st.customer} · ${st.city}`,stChip:this.stChip(ss),fresh:this.freshVM(st,ss),
+      statsStyle:Object.assign({display:'flex',flexWrap:'wrap',gap:'16px 32px',padding:14,borderRadius:10,background:stale?'var(--unk-bg)':'var(--surface)',border:stale?'1px dashed var(--unk-border)':'1px solid var(--border)'}),
+      stats:[{k:'Availability',v:this.avail(ss),style:Object.assign({font:'500 14px/1.3 Inter'},ss==='delayed'?{color:'var(--unk)'}:ss==='offline'||ss==='oos'?{color:'var(--err)'}:{}),hasSub:!!asOf,sub:asOf},
+        {k:'Parcels held',v:String(held.length),style:sv(),hasSub:!!asOf,sub:asOf},
+        {k:'Contract target',v:st.target+' h',style:{font:"500 14px/1.3 'JetBrains Mono'"},hasSub:true,sub:'illustrative'},
+        {k:'LTE backup',v:st.lte?'Yes':'No',style:{font:'500 14px/1.3 Inter'}},
+        {k:'Reporting interval',v:'60 s',style:{font:"500 14px/1.3 'JetBrains Mono'"},hasSub:true,sub:'illustrative'}],
+      result:this.resultVM(st,key),bar:this.barVM([key],list,isPhone),
+      incidents:incs.map(i=>this.incLink(i)),incCount:incs.length,noInc:!incs.length,
+      pCount:held.length,pBlocked:`${blocked} blocked`,parcels:sorted.map(p=>this.pRow(p,from)),
+      history:this.db.events.filter(e=>e.st===id).sort((a,b)=>b.t-a.t||b.seq-a.seq).slice(0,20).map(e=>this.evVM(e,1)),
+      crumbs:crumbs.map((c,i)=>({label:c.label,href:c.href,sep:i>0,isLink:!!c.href,isCur:!c.href}))};
+  }
+  parcelVM(id,from,isPhone){
+    const p=this.db.parcels[id];if(!p)return null;const st=this.db.stations[p.stationId];
+    const incs=this.db.order.map(k=>this.db.incidents[k]).filter(i=>i.parcelIds.includes(id)||(i.type==='offline'&&i.stationId===p.stationId&&i.status!=='resolved'&&p.status==='ready'));
+    const terminal=p.status!=='ready';const list=[];const keys=[];
+    if(!terminal)incs.filter(i=>i.type!=='offline'&&i.status!=='resolved').forEach(i=>{keys.push(i.id);this.actionsFor(i).filter(a=>['retry','resend','other','unreachable','markReturn','extend'].includes(a.aid)).forEach(a=>list.push(this.avm(i.id,a,i,isPhone)))});
+    const withRes=incs.filter(i=>i.result).sort((a,b)=>b.result.t-a.result.t)[0];
+    const crumbs=[{label:'Queue',href:this.lastQ||'#/queue'}];if(from)crumbs.push({label:from,href:'#/queue?incident='+from});crumbs.push({label:st.id,href:`#/stations/${st.id}${from?'?from='+from:''}`});crumbs.push({label:id});
+    return{id,flags:this.pFlags(p),stationId:st.id,stHref:`#/stations/${st.id}${from?'?from='+from:''}`,comp:p.comp,digits:p.digits,
+      result:withRes?this.resultVM(withRes,withRes.id):{has:false},bar:this.barVM(keys,list,isPhone),
+      noActions:!list.length,noActionsText:p.status==='pickedUp'?'No actions: parcel picked up.':p.status==='markedForReturn'?'No actions: parcel marked for return.':'No actions: no open incident acts on this parcel.',
+      arrived:this.dt(p.arrived),hold:this.dt(p.hold),
+      notifs:p.notifs.slice().reverse().map(n=>({ch:n.ch,time:this.dt(n.t),chip:n.ok?chip('ok','check','Delivered',1,1):chip('err','x','Not delivered',1,1)})),
+      incidents:incs.map(i=>this.incLink(i)),noInc:!incs.length,
+      history:this.db.events.filter(e=>e.pcl===id).sort((a,b)=>b.t-a.t||b.seq-a.seq).map(e=>this.evVM(e,1)),
+      crumbs:crumbs.map((c,i)=>({label:c.label,href:c.href,sep:i>0,isLink:!!c.href,isCur:!c.href}))};
+  }
+  renderVals(){
+    if(!this.db)this.boot();
+    const db=this.db,ui=this.ui,R=this.route,isPhone=this.w<768;
+    const D={};db.order.forEach(k=>D[k]=this.derive(db.incidents[k]));this.D=D;
+    const all=db.order.map(k=>db.incidents[k]);const BI={P1:0,P2:1,P3:2};
+    const need=all.filter(i=>i.status==='open'||i.status==='acknowledged').sort((a,b)=>{const x=D[a.id],y=D[b.id];return BI[x.band]-BI[y.band]||(x.band==='P1'?((y.waiting?1:0)-(x.waiting?1:0))||(x.waiting&&y.waiting?a.openedAt-b.openedAt:0):0)||(x.leftMin-y.leftMin)||(y.blocked-x.blocked)||(a.openedAt-b.openedAt)});
+    const inHand=all.filter(i=>i.status==='inProgress'||i.status==='awaitingField').sort((a,b)=>a.deadlineAt-b.deadlineAt);
+    const recov=all.filter(i=>i.status==='recovered').sort((a,b)=>a.deadlineAt-b.deadlineAt);
+    const resolved=all.filter(i=>i.status==='resolved').sort((a,b)=>b.resolvedAt-a.resolvedAt);
+    const pos={};need.forEach(i=>pos[i.id]='need'+D[i.id].band);inHand.forEach(i=>pos[i.id]='hand');recov.forEach(i=>pos[i.id]='rec');resolved.forEach(i=>pos[i.id]='res');
+    Object.keys(pos).forEach(k=>{if(this.prevPos[k]!==undefined&&this.prevPos[k]!==pos[k])this.movedAt[k]=Date.now()});this.prevPos=pos;
+    const cnt={P1:0,P2:0,P3:0};need.forEach(i=>cnt[D[i.id].band]++);
+    const sts=Object.values(db.stations);const SS={};sts.forEach(s=>SS[s.id]=this.stState(s));
+    const offlineN=sts.filter(s=>SS[s.id]==='offline').length;const delayedL=sts.filter(s=>SS[s.id]==='delayed');const reporting=sts.filter(s=>SS[s.id]!=='offline').length;
+    const tf=R.view==='queue'?R.type:[],bf=R.view==='queue'?R.band:[];
+    const tOk=i=>!tf.length||tf.includes(i.type),bOk=i=>!bf.length||bf.includes(D[i.id].band);
+    const sel=R.view==='queue'&&R.incident?db.incidents[R.incident]:null;
+    const rowVM=(inc,sec)=>{
+      const d=D[inc.id];const isSel=sel&&sel.id===inc.id;const moved=this.movedAt[inc.id]&&Date.now()-this.movedAt[inc.id]<1600;const ranked=sec==='need';
+      let why;if(ranked)why=d.why.join(' · ');else if(inc.status==='inProgress')why=ACT[inc.running].ing;else if(inc.status==='awaitingField')why=`Field task ${inc.task.id} due ${this.hm(inc.task.due)}${inc.task.due<this.now()?' · breached':''}${d.blocked?' · '+d.blocked+' parcels blocked':''}`;else if(inc.status==='recovered')why=`Condition cleared at ${this.hm(inc.recoveredAt)} · Confirm to close`;else why=`Outcome: ${inc.outcome} · ${inc.resolvedBy}`;
+      const chips=[];if(inc.status!=='open'&&!(sec==='res'))chips.push(this.statusChip(inc.status,1));if(inc.owner&&inc.owner!=='You'&&inc.status!=='resolved')chips.push(chip('owner','ring',inc.owner,0,1));if(d.ss==='delayed')chips.push(chip('unk','clock','Signal delayed',0,1));if(inc.stress)chips.push(chip('tag','dot','Illustrative',1,1));
+      const leadMap={inProgress:['spin','var(--info)'],awaitingField:['clock','var(--info)'],recovered:['recover','var(--ok)'],resolved:['check','var(--ok)']};const lm=leadMap[inc.status]||['ring','var(--text)'];
+      return{id:inc.id,sel:isSel?'true':'false',isBand:ranked,notBand:!ranked,band:bandVM(d.band),lead:ic(lm[0]),leadStyle:{display:'inline-flex',alignItems:'center',justifyContent:'center',width:30,height:22,color:lm[1]},
+        type:TYPES[inc.type],station:inc.stationId,city:d.st.city,why,dl:inc.status==='resolved'?{text:this.hm(inc.resolvedAt),style:{font:"500 13px/1.2 'JetBrains Mono'",color:'var(--text-muted)',justifySelf:'end',paddingTop:2}}:this.countdown(inc),
+        chips,hasChips:chips.length>0,onClick:()=>this.select(inc.id),
+        style:{display:'grid',gridTemplateColumns:'auto minmax(0,1fr) auto',gap:'4px 12px',width:'100%',padding:'12px 16px',border:'none',borderBottom:'1px solid var(--border)',textAlign:'left',color:'inherit',font:'inherit',cursor:'pointer',transition:'background 600ms cubic-bezier(.2,0,0,1)',background:moved?'var(--moved)':isSel?'var(--accent-soft)':'var(--surface)',outline:isSel?'1.5px solid var(--accent-text)':'none',outlineOffset:'-1.5px'}};
+    };
+    const fLabel=bf.length?bf.join(', '):'';const tLabel=tf.length?tf.map(t=>TYPES[t]).join(', '):'';
+    const needF=need.filter(i=>tOk(i)&&bOk(i));
+    const emptyNeed=needF.length?'':(tf.length||bf.length)?(tf.length&&bf.length?'No matching incidents.':`No ${fLabel||tLabel} incidents.`):`Nothing needs attention. ${reporting} stations reporting.`;
+    const mk=(key,title,list,sec,note,showEmpty,emptyText)=>{const rows=list.map(i=>rowVM(i,sec));const open=!ui.collapsed[key];return{key,title,count:list.length,open,chev:open?'M3 4.5l3 3 3-3':'M4.5 3l3 3-3 3',toggle:()=>{ui.collapsed[key]=!ui.collapsed[key];this.bump()},rows:ui.loading?[]:rows,loading:!!ui.loading,note:note||'',isEmpty:!ui.loading&&!rows.length&&showEmpty,emptyText:emptyText||'None.',hasClear:key==='need'&&!!(tf.length||bf.length),tip:key==='need'&&ui.ruleTip,tipOn:()=>{if(key==='need'){ui.ruleTip=true;this.bump()}},tipOff:()=>{if(ui.ruleTip){ui.ruleTip=false;this.bump()}}}};
+    const sections=[mk('need','Needs attention',needF,'need','Ranked by rule · Proposed',true,emptyNeed),mk('inHand','In hand',inHand.filter(tOk),'hand','by deadline · not ranked',true,'Nothing in hand.')];
+    const rf=recov.filter(tOk);if(rf.length)sections.push(mk('recovered','Recovered: confirm to close',rf,'rec','by deadline',false));
+    sections.push(mk('resolved','Resolved today',resolved.filter(tOk),'res','',true,'None yet.'));
+    this.visIds=[];sections.forEach(s=>{if(s.open)s.rows.forEach(r=>this.visIds.push(r.id))});
+    const chipStyle=on=>Object.assign({display:'inline-flex',alignItems:'center',gap:6,height:isPhone?40:30,padding:'0 12px',borderRadius:999,font:'500 12px/1 Inter',cursor:'pointer',boxSizing:'border-box'},on?{border:'1px solid var(--text)',background:'var(--text)',color:'var(--surface)'}:{border:'1px solid var(--border-strong)',background:'transparent',color:'var(--text)'});
+    const tog=(arr,v)=>arr.includes(v)?arr.filter(x=>x!==v):arr.concat(v);
+    const typeChips=Object.keys(TYPES).map(t=>({label:TYPES[t],count:need.filter(i=>i.type===t).length,pressed:tf.includes(t),style:chipStyle(tf.includes(t)),onClick:()=>this.setQ({type:tog(tf,t)})}));
+    const bandChips=['P1','P2','P3'].map(b=>({label:b,count:cnt[b],pressed:bf.includes(b),style:chipStyle(bf.includes(b)),onClick:()=>this.setQ({band:tog(bf,b)})}));
+    const roleStyle=on=>({height:isPhone?40:26,padding:'0 12px',borderRadius:999,border:'none',background:on?'var(--surface)':'transparent',color:on?'var(--text)':'var(--text-2)',font:'500 12px/1 Inter',boxShadow:on?'0 0 0 1px var(--border-strong)':'none',cursor:'pointer'});
+    const itemStyle=dis=>({display:'flex',flexDirection:'column',alignItems:'flex-start',gap:2,width:'100%',padding:isPhone?'12px':'10px 14px',minHeight:isPhone?44:0,border:'none',borderBottom:'1px solid var(--border)',background:'transparent',color:dis?'var(--text-muted)':'var(--text)',textAlign:'left',cursor:dis?'not-allowed':'pointer'});
+    const awaiting=all.filter(i=>i.status==='awaitingField');
+    const demoItems=[];
+    awaiting.forEach(i=>demoItems.push({label:`Complete field task · ${i.id}`,sub:`${i.task.id} on ${i.stationId}. Resolves the incident.`,disabled:false,style:itemStyle(false),onClick:()=>{ui.demoOpen=false;ui.menuOpen=false;this.completeTask(i.id)}}));
+    if(!awaiting.length)demoItems.push({label:'Complete field task',sub:'No field task is open.',disabled:true,style:itemStyle(true),onClick:()=>{}});
+    demoItems.push({label:db.stress?'Stress test active':'Stress test',sub:db.stress?'40 illustrative incidents added. Reset removes them.':'Adds 40 illustrative incidents.',disabled:db.stress,style:itemStyle(db.stress),onClick:()=>{if(db.stress)return;ui.demoOpen=false;ui.menuOpen=false;this.stress();this.bump()}});
+    demoItems.push({label:ui.failNext?'Next submit will fail':'Fail next submit',sub:ui.failNext?'Run any action to see "Could not send".':'Shows the "Could not send. Nothing changed." state once.',disabled:ui.failNext,style:itemStyle(ui.failNext),onClick:()=>{if(ui.failNext)return;ui.failNext=true;ui.demoOpen=false;ui.menuOpen=false;this.bump()}});
+    demoItems.push({label:'Reset',sub:'Restores the seed data and the 14:00 clock.',disabled:false,style:itemStyle(false),onClick:()=>{this.reset(false);this.bump()}});
+    const isQueue=R.view==='queue';
+    const vals={
+      theme:ui.theme,isPhone,isDesk:!isPhone,
+      hdr:{p1:cnt.P1,p2:cnt.P2,p3:cnt.P3,offline:offlineN,delayed:delayedL.length,clock:this.hm(this.now()),
+        onP1:()=>this.setQ({band:['P1'],type:[]},R.view!=='queue'),onP2:()=>this.setQ({band:['P2'],type:[]},R.view!=='queue'),onP3:()=>this.setQ({band:['P3'],type:[]},R.view!=='queue'),onOffline:()=>this.setQ({type:['offline'],band:[]},R.view!=='queue'),onDelayed:()=>{if(delayedL.length)this.go('#/stations/'+delayedL[0].id)}},
+      isOperator:ui.role==='operator',isSupervisor:ui.role==='supervisor',roleOpStyle:roleStyle(ui.role==='operator'),roleSupStyle:roleStyle(ui.role==='supervisor'),
+      setOperator:()=>{ui.role='operator';ui.pending=null;this.bump()},setSupervisor:()=>{ui.role='supervisor';ui.pending=null;this.bump()},
+      themeLabel:ui.theme==='dark'?'Light theme':'Dark theme',toggleTheme:()=>{ui.theme=ui.theme==='dark'?'light':'dark';if(!this.scene){try{localStorage.setItem('picksy-theme',ui.theme)}catch(e){}}this.bump()},
+      demoOpen:ui.demoOpen,toggleDemo:()=>{ui.demoOpen=!ui.demoOpen;this.bump()},menuOpen:ui.menuOpen,toggleMenu:()=>{ui.menuOpen=!ui.menuOpen;this.bump()},demoItems,
+      isQueue,isStation:R.view==='station',isParcel:R.view==='parcel',
+      showQ:isQueue&&(!isPhone||!sel),showP:isQueue&&(!isPhone||!!sel),noSel:!sel,hasSel:!!sel,
+      qColStyle:{display:'flex',flexDirection:'column',minHeight:0,width:isPhone?'100%':'40%',minWidth:isPhone?0:380,maxWidth:isPhone?'none':560,flex:isPhone?'1':'none',borderRight:isPhone?'none':'1px solid var(--border)',background:'var(--surface)'},
+      pColStyle:{flex:1,minWidth:0,overflow:'auto',background:'var(--canvas)'},
+      pInnerStyle:{maxWidth:880,padding:isPhone?'12px 12px 0':'20px 24px 40px',display:'flex',flexDirection:'column',gap:16},
+      typeChips,bandChips,hasFilter:!!(tf.length||bf.length),clearFilters:()=>this.setQ({type:[],band:[]}),sections,ruleText:RULE,
+      backToQueue:()=>this.setQ({incident:null}),
+      headRef:el=>{this.headEl=el},confirmRef:this.confirmRef||(this.confirmRef=el=>{if(el&&el!==this._cf){this._cf=el;try{el.focus({preventScroll:true})}catch(e){}}if(!el)this._cf=null}),
+      p:sel?this.panelVM(sel,isPhone):{},
+      s:R.view==='station'?(this.stationVM(R.id,R.from,isPhone)||{}):{},
+      pc:R.view==='parcel'?(this.parcelVM(R.id,R.from,isPhone)||{}):{},
+      toasts:ui.toasts.map(t=>({text:t.text,onView:()=>{ui.toasts=ui.toasts.filter(x=>x!==t);this.select(t.incId)}})),
+      toastWrap:Object.assign({position:'absolute',display:'flex',flexDirection:'column',gap:8,zIndex:40},isPhone?{left:12,right:12,bottom:12}:{right:20,bottom:20})
+    };
+    return vals;
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+:root,[data-theme="light"]{--canvas:#f7f7f6;--surface:#ffffff;--sunken:#f2f2f2;--border:#e8eae8;--border-strong:#8a8f8a;--text:#111312;--text-2:#3d423e;--text-muted:#5f645f;--accent:#84b926;--accent-ink:#0a0b0a;--accent-text:#4a6b22;--accent-soft:#eef6df;--focus:#4a6b22;--focus-halo:#84b92673;--ok:#3f6e14;--ok-bg:#e8f2de;--warn:#8a5a06;--warn-bg:#fbf1dc;--err:#a8321f;--err-bg:#f9e4e0;--info:#335f7c;--info-bg:#e2edf3;--unk:#565b57;--unk-bg:#f2f2f2;--unk-border:#8a8f8a;--p1-bg:#111312;--p1-fg:#ffffff;--p2-line:#111312;--p2-fg:#111312;--p3-line:#bfc3bf;--p3-fg:#5f645f;--moved:#fbf1dc;--skeleton:#e8eae8;--shadow-2:0 8px 24px rgba(10,11,10,.10),0 1px 2px rgba(10,11,10,.08);color-scheme:light}
+[data-theme="dark"]{--canvas:#0a0b0a;--surface:#111312;--sunken:#1b1e1c;--border:#2a2e2b;--border-strong:#6e736f;--text:#f2f2f2;--text-2:#c6cac6;--text-muted:#9ca19c;--accent:#a6e22e;--accent-ink:#0a0b0a;--accent-text:#a6e22e;--accent-soft:#1c2610;--focus:#a6e22e;--focus-halo:#a6e22e59;--ok:#8fcb5c;--ok-bg:#18240f;--warn:#e8b552;--warn-bg:#2a200c;--err:#f2856f;--err-bg:#2e1612;--info:#86b6d6;--info-bg:#0f1f29;--unk:#b1b6b1;--unk-bg:#1b1e1c;--unk-border:#7d827d;--p1-bg:#f2f2f2;--p1-fg:#0a0b0a;--p2-line:#f2f2f2;--p2-fg:#f2f2f2;--p3-line:#3d423e;--p3-fg:#9ca19c;--moved:#2a200c;--skeleton:#2a2e2b;--shadow-2:0 8px 24px rgba(0,0,0,.5),0 1px 2px rgba(0,0,0,.4);color-scheme:dark}
+@keyframes dcspin{to{transform:rotate(360deg)}}
+@keyframes dcpulse{0%,100%{opacity:1}50%{opacity:.5}}
+</style>
+</helmet>
+<div style="background:var(--canvas);color:var(--text);font-family:Inter,system-ui,sans-serif;font-size:14px;line-height:1.5;font-feature-settings:'tnum' 1,'cv11' 1;padding:24px;display:flex;flex-direction:column;gap:0">
+
+  <!-- Labels + disclaimer -->
+  <div style="display:flex;flex-direction:column;gap:12px;padding:0 0 20px">
+    <div style="font:500 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">ConceptLabel · DisclaimerBar</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+      <span style="display:inline-flex;align-items:center;height:20px;padding:0 7px;border-radius:6px;border:1px dashed var(--border-strong);font:500 11px/1 'JetBrains Mono';color:var(--text-2)">Illustrative</span>
+      <span style="display:inline-flex;align-items:center;height:20px;padding:0 7px;border-radius:6px;border:1px solid var(--border-strong);font:500 11px/1 'JetBrains Mono';color:var(--text-2)">Proposed</span>
+      <span style="display:inline-flex;align-items:center;height:20px;padding:0 7px;border-radius:6px;background:var(--sunken);font:500 11px/1 'JetBrains Mono';color:var(--text-2)">Demo control</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:6px;background:var(--sunken);font:400 12px/1.4 Inter;color:var(--text-2)">
+      <span style="width:6px;height:6px;border-radius:999px;background:var(--text-muted);flex:none"></span>
+      <span>Independent concept. Not affiliated with or endorsed by Delivery One. Illustrative data.</span>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <div style="display:flex;flex-direction:column;gap:12px;padding:20px 0;border-top:1px solid var(--border)">
+    <div style="font:500 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">AppHeader · desktop</div>
+    <div style="display:flex;flex-direction:column;border:1px solid var(--border);border-radius:10px;background:var(--surface);overflow:hidden">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;padding:10px 14px">
+        <div style="font:600 14px/1.2 Inter;letter-spacing:-.01em">PicksyOS Operations Console<span style="color:var(--accent-text)">.</span></div>
+        <div style="display:flex;flex-wrap:wrap;gap:4px;margin-left:auto">
+          <button style="display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--text);font:500 12px/1 Inter;cursor:pointer"><span style="font:600 11px/1 'JetBrains Mono';padding:2px 4px;border-radius:4px;background:var(--p1-bg);color:var(--p1-fg)">P1</span>2</button>
+          <button style="display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--text);font:500 12px/1 Inter;cursor:pointer"><span style="font:600 11px/1 'JetBrains Mono';padding:1px 3px;border-radius:4px;border:1px solid var(--p2-line);color:var(--p2-fg)">P2</span>2</button>
+          <button style="display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--text);font:500 12px/1 Inter;cursor:pointer"><span style="font:600 11px/1 'JetBrains Mono';padding:1px 3px;border-radius:4px;border:1px solid var(--p3-line);color:var(--p3-fg)">P3</span>3</button>
+          <button style="display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--err);font:500 12px/1 Inter;cursor:pointer"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="6" cy="6" r="4.5"></circle><path d="M4.2 4.2l3.6 3.6M7.8 4.2L4.2 7.8"></path></svg><span style="color:var(--text)">Offline 4</span></button>
+          <button style="display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:999px;border:1px dashed var(--unk-border);background:transparent;color:var(--unk);font:500 12px/1 Inter;cursor:pointer"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="6" cy="6" r="4.5"></circle><path d="M6 3.6V6l1.6 1"></path></svg><span style="color:var(--text)">Signal delayed 1</span></button>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span style="font:500 13px/1 'JetBrains Mono';color:var(--text-2)">14:00</span>
+          <div style="display:inline-flex;align-items:center;gap:6px">
+            <div style="display:inline-flex;padding:2px;border-radius:999px;background:var(--sunken)">
+              <button style="height:24px;padding:0 10px;border-radius:999px;border:none;background:var(--surface);color:var(--text);font:500 12px/1 Inter;box-shadow:0 0 0 1px var(--border);cursor:pointer">Operator</button>
+              <button style="height:24px;padding:0 10px;border-radius:999px;border:none;background:transparent;color:var(--text-2);font:500 12px/1 Inter;cursor:pointer">Supervisor</button>
+            </div>
+            <span style="display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:6px;border:1px solid var(--border-strong);font:500 11px/1 'JetBrains Mono';color:var(--text-2)">Proposed</span>
+          </div>
+          <button style="display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 12px;border-radius:999px;border:1px solid var(--border-strong);background:transparent;color:var(--text);font:500 12px/1 Inter;cursor:pointer">Demo controls<svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 4.5l3 3 3-3"></path></svg></button>
+        </div>
+      </div>
+      <div style="padding:5px 14px;border-top:1px solid var(--border);background:var(--sunken);font:400 12px/1.4 Inter;color:var(--text-2)">Independent concept. Not affiliated with or endorsed by Delivery One. Illustrative data.</div>
+    </div>
+    <div style="font:500 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">AppHeader · phone (&lt;768)</div>
+    <div style="width:340px;max-width:100%;display:flex;flex-direction:column;border:1px solid var(--border);border-radius:10px;background:var(--surface);overflow:hidden">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px">
+        <div style="font:600 13px/1.2 Inter">PicksyOS Ops<span style="color:var(--accent-text)">.</span></div>
+        <div style="display:flex;gap:8px;align-items:center;font:500 12px/1 'JetBrains Mono';color:var(--text)">
+          <span>P1 2</span><span>P2 2</span><span>P3 3</span><span style="color:var(--err)">✕4</span><span style="color:var(--unk);border:1px dashed var(--unk-border);border-radius:4px;padding:1px 3px">◷1</span>
+          <button style="width:28px;height:28px;border-radius:999px;border:1px solid var(--border-strong);background:transparent;color:var(--text);font:600 14px/1 Inter;cursor:pointer" aria-label="Menu: role, clock, demo controls">⋯</button>
+        </div>
+      </div>
+      <div style="padding:5px 12px;border-top:1px solid var(--border);background:var(--sunken);font:400 11px/1.4 Inter;color:var(--text-2)">Independent concept. Not affiliated with or endorsed by Delivery One. Illustrative data.</div>
+    </div>
+  </div>
+
+  <!-- Buttons -->
+  <div style="display:flex;flex-direction:column;gap:12px;padding:20px 0;border-top:1px solid var(--border)">
+    <div style="font:500 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Button · variant</div>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start">
+      <div style="display:flex;flex-direction:column;gap:6px"><button style="height:36px;padding:0 16px;border-radius:999px;border:none;background:var(--accent);color:var(--accent-ink);font:500 14px/1 Inter;cursor:pointer">Retry dispense</button><span style="font:400 11px/1.3 'JetBrains Mono';color:var(--text-muted)">primary · recommended</span></div>
+      <div style="display:flex;flex-direction:column;gap:6px"><button style="height:36px;padding:0 16px;border-radius:999px;border:1px solid var(--border-strong);background:transparent;color:var(--text);font:500 14px/1 Inter;cursor:pointer">Request field visit</button><span style="font:400 11px/1.3 'JetBrains Mono';color:var(--text-muted)">secondary</span></div>
+      <div style="display:flex;flex-direction:column;gap:6px"><button style="height:36px;padding:0 12px;border-radius:999px;border:none;background:transparent;color:var(--text);font:500 14px/1 Inter;text-decoration:underline;text-underline-offset:3px;cursor:pointer">Cancel</button><span style="font:400 11px/1.3 'JetBrains Mono';color:var(--text-muted)">quiet</span></div>
+      <div style="display:flex;flex-direction:column;gap:6px"><button style="height:28px;padding:0 12px;border-radius:999px;border:1px solid var(--border-strong);background:transparent;color:var(--text);font:500 12px/1 Inter;cursor:pointer">Acknowledge</button><span style="font:400 11px/1.3 'JetBrains Mono';color:var(--text-muted)">size sm</span></div>
+    </div>
+    <div style="font:500 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Button · state</div>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start">
+      <div style="display:flex;flex-direction:column;gap:6px"><button style="height:36px;padding:0 16px;border-radius:999px;border:none;background:var(--accent);color:var(--accent-ink);font:500 14px/1 Inter;filter:brightness(.94);cursor:pointer">Retry dispense</button><span style="font:400 11px/1.3 'JetBrains Mono';color:var(--text-muted)">hover</span></div>
+      <div style="display:flex;flex-direction:column;gap:6px"><button style="height:36px;padding:0 16px;border-radius:999px;border:none;background:var(--accent);color:var(--accent-ink);font:500 14px/1 Inter;outline:2px solid var(--focus);outline-offset:2px;box-shadow:0 0 0 6px var(--focus-halo);cursor:pointer">Retry dispense</button><span style="font:400 11px/1.3 'JetBrains Mono';color:var(--text-muted)">focus-visible</span></div>
+      <div style="display:flex;flex-direction:column;gap:6px"><button style="display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 16px;border-radius:999px;border:none;background:var(--accent);color:var(--accent-ink);font:500 14px/1 Inter;cursor:progress"><svg viewBox="0 0 12 12" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" style="animation:dcspin .9s linear infinite"><circle cx="6" cy="6" r="4.5" stroke-dasharray="18 10"></circle></svg>Retrying dispense…</button><span style="font:400 11px/1.3 'JetBrains Mono';color:var(--text-muted)">processing · aria-busy</span></div>
+      <div style="display:flex;flex-direction:column;gap:6px;max-width:220px"><button disabled="" style="height:36px;padding:0 16px;border-radius:999px;border:1px dashed var(--border-strong);background:transparent;color:var(--text-muted);font:500 14px/1 Inter;cursor:not-allowed">Switch to backup connection</button><span style="font:400 12px/1.4 Inter;color:var(--text-2)">No LTE backup on this station</span><span style="font:400 11px/1.3 'JetBrains Mono';color:var(--text-muted)">disabled + reason</span></div>
+      <div style="display:flex;flex-direction:column;gap:6px;max-width:220px"><button disabled="" style="display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 16px;border-radius:999px;border:1px dashed var(--border-strong);background:transparent;color:var(--text-muted);font:500 14px/1 Inter;cursor:not-allowed"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2.5" y="5.5" width="7" height="5" rx="1"></rect><path d="M4 5.5V4a2 2 0 014 0v1.5"></path></svg>Mark for return</button><span style="font:400 12px/1.4 Inter;color:var(--text-2)">Supervisor approval needed</span><span style="font:400 11px/1.3 'JetBrains Mono';color:var(--text-muted)">locked (role)</span></div>
+      <div style="display:flex;flex-direction:column;gap:6px"><button disabled="" style="height:36px;padding:0 16px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--text-muted);font:500 14px/1 Inter;cursor:not-allowed">Request field visit</button><span style="font:400 11px/1.3 'JetBrains Mono';color:var(--text-muted)">disabled · action running</span></div>
+    </div>
+  </div>
+
+  <!-- Priority / status / station / freshness -->
+  <div style="display:flex;flex-direction:column;gap:12px;padding:20px 0;border-top:1px solid var(--border)">
+    <div style="font:500 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">PriorityBadge · band (weight, not hue)</div>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+      <span style="display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:22px;padding:0 6px;border-radius:6px;background:var(--p1-bg);color:var(--p1-fg);font:600 12px/1 'JetBrains Mono'">P1</span>
+      <span style="display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:22px;padding:0 5px;border-radius:6px;border:1.5px solid var(--p2-line);color:var(--p2-fg);font:600 12px/1 'JetBrains Mono';box-sizing:border-box">P2</span>
+      <span style="display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:22px;padding:0 5px;border-radius:6px;border:1px solid var(--p3-line);color:var(--p3-fg);font:500 12px/1 'JetBrains Mono';box-sizing:border-box">P3</span>
+      <span style="font:400 12px/1.4 Inter;color:var(--text-muted)">Solid → outlined → hairline. Breach and status keep their own hues.</span>
+    </div>
+
+    <div style="font:500 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">IncidentStatusChip · status</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+      <span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:999px;border:1px solid var(--border-strong);color:var(--text);font:500 12px/1 Inter"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="4"></circle></svg>Open</span>
+      <span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:999px;background:var(--info-bg);color:var(--info);font:500 12px/1 Inter"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="4"></circle><circle cx="6" cy="6" r="1.6" fill="currentColor"></circle></svg>Acknowledged</span>
+      <span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:999px;background:var(--info-bg);color:var(--info);font:500 12px/1 Inter"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" style="animation:dcspin .9s linear infinite"><circle cx="6" cy="6" r="4" stroke-dasharray="16 10"></circle></svg>Action in progress</span>
+      <span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:999px;background:var(--info-bg);color:var(--info);font:500 12px/1 Inter"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="6" cy="6" r="4.5"></circle><path d="M6 3.6V6l1.6 1"></path></svg>Awaiting field service</span>
+      <span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:999px;background:var(--ok-bg);color:var(--ok);font:500 12px/1 Inter"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.6 6.4A3.6 3.6 0 1 1 8.5 3.4"></path><path d="M8.8 1.6v2.2H6.6"></path></svg>Recovered</span>
+      <span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:999px;background:var(--ok-bg);color:var(--ok);font:500 12px/1 Inter"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.3l2.4 2.4 4.6-5"></path></svg>Resolved</span>
+    </div>
+
+    <div style="font:500 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">StationStateChip · state + availability</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+      <span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:999px;background:var(--ok-bg);color:var(--ok);font:500 12px/1 Inter"><svg viewBox="0 0 12 12" width="10" height="10"><circle cx="6" cy="6" r="4" fill="currentColor"></circle></svg>Online · All</span>
+      <span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:999px;background:var(--warn-bg);color:var(--warn);font:500 12px/1 Inter"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M6 1.8l4.4 7.9H1.6z"></path></svg>Degraded · Partial</span>
+      <span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:999px;border:1px dashed var(--unk-border);background:var(--unk-bg);color:var(--unk);font:500 12px/1 Inter"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="6" cy="6" r="4.5"></circle><path d="M6 3.6V6l1.6 1"></path></svg>Signal delayed · Unknown</span>
+      <span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:999px;background:var(--err-bg);color:var(--err);font:500 12px/1 Inter"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="6" cy="6" r="4.5"></circle><path d="M4.2 4.2l3.6 3.6M7.8 4.2L4.2 7.8"></path></svg>Offline · None</span>
+      <span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:999px;border:1px solid var(--err);color:var(--err);font:500 12px/1 Inter"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="6" cy="6" r="4.5"></circle><path d="M2.9 9.1l6.2-6.2"></path></svg>Out of service · None</span>
+    </div>
+
+    <div style="font:500 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Freshness · fresh / delayed / offline</div>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center">
+      <span style="font:500 12px/1 'JetBrains Mono';color:var(--text-2)">Last seen 14:00 (fresh)</span>
+      <span style="display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 8px;border-radius:6px;border:1px dashed var(--unk-border);color:var(--unk);font:500 12px/1 'JetBrains Mono'"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="6" cy="6" r="4.5"></circle><path d="M6 3.6V6l1.6 1"></path></svg>as of 13:54 (6 min ago)</span>
+      <span style="font:500 12px/1 'JetBrains Mono';color:var(--err)">Last seen 09:35</span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:24px;padding:12px;border-radius:10px;border:1px dashed var(--unk-border);background:var(--unk-bg)">
+      <div style="display:flex;flex-direction:column;gap:2px"><span style="font:500 11px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Availability</span><span style="font:500 14px/1.3 Inter;color:var(--unk)">Unknown</span></div>
+      <div style="display:flex;flex-direction:column;gap:2px"><span style="font:500 11px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Parcels held</span><span style="font:500 14px/1.3 'JetBrains Mono';color:var(--unk)">12 <span style="font:400 11px/1 'JetBrains Mono'">as of 13:54</span></span></div>
+      <span style="font:400 11px/1.3 'JetBrains Mono';color:var(--text-muted);align-self:flex-end">StaleValue · greyed, never healthy (LIT-06)</span>
+    </div>
+  </div>
+
+  <!-- Deadline / parcel labels / owner -->
+  <div style="display:flex;flex-direction:column;gap:12px;padding:20px 0;border-top:1px solid var(--border)">
+    <div style="font:500 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">DeadlineCountdown · normal / ≤30 min / breached</div>
+    <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
+      <div style="display:flex;flex-direction:column;gap:3px"><span style="font:500 14px/1 'JetBrains Mono';color:var(--text)">1 h 56 m</span><span style="font:400 12px/1.3 Inter;color:var(--text-muted)">Contract target 2 h (illustrative)</span></div>
+      <div style="display:flex;flex-direction:column;gap:3px"><span style="display:inline-flex;align-items:center;gap:5px;font:600 14px/1 'JetBrains Mono';color:var(--warn)"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="6" cy="6" r="4.5"></circle><path d="M6 3.6V6l1.6 1"></path></svg>22 m</span><span style="font:400 12px/1.3 Inter;color:var(--text-muted)">Deadline in 22 min</span></div>
+      <div style="display:flex;flex-direction:column;gap:3px"><span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 7px;border-radius:6px;background:var(--err-bg);font:600 14px/1 'JetBrains Mono';color:var(--err)"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M6 1.8l4.4 7.9H1.6z"></path><path d="M6 5v1.8"></path></svg>−15 m</span><span style="font:400 12px/1.3 Inter;color:var(--err)">Breached 15 min ago</span></div>
+      <div style="display:flex;flex-direction:column;gap:3px"><span style="font:500 14px/1 'JetBrains Mono';color:var(--text)">7 h 20 m</span><span style="font:400 12px/1.3 Inter;color:var(--text-muted)">Internal target 8 h (proposed)</span></div>
+    </div>
+
+    <div style="font:500 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">ParcelLabel · label + flags</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+      <span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:6px;background:var(--ok-bg);color:var(--ok);font:500 12px/1 Inter"><svg viewBox="0 0 12 12" width="11" height="11"><circle cx="6" cy="6" r="3.5" fill="currentColor"></circle></svg>Ready for pickup</span>
+      <span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:6px;background:var(--err-bg);color:var(--err);font:500 12px/1 Inter"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2.5" y="5.5" width="7" height="5" rx="1"></rect><path d="M4 5.5V4a2 2 0 014 0v1.5"></path></svg>Blocked: retrieval fault</span>
+      <span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:6px;background:var(--err-bg);color:var(--err);font:500 12px/1 Inter"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2.5" y="5.5" width="7" height="5" rx="1"></rect><path d="M4 5.5V4a2 2 0 014 0v1.5"></path></svg>Blocked: station offline</span>
+      <span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:6px;background:var(--warn-bg);color:var(--warn);font:500 12px/1 Inter"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"><path d="M6 1.8l4.4 7.9H1.6z"></path><path d="M6 5v1.8"></path></svg>Code not delivered</span>
+      <span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:6px;background:var(--warn-bg);color:var(--warn);font:500 12px/1 Inter"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="6" cy="6" r="4.5"></circle><path d="M6 3.6V6l1.6 1"></path></svg>Hold expired</span>
+      <span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:6px;border:1px solid var(--border);color:var(--text-2);font:500 12px/1 Inter"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.3l2.4 2.4 4.6-5"></path></svg>Picked up</span>
+      <span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:6px;border:1px solid var(--border);color:var(--text-2);font:500 12px/1 Inter"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3L2.5 5.5 5 8"></path><path d="M2.5 5.5h5a2 2 0 010 4H6"></path></svg>Marked for return</span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+      <span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:6px;background:var(--err-bg);color:var(--err);font:500 12px/1 Inter"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2.5" y="5.5" width="7" height="5" rx="1"></rect><path d="M4 5.5V4a2 2 0 014 0v1.5"></path></svg>Blocked: station offline</span>
+      <span style="font:500 12px/1 Inter;color:var(--text-muted)">+</span>
+      <span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:6px;background:var(--warn-bg);color:var(--warn);font:500 12px/1 Inter"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"><path d="M6 1.8l4.4 7.9H1.6z"></path><path d="M6 5v1.8"></path></svg>Code not delivered</span>
+      <span style="font:400 11px/1.3 'JetBrains Mono';color:var(--text-muted)">multi-flag · PCL-0412</span>
+      <span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:6px;border:1px dashed var(--unk-border);color:var(--unk);font:500 12px/1 Inter"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="6" cy="6" r="4.5"></circle><path d="M6 3.6V6l1.6 1"></path></svg>Ready · availability unknown</span>
+      <span style="font:400 11px/1.3 'JetBrains Mono';color:var(--text-muted)">stale station · PCL-0610</span>
+    </div>
+
+    <div style="font:500 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">OwnerChip · FilterChip</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+      <span style="display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 8px 0 3px;border-radius:999px;background:var(--sunken);color:var(--text);font:500 12px/1 Inter"><span style="width:16px;height:16px;border-radius:999px;background:var(--border-strong);color:var(--surface);font:600 9px/16px Inter;text-align:center">B</span>Operator B</span>
+      <span style="width:12px"></span>
+      <button aria-pressed="false" style="display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 12px;border-radius:999px;border:1px solid var(--border-strong);background:transparent;color:var(--text);font:500 12px/1 Inter;cursor:pointer">Station offline <span style="font:500 12px/1 'JetBrains Mono';color:var(--text-muted)">4</span></button>
+      <button aria-pressed="true" style="display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 12px;border-radius:999px;border:1px solid var(--text);background:var(--text);color:var(--surface);font:500 12px/1 Inter;cursor:pointer"><svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.3l2.4 2.4 4.6-5"></path></svg>P1 <span style="font:500 12px/1 'JetBrains Mono';opacity:.8">2</span></button>
+      <button aria-pressed="false" disabled="" style="display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 12px;border-radius:999px;border:1px dashed var(--border);background:transparent;color:var(--text-muted);font:500 12px/1 Inter">Retrieval failure <span style="font:500 12px/1 'JetBrains Mono'">0</span></button>
+      <span style="display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:6px;border:1px dashed var(--border-strong);font:500 11px/1 'JetBrains Mono';color:var(--text-2)">Illustrative</span>
+    </div>
+  </div>
+
+  <!-- Queue -->
+  <div style="display:flex;flex-direction:column;gap:12px;padding:20px 0;border-top:1px solid var(--border)">
+    <div style="font:500 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">QueueSection + QueueRow · default / selected / owned / in progress / moved</div>
+    <div style="display:flex;flex-direction:column;border:1px solid var(--border);border-radius:10px;background:var(--surface);overflow:hidden">
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 14px;background:var(--sunken);border-bottom:1px solid var(--border)">
+        <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="var(--text-2)" stroke-width="1.6" stroke-linecap="round"><path d="M3 4.5l3 3 3-3"></path></svg>
+        <span style="font:600 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text)">Needs attention</span>
+        <span style="font:500 12px/1 'JetBrains Mono';color:var(--text-muted)">7</span>
+        <span style="margin-left:auto;font:400 12px/1 Inter;color:var(--text-muted);text-decoration:underline dotted;text-underline-offset:3px">Ranked by rule · Proposed</span>
+      </div>
+      <div style="display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 12px;padding:12px 14px;border-bottom:1px solid var(--border);cursor:pointer">
+        <span style="grid-row:span 2;display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:22px;padding:0 6px;border-radius:6px;background:var(--p1-bg);color:var(--p1-fg);font:600 12px/1 'JetBrains Mono'">P1</span>
+        <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;min-width:0"><span style="font:500 14px/1.3 Inter">Retrieval failure</span><span style="font:500 13px/1.3 'JetBrains Mono';color:var(--text-2)">WAL-01</span><span style="font:400 13px/1.3 Inter;color:var(--text-muted)">Istanbul</span></div>
+        <span style="font:500 13px/1.3 'JetBrains Mono';color:var(--text);text-align:right">1 h 56 m</span>
+        <div style="grid-column:2 / 4;font:400 13px/1.45 Inter;color:var(--text-2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">Recipient waiting at station · Deadline in 1 h 56 m · 1 parcel blocked</div>
+      </div>
+      <div style="display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 12px;padding:12px 14px;border-bottom:1px solid var(--border);background:var(--accent-soft);box-shadow:inset 0 0 0 1.5px var(--accent-text);cursor:pointer" aria-selected="true">
+        <span style="grid-row:span 2;display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:22px;padding:0 6px;border-radius:6px;background:var(--p1-bg);color:var(--p1-fg);font:600 12px/1 'JetBrains Mono'">P1</span>
+        <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;min-width:0"><span style="font:500 14px/1.3 Inter">Station offline</span><span style="font:500 13px/1.3 'JetBrains Mono';color:var(--text-2)">LIT-03</span><span style="font:400 13px/1.3 Inter;color:var(--text-muted)">Ankara</span></div>
+        <span style="display:inline-flex;align-items:center;gap:4px;height:20px;padding:0 6px;border-radius:6px;background:var(--err-bg);font:600 13px/1 'JetBrains Mono';color:var(--err)"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M6 1.8l4.4 7.9H1.6z"></path><path d="M6 5v1.8"></path></svg>−15 m</span>
+        <div style="grid-column:2 / 4;font:400 13px/1.45 Inter;color:var(--text-2)">Breached 15 min ago · No pickups possible · 18 parcels blocked</div>
+      </div>
+      <div style="display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 12px;padding:12px 14px;border-bottom:1px solid var(--border);cursor:pointer">
+        <span style="grid-row:span 3;display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:22px;padding:0 5px;border-radius:6px;border:1.5px solid var(--p2-line);color:var(--p2-fg);font:600 12px/1 'JetBrains Mono';box-sizing:border-box">P2</span>
+        <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;min-width:0"><span style="font:500 14px/1.3 Inter">Station offline</span><span style="font:500 13px/1.3 'JetBrains Mono';color:var(--text-2)">LIT-04</span><span style="font:400 13px/1.3 Inter;color:var(--text-muted)">Ankara</span></div>
+        <span style="font:500 13px/1.3 'JetBrains Mono';color:var(--text);text-align:right">3 h 35 m</span>
+        <div style="grid-column:2 / 4;font:400 13px/1.45 Inter;color:var(--text-2)">No pickups possible · 7 parcels blocked</div>
+        <div style="grid-column:2 / 4;display:flex;flex-wrap:wrap;gap:6px"><span style="display:inline-flex;align-items:center;gap:5px;height:20px;padding:0 7px;border-radius:999px;background:var(--info-bg);color:var(--info);font:500 11px/1 Inter"><svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="4"></circle><circle cx="6" cy="6" r="1.6" fill="currentColor"></circle></svg>Acknowledged</span><span style="display:inline-flex;align-items:center;gap:5px;height:20px;padding:0 7px 0 2px;border-radius:999px;background:var(--sunken);color:var(--text);font:500 11px/1 Inter"><span style="width:16px;height:16px;border-radius:999px;background:var(--border-strong);color:var(--surface);font:600 9px/16px Inter;text-align:center">B</span>Operator B</span></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 14px;background:var(--sunken);border-bottom:1px solid var(--border)">
+        <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="var(--text-2)" stroke-width="1.6" stroke-linecap="round"><path d="M3 4.5l3 3 3-3"></path></svg>
+        <span style="font:600 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text)">In hand</span>
+        <span style="font:500 12px/1 'JetBrains Mono';color:var(--text-muted)">1</span>
+        <span style="margin-left:auto;font:400 12px/1 Inter;color:var(--text-muted)">by deadline · not ranked</span>
+      </div>
+      <div style="display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 12px;padding:12px 14px;border-bottom:1px solid var(--border);background:var(--moved);cursor:pointer">
+        <span style="grid-row:span 3;display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:22px;padding:0 6px;border-radius:6px;background:var(--p1-bg);color:var(--p1-fg);font:600 12px/1 'JetBrains Mono'">P1</span>
+        <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;min-width:0"><span style="font:500 14px/1.3 Inter">Retrieval failure</span><span style="font:500 13px/1.3 'JetBrains Mono';color:var(--text-2)">WAL-01</span><span style="font:400 13px/1.3 Inter;color:var(--text-muted)">Istanbul</span></div>
+        <span style="font:500 13px/1.3 'JetBrains Mono';color:var(--text);text-align:right">1 h 56 m</span>
+        <div style="grid-column:2 / 4;font:400 13px/1.45 Inter;color:var(--text-2)">Retrying dispense…</div>
+        <div style="grid-column:2 / 4;display:flex;gap:6px"><span style="display:inline-flex;align-items:center;gap:5px;height:20px;padding:0 7px;border-radius:999px;background:var(--info-bg);color:var(--info);font:500 11px/1 Inter"><svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" style="animation:dcspin .9s linear infinite"><circle cx="6" cy="6" r="4" stroke-dasharray="16 10"></circle></svg>In progress</span><span style="font:400 11px/20px 'JetBrains Mono';color:var(--text-muted)">moved · highlight 600 ms</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 12px;padding:12px 14px;border-bottom:1px solid var(--border)">
+        <span style="grid-row:span 2;width:30px;height:22px;border-radius:6px;background:var(--skeleton);animation:dcpulse 1.4s ease-in-out infinite"></span>
+        <span style="height:14px;width:60%;border-radius:4px;background:var(--skeleton);animation:dcpulse 1.4s ease-in-out infinite"></span>
+        <span style="height:14px;width:48px;border-radius:4px;background:var(--skeleton);animation:dcpulse 1.4s ease-in-out infinite"></span>
+        <span style="grid-column:2 / 4;height:12px;width:85%;border-radius:4px;background:var(--skeleton);animation:dcpulse 1.4s ease-in-out infinite"></span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 14px;background:var(--sunken)">
+        <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="var(--text-2)" stroke-width="1.6" stroke-linecap="round"><path d="M4.5 3l3 3-3 3"></path></svg>
+        <span style="font:600 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text)">Resolved today</span>
+        <span style="font:500 12px/1 'JetBrains Mono';color:var(--text-muted)">2</span>
+        <span style="margin-left:auto;font:400 12px/1 Inter;color:var(--text-muted)">collapsed</span>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:12px">
+      <div style="flex:1 1 240px;display:flex;flex-direction:column;gap:4px;padding:16px;border:1px solid var(--border);border-radius:10px;background:var(--surface)"><span style="font:500 14px/1.4 Inter">Nothing needs attention. 12 stations reporting.</span><span style="font:400 11px/1.3 'JetBrains Mono';color:var(--text-muted)">EmptyState · queue</span></div>
+      <div style="flex:1 1 240px;display:flex;flex-direction:column;gap:4px;padding:16px;border:1px solid var(--border);border-radius:10px;background:var(--surface)"><span style="font:500 14px/1.4 Inter">No P1 incidents. <a href="#" style="color:var(--accent-text);text-underline-offset:3px">Clear filter</a></span><span style="font:400 11px/1.3 'JetBrains Mono';color:var(--text-muted)">EmptyState · filtered</span></div>
+    </div>
+  </div>
+
+  <!-- Panel blocks -->
+  <div style="display:flex;flex-direction:column;gap:12px;padding:20px 0;border-top:1px solid var(--border)">
+    <div style="font:500 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">IncidentHeader</div>
+    <div style="display:flex;flex-direction:column;gap:10px;padding:16px;border:1px solid var(--border);border-radius:14px;background:var(--surface)">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px"><span style="font:500 13px/1 'JetBrains Mono';color:var(--text-muted)">INC-101</span><span style="display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:22px;padding:0 6px;border-radius:6px;background:var(--p1-bg);color:var(--p1-fg);font:600 12px/1 'JetBrains Mono'">P1</span><span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:999px;border:1px solid var(--border-strong);color:var(--text);font:500 12px/1 Inter"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="4"></circle></svg>Open</span><span style="display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:6px;border:1px dashed var(--border-strong);font:500 11px/1 'JetBrains Mono';color:var(--text-2)">Illustrative type</span></div>
+      <h3 tabindex="-1" style="margin:0;font:600 20px/1.25 Inter;letter-spacing:-.02em">Retrieval failure</h3>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px"><a href="#" style="font:500 13px/1 'JetBrains Mono';color:var(--text);text-underline-offset:3px">WAL-01</a><span style="font:400 13px/1 Inter;color:var(--text-muted)">Istanbul · Customer A</span><span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:999px;background:var(--warn-bg);color:var(--warn);font:500 12px/1 Inter"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M6 1.8l4.4 7.9H1.6z"></path></svg>Degraded</span></div>
+      <ul style="margin:0;padding:0 0 0 18px;font:400 13px/1.6 Inter;color:var(--text-2)"><li>Recipient waiting at station</li><li>Deadline in 1 h 56 m</li><li>1 parcel blocked</li></ul>
+      <div style="display:flex;flex-wrap:wrap;gap:24px;padding-top:10px;border-top:1px solid var(--border)">
+        <div style="display:flex;flex-direction:column;gap:3px"><span style="font:500 11px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Deadline 15:56</span><span style="font:500 14px/1 'JetBrains Mono'">1 h 56 m</span><span style="font:400 12px/1.3 Inter;color:var(--text-muted)">Contract target 2 h (illustrative)</span></div>
+        <div style="display:flex;flex-direction:column;gap:3px"><span style="font:500 11px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Opened</span><span style="font:500 14px/1 'JetBrains Mono'">13:56</span></div>
+        <div style="display:flex;flex-direction:column;gap:3px"><span style="font:500 11px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Owner</span><span style="font:500 14px/1 Inter;color:var(--text-muted)">None</span></div>
+      </div>
+    </div>
+
+    <div style="font:500 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">RecommendedAction + ActionBar + InlineConfirm</div>
+    <div style="display:flex;flex-direction:column;gap:12px;padding:16px;border:1px solid var(--border);border-radius:14px;background:var(--surface)">
+      <div style="display:flex;flex-direction:column;gap:4px"><span style="font:500 11px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-text)">Recommended · Proposed action</span><span style="font:400 13px/1.45 Inter;color:var(--text-2)">Recipient code accepted, parcel did not reach hatch.</span></div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px"><button aria-expanded="true" style="height:36px;padding:0 16px;border-radius:999px;border:none;background:var(--accent);color:var(--accent-ink);font:500 14px/1 Inter;cursor:pointer">Retry dispense</button><button style="height:36px;padding:0 16px;border-radius:999px;border:1px solid var(--border-strong);background:transparent;color:var(--text);font:500 14px/1 Inter;cursor:pointer">Set station out of service</button><button style="height:36px;padding:0 16px;border-radius:999px;border:1px solid var(--border-strong);background:transparent;color:var(--text);font:500 14px/1 Inter;cursor:pointer">Request field visit</button></div>
+      <div role="group" aria-label="Confirm Retry dispense" style="display:flex;flex-direction:column;gap:10px;padding:12px 14px;border-radius:10px;border:1px solid var(--border-strong);background:var(--sunken)">
+        <span style="font:400 14px/1.45 Inter;color:var(--text)">Moves PCL-0107 to the hatch at WAL-01. The recipient may be waiting.</span>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px"><button style="height:32px;padding:0 14px;border-radius:999px;border:none;background:var(--text);color:var(--surface);font:500 13px/1 Inter;cursor:pointer">Confirm</button><button style="height:32px;padding:0 10px;border-radius:999px;border:none;background:transparent;color:var(--text);font:500 13px/1 Inter;text-decoration:underline;text-underline-offset:3px;cursor:pointer">Cancel</button><span style="margin-left:auto;font:400 11px/1 'JetBrains Mono';color:var(--text-muted)">Esc cancels · Proposed</span></div>
+      </div>
+      <div role="group" style="display:flex;flex-direction:column;gap:10px;padding:12px 14px;border-radius:10px;border:1px solid var(--border-strong);background:var(--sunken)">
+        <span style="font:400 14px/1.45 Inter;color:var(--text)">Closes the incident as Recipient unreachable. The parcel stays until its hold period ends.</span>
+        <label style="display:flex;flex-direction:column;gap:4px;font:500 12px/1.3 Inter;color:var(--text-2)">Note (required)<textarea rows="2" style="font:400 14px/1.4 Inter;padding:8px 10px;border-radius:6px;border:1px solid var(--border-strong);background:var(--surface);color:var(--text);resize:vertical"></textarea></label>
+        <div style="display:flex;gap:8px"><button disabled="" style="height:32px;padding:0 14px;border-radius:999px;border:1px dashed var(--border-strong);background:transparent;color:var(--text-muted);font:500 13px/1 Inter">Confirm</button><button style="height:32px;padding:0 10px;border-radius:999px;border:none;background:transparent;color:var(--text);font:500 13px/1 Inter;text-decoration:underline;text-underline-offset:3px;cursor:pointer">Cancel</button></div>
+        <span style="font:400 11px/1.3 'JetBrains Mono';color:var(--text-muted)">InlineConfirm · noteRequired</span>
+      </div>
+    </div>
+
+    <div style="font:500 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">ResultNotice · success / failure / ownership / submit failed</div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div role="status" style="display:flex;gap:10px;align-items:flex-start;padding:10px 14px;border-radius:10px;background:var(--ok-bg);color:var(--ok)"><svg viewBox="0 0 12 12" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:2px"><path d="M2.5 6.3l2.4 2.4 4.6-5"></path></svg><span style="font:500 14px/1.45 Inter">Parcel delivered to hatch. Incident resolved.</span></div>
+      <div role="alert" style="display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start;padding:10px 14px;border-radius:10px;background:var(--err-bg);color:var(--err)"><svg viewBox="0 0 12 12" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" style="flex:none;margin-top:2px"><circle cx="6" cy="6" r="4.5"></circle><path d="M4.2 4.2l3.6 3.6M7.8 4.2L4.2 7.8"></path></svg><span style="flex:1 1 200px;font:500 14px/1.45 Inter">No response on LTE backup. Station still offline.</span><button style="height:28px;padding:0 12px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;font:500 12px/1 Inter;cursor:pointer">Retry</button></div>
+      <div role="group" style="display:flex;flex-direction:column;gap:8px;padding:10px 14px;border-radius:10px;border:1px solid var(--info);background:var(--info-bg);color:var(--text)"><span style="font:500 14px/1.45 Inter">Owned by Operator B since 13:40. Taking over is logged.</span><div style="display:flex;gap:8px"><button style="height:32px;padding:0 14px;border-radius:999px;border:none;background:var(--text);color:var(--surface);font:500 13px/1 Inter;cursor:pointer">Take over and continue</button><button style="height:32px;padding:0 10px;border-radius:999px;border:none;background:transparent;color:var(--text);font:500 13px/1 Inter;text-decoration:underline;text-underline-offset:3px;cursor:pointer">Cancel</button></div></div>
+      <div role="alert" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:10px 14px;border-radius:10px;border:1px solid var(--err);color:var(--err)"><span style="flex:1 1 200px;font:500 14px/1.45 Inter">Could not send. Nothing changed.</span><button style="height:28px;padding:0 12px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;font:500 12px/1 Inter;cursor:pointer">Retry</button></div>
+      <div style="display:flex;gap:10px;align-items:center;padding:8px 14px;border-radius:10px;background:var(--sunken);font:400 13px/1.45 Inter;color:var(--text-2)">Context: Station also offline (<a href="#" style="font-family:'JetBrains Mono';color:var(--text);text-underline-offset:3px">INC-105</a>)</div>
+    </div>
+
+    <div style="font:500 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">ParcelRow · SignalGroup · TimelineEvent</div>
+    <div style="display:flex;flex-direction:column;border:1px solid var(--border);border-radius:10px;background:var(--surface);overflow:hidden">
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:10px 14px;border-bottom:1px solid var(--border);cursor:pointer">
+        <div style="display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline"><span style="font:500 13px/1.3 'JetBrains Mono'">PCL-0107</span><span style="font:400 13px/1.3 Inter;color:var(--text-muted)">Slot 3-14</span></div>
+        <span style="font:400 12px/1.3 'JetBrains Mono';color:var(--text-muted)">Hold until D+2 16:20</span>
+        <div style="grid-column:1 / 3"><span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:6px;background:var(--err-bg);color:var(--err);font:500 12px/1 Inter"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2.5" y="5.5" width="7" height="5" rx="1"></rect><path d="M4 5.5V4a2 2 0 014 0v1.5"></path></svg>Blocked: retrieval fault</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:10px 14px;cursor:pointer">
+        <div style="display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline"><span style="font:500 13px/1.3 'JetBrains Mono'">PCL-0412</span><span style="font:400 13px/1.3 Inter;color:var(--text-muted)">Module 1 · S-03</span></div>
+        <span style="font:400 12px/1.3 'JetBrains Mono';color:var(--text-muted)">Hold until D+3 13:19</span>
+        <div style="grid-column:1 / 3;display:flex;flex-wrap:wrap;gap:6px"><span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:6px;background:var(--err-bg);color:var(--err);font:500 12px/1 Inter"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2.5" y="5.5" width="7" height="5" rx="1"></rect><path d="M4 5.5V4a2 2 0 014 0v1.5"></path></svg>Blocked: station offline</span><span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:6px;background:var(--warn-bg);color:var(--warn);font:500 12px/1 Inter"><svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"><path d="M6 1.8l4.4 7.9H1.6z"></path><path d="M6 5v1.8"></path></svg>Code not delivered</span></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:12px">
+      <div style="flex:1 1 260px;display:flex;flex-direction:column;gap:8px;padding:14px;border:1px solid var(--border);border-radius:10px;background:var(--surface)">
+        <div style="display:flex;gap:8px;align-items:baseline"><span style="font:600 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase">Signals</span><span style="font:500 12px/1 'JetBrains Mono';color:var(--text-muted)">3</span><span style="display:inline-flex;align-items:center;height:18px;padding:0 5px;border-radius:6px;border:1px dashed var(--border-strong);font:500 10px/1 'JetBrains Mono';color:var(--text-2)">Illustrative</span></div>
+        <div style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 12px;font:400 13px/1.4 Inter;color:var(--text-2)"><span style="font:500 12px/1.4 'JetBrains Mono';color:var(--text-muted)">13:55</span><span>Pickup code accepted</span><span style="font:500 12px/1.4 'JetBrains Mono';color:var(--text-muted)">13:56</span><span>Dispense timeout</span><span style="font:500 12px/1.4 'JetBrains Mono';color:var(--text-muted)">13:56</span><span>Hatch light curtain: no parcel</span></div>
+      </div>
+      <div style="flex:1 1 260px;display:flex;flex-direction:column;gap:8px;padding:14px;border:1px solid var(--border);border-radius:10px;background:var(--surface)">
+        <div style="display:flex;gap:8px;align-items:baseline"><span style="font:600 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase">Timeline</span><span style="display:inline-flex;align-items:center;height:18px;padding:0 5px;border-radius:6px;border:1px solid var(--border-strong);font:500 10px/1 'JetBrains Mono';color:var(--text-2)">Proposed log</span></div>
+        <div style="display:grid;grid-template-columns:auto auto minmax(0,1fr);gap:6px 10px;font:400 13px/1.4 Inter;color:var(--text-2)"><span style="font:500 12px/1.4 'JetBrains Mono';color:var(--text-muted)">13:56</span><span style="font:500 12px/1.4 Inter;color:var(--text)">System</span><span>Incident opened</span><span style="font:500 12px/1.4 'JetBrains Mono';color:var(--text-muted)">13:56</span><span style="font:500 12px/1.4 Inter;color:var(--text)">System</span><span>Signal: Dispense timeout</span></div>
+        <span style="font:400 11px/1.3 'JetBrains Mono';color:var(--text-muted)">time · actor · text · outcome</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nav / overlays -->
+  <div style="display:flex;flex-direction:column;gap:12px;padding:20px 0 0;border-top:1px solid var(--border)">
+    <div style="font:500 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Breadcrumb · Toast · Tooltip · PhoneActionBar</div>
+    <nav aria-label="Breadcrumb" style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;font:500 13px/1 'JetBrains Mono'"><a href="#" style="font-family:Inter;color:var(--text-2);text-underline-offset:3px">Queue</a><span style="color:var(--text-muted)">›</span><a href="#" style="color:var(--text-2);text-underline-offset:3px">INC-102</a><span style="color:var(--text-muted)">›</span><a href="#" style="color:var(--text-2);text-underline-offset:3px">LIT-03</a><span style="color:var(--text-muted)">›</span><span aria-current="page" style="color:var(--text)">PCL-0412</span></nav>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start">
+      <div role="status" style="display:flex;align-items:center;gap:12px;padding:10px 12px 10px 14px;border-radius:10px;background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow-2);font:500 13px/1.3 Inter"><span>INC-104 recovered</span><a href="#" style="color:var(--accent-text);text-underline-offset:3px">View</a><span style="font:400 11px/1 'JetBrains Mono';color:var(--text-muted)">6 s</span></div>
+      <div role="tooltip" style="max-width:280px;padding:10px 12px;border-radius:10px;background:var(--text);color:var(--surface);font:400 12px/1.45 Inter;box-shadow:var(--shadow-2)">Irreversible: the parcel leaves the recipient's reach. Needs a supervisor. In this concept, use the role switch to try it.</div>
+    </div>
+    <div style="width:340px;max-width:100%;display:flex;gap:8px;padding:10px 12px;border-radius:14px 14px 0 0;border:1px solid var(--border);border-bottom:none;background:var(--surface);box-shadow:var(--shadow-2)"><button style="flex:1;height:44px;border-radius:999px;border:none;background:var(--accent);color:var(--accent-ink);font:500 14px/1 Inter;cursor:pointer">Retry dispense</button><button aria-label="More actions" style="width:44px;height:44px;border-radius:999px;border:1px solid var(--border-strong);background:transparent;color:var(--text);font:600 16px/1 Inter;cursor:pointer">⋯</button></div>
+    <span style="font:400 11px/1.3 'JetBrains Mono';color:var(--text-muted)">Phone action bar sticks to the bottom · 44 px targets</span>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

@@ -1,0 +1,16 @@
+# dependencies and build output
+node_modules/
+dist/
+
+# local AI tooling and caches (not part of the project)
+.claude/
+.agents/
+.codex/
+**/.impeccable/config.local.json
+**/.impeccable/hook.cache.json
+
+# OS and editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log

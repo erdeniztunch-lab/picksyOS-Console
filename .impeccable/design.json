@@ -1,0 +1,461 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-16T09:14:20.899Z",
+  "title": "Design System: PicksyOS Operations Console",
+  "extensions": {
+    "colorMeta": {
+      "pilot-light-lime": {
+        "role": "primary",
+        "displayName": "Pilot-Light Lime",
+        "canonical": "#84b926",
+        "dark": "#a6e22e",
+        "cssVar": "--accent",
+        "tonalRamp": [
+          "oklch(15% 0.05 128)",
+          "oklch(27% 0.09 128)",
+          "oklch(39% 0.12 128)",
+          "oklch(51% 0.15 128)",
+          "oklch(63% 0.17 128)",
+          "oklch(72% 0.18 128)",
+          "oklch(87% 0.12 128)",
+          "oklch(95% 0.05 128)"
+        ]
+      },
+      "pilot-light-green": {
+        "role": "primary",
+        "displayName": "Pilot-Light Green",
+        "canonical": "#4a6b22",
+        "dark": "#a6e22e",
+        "cssVar": "--accent-text"
+      },
+      "pilot-light-soft": {
+        "role": "primary",
+        "displayName": "Pilot-Light Soft",
+        "canonical": "#eef6df",
+        "dark": "#1c2610",
+        "cssVar": "--accent-soft"
+      },
+      "ledger-ink": {
+        "role": "neutral",
+        "displayName": "Ledger Ink",
+        "canonical": "#111312",
+        "dark": "#f2f2f2",
+        "cssVar": "--text",
+        "tonalRamp": [
+          "#0a0b0a",
+          "#111312",
+          "#1b1e1c",
+          "#2a2e2b",
+          "#3d423e",
+          "#6e736f",
+          "#bfc3bf",
+          "#f2f2f2"
+        ]
+      },
+      "ledger-ink-2": {
+        "role": "neutral",
+        "displayName": "Ledger Ink 2",
+        "canonical": "#3d423e",
+        "dark": "#c6cac6",
+        "cssVar": "--text-2"
+      },
+      "ledger-ink-muted": {
+        "role": "neutral",
+        "displayName": "Ledger Ink Muted",
+        "canonical": "#5f645f",
+        "dark": "#9ca19c",
+        "cssVar": "--text-muted"
+      },
+      "canvas": {
+        "role": "neutral",
+        "displayName": "Canvas",
+        "canonical": "#f7f7f6",
+        "dark": "#0a0b0a",
+        "cssVar": "--canvas"
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface",
+        "canonical": "#ffffff",
+        "dark": "#111312",
+        "cssVar": "--surface"
+      },
+      "sunken": {
+        "role": "neutral",
+        "displayName": "Sunken",
+        "canonical": "#f2f2f2",
+        "dark": "#1b1e1c",
+        "cssVar": "--sunken"
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#e8eae8",
+        "dark": "#2a2e2b",
+        "cssVar": "--border"
+      },
+      "control-line": {
+        "role": "neutral",
+        "displayName": "Control Line",
+        "canonical": "#8a8f8a",
+        "dark": "#6e736f",
+        "cssVar": "--border-strong"
+      },
+      "p3-line": {
+        "role": "neutral",
+        "displayName": "P3 Hairline",
+        "canonical": "#bfc3bf",
+        "dark": "#3d423e",
+        "cssVar": "--p3-line"
+      },
+      "ok": {
+        "role": "status",
+        "displayName": "Ok",
+        "canonical": "#3f6e14",
+        "dark": "#8fcb5c",
+        "cssVar": "--ok",
+        "tonalRamp": [
+          "oklch(15% 0.04 130)",
+          "oklch(27% 0.08 130)",
+          "oklch(39% 0.11 130)",
+          "oklch(49% 0.13 130)",
+          "oklch(63% 0.13 130)",
+          "oklch(75% 0.11 130)",
+          "oklch(87% 0.06 130)",
+          "oklch(95% 0.03 130)"
+        ]
+      },
+      "ok-tint": {
+        "role": "status",
+        "displayName": "Ok Tint",
+        "canonical": "#e8f2de",
+        "dark": "#18240f",
+        "cssVar": "--ok-bg"
+      },
+      "warn": {
+        "role": "status",
+        "displayName": "Warn",
+        "canonical": "#8a5a06",
+        "dark": "#e8b552",
+        "cssVar": "--warn",
+        "tonalRamp": [
+          "oklch(15% 0.03 70)",
+          "oklch(27% 0.06 70)",
+          "oklch(39% 0.09 70)",
+          "oklch(51% 0.11 70)",
+          "oklch(63% 0.12 70)",
+          "oklch(78% 0.12 75)",
+          "oklch(88% 0.07 75)",
+          "oklch(96% 0.03 80)"
+        ]
+      },
+      "warn-tint": {
+        "role": "status",
+        "displayName": "Warn Tint",
+        "canonical": "#fbf1dc",
+        "dark": "#2a200c",
+        "cssVar": "--warn-bg"
+      },
+      "err": {
+        "role": "status",
+        "displayName": "Err",
+        "canonical": "#a8321f",
+        "dark": "#f2856f",
+        "cssVar": "--err",
+        "tonalRamp": [
+          "oklch(15% 0.04 33)",
+          "oklch(27% 0.09 33)",
+          "oklch(39% 0.13 33)",
+          "oklch(50% 0.16 33)",
+          "oklch(63% 0.15 33)",
+          "oklch(72% 0.13 33)",
+          "oklch(87% 0.06 33)",
+          "oklch(94% 0.03 33)"
+        ]
+      },
+      "err-tint": {
+        "role": "status",
+        "displayName": "Err Tint",
+        "canonical": "#f9e4e0",
+        "dark": "#2e1612",
+        "cssVar": "--err-bg"
+      },
+      "info": {
+        "role": "status",
+        "displayName": "Info",
+        "canonical": "#335f7c",
+        "dark": "#86b6d6",
+        "cssVar": "--info",
+        "tonalRamp": [
+          "oklch(15% 0.03 240)",
+          "oklch(27% 0.05 240)",
+          "oklch(39% 0.06 240)",
+          "oklch(46% 0.07 240)",
+          "oklch(63% 0.07 240)",
+          "oklch(75% 0.06 240)",
+          "oklch(87% 0.03 240)",
+          "oklch(94% 0.02 240)"
+        ]
+      },
+      "info-tint": {
+        "role": "status",
+        "displayName": "Info Tint",
+        "canonical": "#e2edf3",
+        "dark": "#0f1f29",
+        "cssVar": "--info-bg"
+      },
+      "unknown": {
+        "role": "status",
+        "displayName": "Unknown",
+        "canonical": "#565b57",
+        "dark": "#b1b6b1",
+        "cssVar": "--unk"
+      },
+      "unknown-tint": {
+        "role": "status",
+        "displayName": "Unknown Tint",
+        "canonical": "#f2f2f2",
+        "dark": "#1b1e1c",
+        "cssVar": "--unk-bg"
+      },
+      "moved-tint": {
+        "role": "status",
+        "displayName": "Moved Tint",
+        "canonical": "#fbf1dc",
+        "dark": "#2a200c",
+        "cssVar": "--moved"
+      }
+    },
+    "typographyMeta": {
+      "title": {
+        "displayName": "Title",
+        "purpose": "Station and parcel page ID headings, in mono."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Incident type at the top of the panel; focus target when a row opens."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Reasons, confirm consequences, notices."
+      },
+      "body-strong": {
+        "displayName": "Body Strong",
+        "purpose": "Button labels, row titles, fact values."
+      },
+      "small": {
+        "displayName": "Small",
+        "purpose": "Queue why lines (max 2 lines), timeline text."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Uppercase section headers and fact keys."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Deadline sources and action reasons."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "IDs, clock times, countdowns, counts."
+      },
+      "mono-sm": {
+        "displayName": "Mono Small",
+        "purpose": "Band badges, concept labels, small counts."
+      }
+    },
+    "shadows": [
+      {
+        "name": "lifted",
+        "value": "0 8px 24px rgba(10,11,10,.10), 0 1px 2px rgba(10,11,10,.08)",
+        "dark": "0 8px 24px rgba(0,0,0,.5), 0 1px 2px rgba(0,0,0,.4)",
+        "purpose": "Only for floating things: toasts, tooltips, the popover, the phone action bar."
+      },
+      {
+        "name": "focus",
+        "value": "outline: 2px solid var(--focus); outline-offset: 2px; box-shadow: 0 0 0 4px var(--focus-halo)",
+        "purpose": "Shared focus-visible ring on every interactive element."
+      }
+    ],
+    "motion": [
+      {
+        "name": "fast",
+        "value": "140ms",
+        "purpose": "Hover and press."
+      },
+      {
+        "name": "base",
+        "value": "240ms",
+        "purpose": "Confirm open, row re-rank."
+      },
+      {
+        "name": "slow",
+        "value": "600ms",
+        "purpose": "Moved-row highlight fade."
+      },
+      {
+        "name": "ease",
+        "value": "cubic-bezier(.2,0,0,1)",
+        "purpose": "Default easing."
+      },
+      {
+        "name": "spinner",
+        "value": "900ms linear infinite",
+        "purpose": "Processing arc; static under reduced motion."
+      },
+      {
+        "name": "row-highlight",
+        "value": "1600ms",
+        "purpose": "Moved-row hold; 2000 ms under reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "phone-max",
+        "value": "767px"
+      },
+      {
+        "name": "tablet",
+        "value": "768px"
+      },
+      {
+        "name": "desktop",
+        "value": "1200px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one recommended action per panel.",
+      "html": "<button class=\"ds-btn ds-btn-primary\">Retry dispense</button>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 16px; border-radius: 999px; font: 500 14px/1 Inter, system-ui, sans-serif; cursor: pointer; transition: filter 140ms cubic-bezier(.2,0,0,1), background 140ms cubic-bezier(.2,0,0,1); } .ds-btn-primary { border: none; background: var(--accent, #84b926); color: var(--accent-ink, #0a0b0a); } .ds-btn-primary:hover { filter: brightness(.94); } .ds-btn:focus-visible { outline: 2px solid var(--focus, #4a6b22); outline-offset: 2px; box-shadow: 0 0 0 4px var(--focus-halo, #84b92673); }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Every other allowed action.",
+      "html": "<button class=\"ds-btn ds-btn-secondary\">Request field visit</button>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 16px; border-radius: 999px; font: 500 14px/1 Inter, system-ui, sans-serif; cursor: pointer; transition: background 140ms cubic-bezier(.2,0,0,1); } .ds-btn-secondary { border: 1px solid var(--border-strong, #8a8f8a); background: transparent; color: var(--text, #111312); } .ds-btn-secondary:hover { background: var(--sunken, #f2f2f2); } .ds-btn:focus-visible { outline: 2px solid var(--focus, #4a6b22); outline-offset: 2px; box-shadow: 0 0 0 4px var(--focus-halo, #84b92673); }"
+    },
+    {
+      "name": "Locked Button",
+      "kind": "button",
+      "refersTo": "button-disabled",
+      "description": "Disabled or role-locked action, always with its reason.",
+      "html": "<span class=\"ds-action\"><button class=\"ds-btn-locked\" aria-disabled=\"true\"><svg viewBox=\"0 0 12 12\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"><path d=\"M3.5 5.5h5a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1zM4 5.5V4a2 2 0 0 1 4 0v1.5\"/></svg>Mark for return</button><span class=\"ds-reason\">Supervisor approval needed</span></span>",
+      "css": ".ds-action { display: inline-flex; flex-direction: column; gap: 4px; } .ds-btn-locked { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 16px; border-radius: 999px; border: 1px dashed var(--border-strong, #8a8f8a); background: transparent; color: var(--text-muted, #5f645f); font: 500 14px/1 Inter, system-ui, sans-serif; cursor: not-allowed; } .ds-btn-locked:focus-visible { outline: 2px solid var(--focus, #4a6b22); outline-offset: 2px; box-shadow: 0 0 0 4px var(--focus-halo, #84b92673); } .ds-reason { padding-left: 4px; font: 400 12px/1.4 Inter, system-ui, sans-serif; color: var(--text-2, #3d423e); }"
+    },
+    {
+      "name": "Priority Bands",
+      "kind": "chip",
+      "refersTo": "band-p1",
+      "description": "Priority as weight, not hue: solid, outlined, hairline.",
+      "html": "<span class=\"ds-band ds-band-p1\">P1</span> <span class=\"ds-band ds-band-p2\">P2</span> <span class=\"ds-band ds-band-p3\">P3</span>",
+      "css": ".ds-band { display: inline-flex; align-items: center; justify-content: center; min-width: 30px; height: 22px; padding: 0 5px; border-radius: 6px; box-sizing: border-box; font: 600 12px/1 'JetBrains Mono', ui-monospace, monospace; } .ds-band-p1 { background: var(--p1-bg, #111312); color: var(--p1-fg, #fff); } .ds-band-p2 { border: 1.5px solid var(--p2-line, #111312); color: var(--p2-fg, #111312); } .ds-band-p3 { border: 1px solid var(--p3-line, #bfc3bf); color: var(--p3-fg, #5f645f); font-weight: 500; }"
+    },
+    {
+      "name": "Status Chips",
+      "kind": "chip",
+      "refersTo": "status-chip-info",
+      "description": "Every state is hue plus icon plus word.",
+      "html": "<span class=\"ds-chip ds-chip-info\"><svg viewBox=\"0 0 12 12\" width=\"11\" height=\"11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><circle cx=\"6\" cy=\"6\" r=\"4\"/><circle cx=\"6\" cy=\"6\" r=\"1.3\"/></svg>Acknowledged</span> <span class=\"ds-chip ds-chip-unk\"><svg viewBox=\"0 0 12 12\" width=\"11\" height=\"11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"><circle cx=\"6\" cy=\"6\" r=\"4.5\"/><path d=\"M6 3.6V6l1.6 1\"/></svg>Signal delayed</span> <span class=\"ds-chip ds-chip-err ds-chip-sq\"><svg viewBox=\"0 0 12 12\" width=\"11\" height=\"11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"><path d=\"M3.5 5.5h5a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1zM4 5.5V4a2 2 0 0 1 4 0v1.5\"/></svg>Blocked: station offline</span>",
+      "css": ".ds-chip { display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; border-radius: 999px; border: 1px solid transparent; font: 500 12px/1 Inter, system-ui, sans-serif; white-space: nowrap; } .ds-chip-sq { border-radius: 6px; } .ds-chip-info { background: var(--info-bg, #e2edf3); color: var(--info, #335f7c); } .ds-chip-unk { background: var(--unk-bg, #f2f2f2); color: var(--unk, #565b57); border: 1px dashed var(--unk-border, #8a8f8a); } .ds-chip-err { background: var(--err-bg, #f9e4e0); color: var(--err, #a8321f); }"
+    },
+    {
+      "name": "Filter Chip",
+      "kind": "chip",
+      "refersTo": "filter-chip",
+      "description": "Type and band filters with a mono count; pressed turns ink.",
+      "html": "<button class=\"ds-filter\" aria-pressed=\"false\">Station offline <span class=\"ds-count\">3</span></button> <button class=\"ds-filter\" aria-pressed=\"true\">P1 <span class=\"ds-count\">2</span></button>",
+      "css": ".ds-filter { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--border-strong, #8a8f8a); background: transparent; color: var(--text, #111312); font: 500 12px/1 Inter, system-ui, sans-serif; cursor: pointer; } .ds-filter[aria-pressed=\"true\"] { border-color: var(--text, #111312); background: var(--text, #111312); color: var(--surface, #fff); } .ds-filter:hover { background: var(--sunken, #f2f2f2); } .ds-filter[aria-pressed=\"true\"]:hover { background: var(--text, #111312); } .ds-filter:focus-visible { outline: 2px solid var(--focus, #4a6b22); outline-offset: 2px; box-shadow: 0 0 0 4px var(--focus-halo, #84b92673); } .ds-count { font: 500 12px/1 'JetBrains Mono', ui-monospace, monospace; opacity: .75; }"
+    },
+    {
+      "name": "Queue Row",
+      "kind": "custom",
+      "refersTo": "queue-row",
+      "description": "The ledger line: band, title, mono countdown, why line with the deciding reason first; breached rows carry a 3 px Err edge.",
+      "html": "<button class=\"ds-row ds-row--breached\"><span class=\"ds-row-band\">P1</span><span class=\"ds-row-title\"><b>Station offline</b> <span class=\"ds-mono\">LIT-03</span> <span class=\"ds-muted\">Ankara</span></span><span class=\"ds-row-breach\">Breached −15m</span><span class=\"ds-row-why\"><b>Breached 15 min ago</b> · No pickups possible · 18 parcels blocked</span></button>",
+      "css": ".ds-row { display: grid; grid-template-columns: auto minmax(0,1fr) auto; gap: 4px 12px; width: 100%; padding: 12px 16px; border: none; border-bottom: 1px solid var(--border, #e8eae8); background: var(--surface, #fff); color: var(--text, #111312); text-align: left; font: 400 14px/1.3 Inter, system-ui, sans-serif; cursor: pointer; } .ds-row:hover { box-shadow: inset 0 0 0 1px var(--border-strong, #8a8f8a); } .ds-row:focus-visible { outline: 1.5px solid var(--accent-text, #4a6b22); outline-offset: -1.5px; background: var(--accent-soft, #eef6df); } .ds-row-band { grid-row: span 2; display: inline-flex; align-items: center; justify-content: center; min-width: 30px; height: 22px; border-radius: 6px; background: var(--p1-bg, #111312); color: var(--p1-fg, #fff); font: 600 12px/1 'JetBrains Mono', monospace; } .ds-row-title b { font-weight: 500; } .ds-mono { font: 500 13px 'JetBrains Mono', monospace; color: var(--text-2, #3d423e); } .ds-muted { color: var(--text-muted, #5f645f); font-size: 13px; } .ds-row-breach { display: inline-flex; align-items: center; height: 22px; padding: 0 7px; border-radius: 6px; background: var(--err-bg, #f9e4e0); color: var(--err, #a8321f); font: 600 13px/1 'JetBrains Mono', monospace; } .ds-row-why { grid-column: 2 / 4; font-size: 13px; line-height: 1.45; color: var(--text-2, #3d423e); } .ds-row--breached { box-shadow: inset 3px 0 0 var(--err, #a8321f); } .ds-row-why b { font-weight: 500; color: var(--text, #111312); }"
+    },
+    {
+      "name": "Inline Confirm",
+      "kind": "card",
+      "refersTo": "confirm-block",
+      "description": "One-sentence consequence under the action bar; never a modal.",
+      "html": "<div class=\"ds-confirm\" role=\"group\"><span class=\"ds-label\">Confirm · Retry dispense</span><span>Moves PCL-0107 to the hatch at WAL-01. The recipient may be waiting.</span><div class=\"ds-confirm-row\"><button class=\"ds-ink\">Confirm</button><button class=\"ds-quiet\">Cancel</button><span class=\"ds-hint\">Esc to cancel</span></div></div>",
+      "css": ".ds-confirm { display: flex; flex-direction: column; gap: 10px; max-width: 640px; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--border-strong, #8a8f8a); background: var(--sunken, #f2f2f2); color: var(--text, #111312); font: 400 14px/1.45 Inter, system-ui, sans-serif; } .ds-label { font: 500 12px/1.3 Inter, sans-serif; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted, #5f645f); } .ds-confirm-row { display: flex; align-items: center; gap: 8px; } .ds-ink { height: 36px; padding: 0 16px; border: none; border-radius: 999px; background: var(--text, #111312); color: var(--surface, #fff); font: 500 13px/1 Inter, sans-serif; cursor: pointer; } .ds-quiet { height: 36px; padding: 0 10px; border: none; background: transparent; color: var(--text, #111312); font: 500 13px/1 Inter, sans-serif; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; } .ds-ink:focus-visible, .ds-quiet:focus-visible { outline: 2px solid var(--focus, #4a6b22); outline-offset: 2px; box-shadow: 0 0 0 4px var(--focus-halo, #84b92673); } .ds-hint { margin-left: auto; font: 400 11px/1 'JetBrains Mono', monospace; color: var(--text-muted, #5f645f); }"
+    },
+    {
+      "name": "Network Summary",
+      "kind": "nav",
+      "refersTo": "filter-chip",
+      "description": "Header network status: Offline with an err icon, Signal delayed dashed. Band counts live on the band filter chips, not here.",
+      "html": "<nav class=\"ds-sum\" aria-label=\"Network summary\"><button class=\"ds-sum-btn ds-sum-err\"><svg viewBox=\"0 0 12 12\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"><circle cx=\"6\" cy=\"6\" r=\"4.5\"/><path d=\"M4.2 4.2l3.6 3.6M7.8 4.2L4.2 7.8\"/></svg><span class=\"ds-t\">Offline <span class=\"ds-m\">4</span></span></button><button class=\"ds-sum-btn ds-sum-unk\"><svg viewBox=\"0 0 12 12\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"><circle cx=\"6\" cy=\"6\" r=\"4.5\"/><path d=\"M6 3.6V6l1.6 1\"/></svg><span class=\"ds-t\">Signal delayed <span class=\"ds-m\">1</span></span></button></nav>",
+      "css": ".ds-sum { display: flex; gap: 4px; } .ds-sum-btn { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border-radius: 999px; border: 1px solid var(--border, #e8eae8); background: transparent; color: var(--text, #111312); font: 500 12px/1 Inter, sans-serif; cursor: pointer; } .ds-sum-btn:hover { background: var(--sunken, #f2f2f2); } .ds-sum-btn:focus-visible { outline: 2px solid var(--focus, #4a6b22); outline-offset: 2px; box-shadow: 0 0 0 4px var(--focus-halo, #84b92673); } .ds-sum-p1 { padding: 3px 4px; border-radius: 4px; background: var(--p1-bg, #111312); color: var(--p1-fg, #fff); font: 600 11px/1 'JetBrains Mono', monospace; } .ds-sum-err { color: var(--err, #a8321f); } .ds-sum-unk { color: var(--unk, #565b57); border: 1px dashed var(--unk-border, #8a8f8a); } .ds-t { color: var(--text, #111312); } .ds-m { font-family: 'JetBrains Mono', monospace; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Night-Shift Ledger",
+    "overview": "The console is the record an operator trusts at the end of a long shift. It is calm, plain and accountable: low visual noise, declarative copy, and every line on screen able to say why it is there. A rank shows its reasons, a countdown shows its source, a disabled button shows its excuse, and every action leaves a line in the log. Nothing shouts. Urgency comes through weight, order and a single breach tint, never through alarm colour or motion.\n\nThe density is that of a working tool: a 14 px body, 12 px labels, tabular numerals throughout, and JetBrains Mono for anything an operator reads back aloud (IDs, clock times, countdowns). The light theme is a cool paper ledger; the dark theme is the same ledger in Ledger Ink, built for parity rather than as an afterthought. Both themes hold WCAG 2.2 AA.\n\nThe brand comes from Delivery One's public website: Inter and JetBrains Mono, pill buttons, and the lime full stop that ends the product name. Inside the tool that lime becomes the Pilot-Light: the one small light that stays on and marks where the operator acts. Controls are tactile and confident, with firm 36 px targets (44 px on touch), solid fills and clear running states.",
+    "keyCharacteristics": [
+      "Ledger calm: flat surfaces, 1 px hairlines, shadows only on things that float.",
+      "Priority is weight, not hue: P1 solid, P2 outlined, P3 hairline.",
+      "Every state has a shape: hue plus icon plus word, never colour alone.",
+      "Uncertainty is its own material: grey, dashed and stamped \"as of hh:mm\".",
+      "One Pilot-Light per panel: the recommended action is the only lime button."
+    ],
+    "rules": [
+      {
+        "name": "The Pilot-Light Rule",
+        "body": "Lime means \"act here\" or \"you are here\", never \"healthy\". One lime button per panel: the recommended action.",
+        "section": "colors"
+      },
+      {
+        "name": "The Weight-Not-Hue Rule",
+        "body": "Priority bands carry no colour. P1 is a solid Ledger Ink badge, P2 a 1.5 px ink outline, P3 a hairline in grey. Status hues stay free for state.",
+        "section": "colors"
+      },
+      {
+        "name": "The Honest Grey Rule",
+        "body": "Data that may be stale is grey, dashed, carries a clock icon and reads \"as of hh:mm\". It never borrows the ok style.",
+        "section": "colors"
+      },
+      {
+        "name": "The Read-Back Rule",
+        "body": "If an operator would read it aloud to a colleague (an ID, a time, a countdown, a count), set it in JetBrains Mono.",
+        "section": "typography"
+      },
+      {
+        "name": "The 12 px Floor Rule",
+        "body": "Nothing an operator must read is set below 12 px, on desktop or phone.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Ledger Rule",
+        "body": "Rows, panels and blocks never cast shadows. If it scrolls with the page, it is flat.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep the disclaimer footer line (\"Independent concept. Not affiliated with or endorsed by Delivery One. Illustrative data.\") visible on every screen at every width.",
+      "Do keep concept tags (Illustrative, Proposed, Demo control) out of the working screens; they belong in Help and Concept controls.",
+      "Do pair every status hue with an icon and a word.",
+      "Do set IDs, times, countdowns and counts in JetBrains Mono with tabular numerals.",
+      "Do give every disabled or locked action a visible reason line.",
+      "Do show stale values grey and dashed with \"as of hh:mm\".",
+      "Do keep the 2 px focus ring with its 4 px halo on every interactive element."
+    ],
+    "donts": [
+      "Don't use lime to mean \"healthy\", or put more than one lime button in a panel.",
+      "Don't give priority bands a hue; a red P1 would read as Offline or Breached.",
+      "Don't add shadows to rows, panels or blocks.",
+      "Don't use modals or browser dialogs for confirmation.",
+      "Don't set body text at weight 300 or any readable text below 12 px.",
+      "Don't add a Delivery One logo; the product name stays plain text."
+    ]
+  }
+}

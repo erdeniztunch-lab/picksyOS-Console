@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f7f7f6;color:#111312;font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#4a6b22}a:hover{color:#111312}
+</style>
+</helmet>
+<div style="font-feature-settings:'tnum' 1;font-size:14px;line-height:1.5">
+  <div style="padding:6px 24px;background:#0a0b0a;color:#f2f2f2;font:400 12px/1.4 Inter">Independent concept. Not affiliated with or endorsed by Delivery One. Illustrative data.</div>
+  <div style="max-width:1400px;margin:0 auto;padding:40px 24px 80px;display:flex;flex-direction:column;gap:56px">
+
+    <header style="display:flex;flex-direction:column;gap:12px;max-width:760px">
+      <span style="font:500 12px/1.3 Inter;letter-spacing:.14em;text-transform:uppercase;color:#5f645f">Step 1 of 3 · for approval</span>
+      <h1 style="margin:0;font:600 44px/1.1 Inter;letter-spacing:-.03em">PicksyOS Operations Console design system<span style="color:#84b926">.</span></h1>
+      <p style="margin:0;font:400 17px/1.55 Inter;color:#3d423e;text-wrap:pretty">Delivery One's public web palette and type, adapted for a dense operations tool. Tokens below are CSS custom properties; the same names export as a TypeScript object. Ratios are WCAG 2.x, measured against the theme's surface.</p>
+    </header>
+
+    <section style="display:flex;flex-direction:column;gap:16px">
+      <h2 style="margin:0;font:600 24px/1.2 Inter;letter-spacing:-.02em">Rules the tokens enforce</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:#e8eae8;border:1px solid #e8eae8;border-radius:10px;overflow:hidden">
+        <div style="background:#fff;padding:16px;display:flex;flex-direction:column;gap:4px"><b style="font-weight:600">Lime is identity and focus</b><span style="color:#3d423e">Primary button, selected row, focus ring, the full stop. Never "healthy".</span></div>
+        <div style="background:#fff;padding:16px;display:flex;flex-direction:column;gap:4px"><b style="font-weight:600">Priority is weight, not hue</b><span style="color:#3d423e">P1 solid, P2 outlined, P3 hairline, always with its label. Status hues stay free for state.</span></div>
+        <div style="background:#fff;padding:16px;display:flex;flex-direction:column;gap:4px"><b style="font-weight:600">Every state has a shape</b><span style="color:#3d423e">Each status chip pairs hue with an icon and a word, so nothing depends on colour alone.</span></div>
+        <div style="background:#fff;padding:16px;display:flex;flex-direction:column;gap:4px"><b style="font-weight:600">Stale is neutral and dashed</b><span style="color:#3d423e">Unknown data gets grey, a dashed outline, a clock and "as of hh:mm". It never borrows the healthy style.</span></div>
+      </div>
+    </section>
+
+    <section style="display:flex;flex-direction:column;gap:16px">
+      <h2 style="margin:0;font:600 24px/1.2 Inter;letter-spacing:-.02em">Colour roles</h2>
+      <div style="overflow-x:auto;border:1px solid #e8eae8;border-radius:10px;background:#fff">
+        <table style="width:100%;min-width:760px;border-collapse:collapse;font:400 13px/1.4 Inter">
+          <thead><tr style="text-align:left;color:#5f645f;font:500 11px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase"><th style="padding:10px 14px;border-bottom:1px solid #e8eae8">Token</th><th style="padding:10px 14px;border-bottom:1px solid #e8eae8">Role</th><th style="padding:10px 14px;border-bottom:1px solid #e8eae8">Light</th><th style="padding:10px 14px;border-bottom:1px solid #e8eae8">Dark</th></tr></thead>
+          <tbody style="font-family:'JetBrains Mono';font-size:12px">
+            <tr><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2">--canvas</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2;font-family:Inter;font-size:13px">App background</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-3px;margin-right:8px;background:#f7f7f6;border:1px solid #dcdfdc"></span>#f7f7f6 grey-50</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-3px;margin-right:8px;background:#0a0b0a"></span>#0a0b0a ink-950</td></tr>
+            <tr><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2">--surface</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2;font-family:Inter;font-size:13px">Panels, rows</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-3px;margin-right:8px;background:#fff;border:1px solid #dcdfdc"></span>#ffffff</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-3px;margin-right:8px;background:#111312"></span>#111312 ink-900</td></tr>
+            <tr><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2">--sunken</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2;font-family:Inter;font-size:13px">Section headers, confirms</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-3px;margin-right:8px;background:#f2f2f2;border:1px solid #dcdfdc"></span>#f2f2f2 grey-100</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-3px;margin-right:8px;background:#1b1e1c"></span>#1b1e1c ink-800</td></tr>
+            <tr><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2">--border</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2;font-family:Inter;font-size:13px">Hairline (decorative)</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-3px;margin-right:8px;background:#e8eae8"></span>#e8eae8 grey-200</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-3px;margin-right:8px;background:#2a2e2b"></span>#2a2e2b ink-700</td></tr>
+            <tr><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2">--border-strong</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2;font-family:Inter;font-size:13px">Control outlines (≥3:1)</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-3px;margin-right:8px;background:#8a8f8a"></span>#8a8f8a · 3.29</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-3px;margin-right:8px;background:#6e736f"></span>#6e736f · 3.86</td></tr>
+            <tr><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2">--text</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2;font-family:Inter;font-size:13px">Primary text</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-3px;margin-right:8px;background:#111312"></span>#111312 · 18.65</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-3px;margin-right:8px;background:#f2f2f2;border:1px solid #dcdfdc"></span>#f2f2f2 · 16.66</td></tr>
+            <tr><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2">--text-2</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2;font-family:Inter;font-size:13px">Why lines, body</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-3px;margin-right:8px;background:#3d423e"></span>#3d423e · 10.26</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-3px;margin-right:8px;background:#c6cac6"></span>#c6cac6 · 11.25</td></tr>
+            <tr><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2">--text-muted</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2;font-family:Inter;font-size:13px">Captions, meta</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-3px;margin-right:8px;background:#5f645f"></span>#5f645f · 6.04</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-3px;margin-right:8px;background:#9ca19c"></span>#9ca19c · 7.10</td></tr>
+            <tr><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2">--accent</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2;font-family:Inter;font-size:13px">Primary fill (ink text on it)</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-3px;margin-right:8px;background:#84b926"></span>#84b926 · ink on it 8.40</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-3px;margin-right:8px;background:#a6e22e"></span>#a6e22e · ink on it 12.71</td></tr>
+            <tr><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2">--accent-text</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2;font-family:Inter;font-size:13px">Links, selected outline</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-3px;margin-right:8px;background:#4a6b22"></span>#4a6b22 green-deep · 6.15</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-3px;margin-right:8px;background:#a6e22e"></span>#a6e22e · 12.03</td></tr>
+            <tr><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2">--accent-soft</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2;font-family:Inter;font-size:13px">Selected row fill</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-3px;margin-right:8px;background:#eef6df"></span>#eef6df lime-soft</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-3px;margin-right:8px;background:#1c2610"></span>#1c2610</td></tr>
+            <tr><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2">--focus / --focus-halo</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2;font-family:Inter;font-size:13px">2 px ring + 4 px halo</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-3px;margin-right:8px;background:#4a6b22"></span>#4a6b22 · 6.15 + #84b92673</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-3px;margin-right:8px;background:#a6e22e"></span>#a6e22e · 12.03 + #a6e22e59</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;flex-direction:column;gap:6px;max-width:760px"><h2 style="margin:0;font:600 24px/1.2 Inter;letter-spacing:-.02em">Status, priority and freshness</h2><p style="margin:0;color:#3d423e">Same hues as the site's status set, darkened for light and lightened for dark until text reaches 4.5:1 on both the surface and its own tint. Original values are struck through.</p></div>
+      <div style="overflow-x:auto;border:1px solid #e8eae8;border-radius:10px;background:#fff">
+        <table style="width:100%;min-width:900px;border-collapse:collapse;font:400 13px/1.4 Inter">
+          <thead><tr style="text-align:left;color:#5f645f;font:500 11px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase"><th style="padding:10px 14px;border-bottom:1px solid #e8eae8">Token</th><th style="padding:10px 14px;border-bottom:1px solid #e8eae8">Used for</th><th style="padding:10px 14px;border-bottom:1px solid #e8eae8">Light fg · bg (on surface / on tint)</th><th style="padding:10px 14px;border-bottom:1px solid #e8eae8">Dark fg · bg (on surface / on tint)</th></tr></thead>
+          <tbody style="font-family:'JetBrains Mono';font-size:12px">
+            <tr><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2">--ok</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2;font-family:Inter;font-size:13px">Online, Ready, Recovered, Resolved, success</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;padding:2px 6px;border-radius:4px;background:#e8f2de;color:#3f6e14;margin-right:6px">#3f6e14</span>#e8f2de · 6.08 / 5.27 <s style="color:#5f645f">#5e9e1f 3.29</s></td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;padding:2px 6px;border-radius:4px;background:#18240f;color:#8fcb5c;margin-right:6px">#8fcb5c</span>#18240f · 9.65 / 8.37</td></tr>
+            <tr><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2">--warn</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2;font-family:Inter;font-size:13px">Degraded, Code not delivered, Hold expired, ≤30 min</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;padding:2px 6px;border-radius:4px;background:#fbf1dc;color:#8a5a06;margin-right:6px">#8a5a06</span>#fbf1dc · 5.92 / 5.28 <s style="color:#5f645f">#c98a12 2.95</s></td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;padding:2px 6px;border-radius:4px;background:#2a200c;color:#e8b552;margin-right:6px">#e8b552</span>#2a200c · 9.92 / 8.52</td></tr>
+            <tr><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2">--err</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2;font-family:Inter;font-size:13px">Offline, Out of service, Blocked, breached, failure</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;padding:2px 6px;border-radius:4px;background:#f9e4e0;color:#a8321f;margin-right:6px">#a8321f</span>#f9e4e0 · 6.69 / 5.48 <s style="color:#5f645f">#c2412d 4.21</s></td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;padding:2px 6px;border-radius:4px;background:#2e1612;color:#f2856f;margin-right:6px">#f2856f</span>#2e1612 · 7.43 / 6.74 <s style="color:#5f645f">3.84</s></td></tr>
+            <tr><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2">--info</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2;font-family:Inter;font-size:13px">Acknowledged, In progress, Awaiting field, ownership</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;padding:2px 6px;border-radius:4px;background:#e2edf3;color:#335f7c;margin-right:6px">#335f7c</span>#e2edf3 · 6.84 / 5.75</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;padding:2px 6px;border-radius:4px;background:#0f1f29;color:#86b6d6;margin-right:6px">#86b6d6</span>#0f1f29 · 8.60 / 7.75 <s style="color:#5f645f">3.58</s></td></tr>
+            <tr><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2">--unk / --unk-border</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2;font-family:Inter;font-size:13px">Signal delayed, availability Unknown, stale values (dashed)</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;padding:1px 5px;border-radius:4px;background:#f2f2f2;color:#565b57;border:1px dashed #8a8f8a;margin-right:6px">#565b57</span>#f2f2f2 · 6.93 / 6.19 · dash 3.29</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;padding:1px 5px;border-radius:4px;background:#1b1e1c;color:#b1b6b1;border:1px dashed #7d827d;margin-right:6px">#b1b6b1</span>#1b1e1c · 9.06 / 8.16 · dash 4.76</td></tr>
+            <tr><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2">--p1-bg / --p1-fg</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2;font-family:Inter;font-size:13px">Band P1, solid</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;padding:2px 6px;border-radius:4px;background:#111312;color:#fff;margin-right:6px">P1</span>#111312 / #ffffff · 18.65</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;padding:2px 6px;border-radius:4px;background:#f2f2f2;color:#0a0b0a;margin-right:6px">P1</span>#f2f2f2 / #0a0b0a · 17.61</td></tr>
+            <tr><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2">--p2-line / --p2-fg</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2;font-family:Inter;font-size:13px">Band P2, 1.5 px outline</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;padding:1px 5px;border-radius:4px;border:1.5px solid #111312;margin-right:6px">P2</span>#111312 · 18.65</td><td style="padding:8px 14px;border-bottom:1px solid #f2f2f2"><span style="display:inline-block;padding:1px 5px;border-radius:4px;border:1.5px solid #f2f2f2;background:#111312;color:#f2f2f2;margin-right:6px">P2</span>#f2f2f2 · 16.66</td></tr>
+            <tr><td style="padding:8px 14px">--p3-line / --p3-fg</td><td style="padding:8px 14px;font-family:Inter;font-size:13px">Band P3, hairline</td><td style="padding:8px 14px"><span style="display:inline-block;padding:1px 5px;border-radius:4px;border:1px solid #bfc3bf;color:#5f645f;margin-right:6px">P3</span>#bfc3bf / #5f645f · 6.04</td><td style="padding:8px 14px"><span style="display:inline-block;padding:1px 5px;border-radius:4px;border:1px solid #3d423e;background:#111312;color:#9ca19c;margin-right:6px">P3</span>#3d423e / #9ca19c · 7.10</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:32px">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <h2 style="margin:0;font:600 24px/1.2 Inter;letter-spacing:-.02em">Type</h2>
+        <div style="display:flex;flex-direction:column;border:1px solid #e8eae8;border-radius:10px;background:#fff">
+          <div style="display:grid;grid-template-columns:150px minmax(0,1fr);gap:12px;align-items:baseline;padding:10px 14px;border-bottom:1px solid #f2f2f2"><span style="font:400 12px/1.4 'JetBrains Mono';color:#5f645f">title · 24/1.2 600 −.02em</span><span style="font:600 24px/1.2 Inter;letter-spacing:-.02em">Station LIT-03</span></div>
+          <div style="display:grid;grid-template-columns:150px minmax(0,1fr);gap:12px;align-items:baseline;padding:10px 14px;border-bottom:1px solid #f2f2f2"><span style="font:400 12px/1.4 'JetBrains Mono';color:#5f645f">heading · 20/1.25 600</span><span style="font:600 20px/1.25 Inter;letter-spacing:-.02em">Retrieval failure</span></div>
+          <div style="display:grid;grid-template-columns:150px minmax(0,1fr);gap:12px;align-items:baseline;padding:10px 14px;border-bottom:1px solid #f2f2f2"><span style="font:400 12px/1.4 'JetBrains Mono';color:#5f645f">subhead · 16/1.35 600</span><span style="font:600 16px/1.35 Inter">Affected parcels</span></div>
+          <div style="display:grid;grid-template-columns:150px minmax(0,1fr);gap:12px;align-items:baseline;padding:10px 14px;border-bottom:1px solid #f2f2f2"><span style="font:400 12px/1.4 'JetBrains Mono';color:#5f645f">body · 14/1.5 400</span><span style="font:400 14px/1.5 Inter">Moves PCL-0107 to the hatch at WAL-01.</span></div>
+          <div style="display:grid;grid-template-columns:150px minmax(0,1fr);gap:12px;align-items:baseline;padding:10px 14px;border-bottom:1px solid #f2f2f2"><span style="font:400 12px/1.4 'JetBrains Mono';color:#5f645f">body-strong · 14 500</span><span style="font:500 14px/1.5 Inter">Retry dispense</span></div>
+          <div style="display:grid;grid-template-columns:150px minmax(0,1fr);gap:12px;align-items:baseline;padding:10px 14px;border-bottom:1px solid #f2f2f2"><span style="font:400 12px/1.4 'JetBrains Mono';color:#5f645f">small · 13/1.45 400</span><span style="font:400 13px/1.45 Inter;color:#3d423e">Breached 15 min ago · No pickups possible</span></div>
+          <div style="display:grid;grid-template-columns:150px minmax(0,1fr);gap:12px;align-items:baseline;padding:10px 14px;border-bottom:1px solid #f2f2f2"><span style="font:400 12px/1.4 'JetBrains Mono';color:#5f645f">label · 12/1.3 500 caps +.1em</span><span style="font:500 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase">Needs attention</span></div>
+          <div style="display:grid;grid-template-columns:150px minmax(0,1fr);gap:12px;align-items:baseline;padding:10px 14px;border-bottom:1px solid #f2f2f2"><span style="font:400 12px/1.4 'JetBrains Mono';color:#5f645f">caption · 12/1.4 400</span><span style="font:400 12px/1.4 Inter;color:#5f645f">Contract target 4 h (illustrative)</span></div>
+          <div style="display:grid;grid-template-columns:150px minmax(0,1fr);gap:12px;align-items:baseline;padding:10px 14px"><span style="font:400 12px/1.4 'JetBrains Mono';color:#5f645f">mono · 13 / 12 500 tnum</span><span style="font:500 13px/1.4 'JetBrains Mono'">INC-102 · 09:45 · −15 m</span></div>
+        </div>
+        <p style="margin:0;font:400 13px/1.5 Inter;color:#3d423e">Inter 400/500/600 with <span style="font-family:'JetBrains Mono'">font-feature-settings: "tnum"</span>. JetBrains Mono for IDs, clock times and countdowns. Floor is 12 px; phone uses the same scale.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <h2 style="margin:0;font:600 24px/1.2 Inter;letter-spacing:-.02em">Space, shape, motion</h2>
+        <div style="display:grid;grid-template-columns:110px minmax(0,1fr);gap:0;border:1px solid #e8eae8;border-radius:10px;background:#fff;font:400 13px/1.45 Inter">
+          <span style="padding:10px 14px;border-bottom:1px solid #f2f2f2;font:500 12px/1.45 'JetBrains Mono'">space</span><span style="padding:10px 14px;border-bottom:1px solid #f2f2f2;display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;font:400 11px/1 'JetBrains Mono';color:#5f645f"><span style="display:flex;flex-direction:column;gap:4px;align-items:center"><span style="width:4px;height:4px;background:#111312"></span>1·4</span><span style="display:flex;flex-direction:column;gap:4px;align-items:center"><span style="width:8px;height:8px;background:#111312"></span>2·8</span><span style="display:flex;flex-direction:column;gap:4px;align-items:center"><span style="width:12px;height:12px;background:#111312"></span>3·12</span><span style="display:flex;flex-direction:column;gap:4px;align-items:center"><span style="width:16px;height:16px;background:#111312"></span>4·16</span><span style="display:flex;flex-direction:column;gap:4px;align-items:center"><span style="width:24px;height:24px;background:#111312"></span>5·24</span><span style="display:flex;flex-direction:column;gap:4px;align-items:center"><span style="width:32px;height:32px;background:#111312"></span>6·32</span><span style="display:flex;flex-direction:column;gap:4px;align-items:center"><span style="width:48px;height:48px;background:#111312"></span>7·48</span></span>
+          <span style="padding:10px 14px;border-bottom:1px solid #f2f2f2;font:500 12px/1.45 'JetBrains Mono'">radius</span><span style="padding:10px 14px;border-bottom:1px solid #f2f2f2;color:#3d423e">sm 6 badges, inputs · md 10 blocks, confirms, toasts · lg 14 panel · pill 999 buttons, chips</span>
+          <span style="padding:10px 14px;border-bottom:1px solid #f2f2f2;font:500 12px/1.45 'JetBrains Mono'">border</span><span style="padding:10px 14px;border-bottom:1px solid #f2f2f2;color:#3d423e">hairline 1 px --border · control 1 px --border-strong · stale 1 px dashed --unk-border · P2 1.5 px</span>
+          <span style="padding:10px 14px;border-bottom:1px solid #f2f2f2;font:500 12px/1.45 'JetBrains Mono'">elevation</span><span style="padding:10px 14px;border-bottom:1px solid #f2f2f2;color:#3d423e">e0 flat rows · e1 hairline surface · e2 <span style="font-family:'JetBrains Mono';font-size:12px">0 8 24 /.10, 0 1 2 /.08</span> for toast, tooltip, phone action bar only</span>
+          <span style="padding:10px 14px;border-bottom:1px solid #f2f2f2;font:500 12px/1.45 'JetBrains Mono'">motion</span><span style="padding:10px 14px;border-bottom:1px solid #f2f2f2;color:#3d423e">fast 140 ms hover, press · base 240 ms confirm open, row re-rank · slow 600 ms moved-row highlight fade · ease cubic-bezier(.2,0,0,1). Reduced motion: no re-rank slide, highlight held 2 s, spinner replaced by static ring + "…" label.</span>
+          <span style="padding:10px 14px;border-bottom:1px solid #f2f2f2;font:500 12px/1.45 'JetBrains Mono'">breakpoints</span><span style="padding:10px 14px;border-bottom:1px solid #f2f2f2;color:#3d423e">phone &lt;768 single column, panel as page, sticky action bar · tablet 768–1199 queue 45 % · desktop ≥1200 queue 40 %, panel max 880</span>
+          <span style="padding:10px 14px;font:500 12px/1.45 'JetBrains Mono'">focus</span><span style="padding:10px 14px;color:#3d423e">outline 2 px --focus, offset 2 px, plus 4 px --focus-halo. Visible on every interactive element; moves to panel heading when a row opens.</span>
+        </div>
+      </div>
+    </section>
+
+    <section style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;flex-direction:column;gap:6px;max-width:760px"><h2 style="margin:0;font:600 24px/1.2 Inter;letter-spacing:-.02em">Components</h2><p style="margin:0;color:#3d423e">Only what the three views need, rendered from the same tokens in both themes. Copy is taken from the sample data.</p></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,600px),1fr));gap:16px;align-items:start">
+        <div data-theme="light" style="display:flex;flex-direction:column;border:1px solid #e8eae8;border-radius:14px;overflow:hidden">
+          <div style="padding:8px 24px;background:#fff;border-bottom:1px solid #e8eae8;font:500 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:#5f645f">Light</div>
+          <dc-import name="DS Components" hint-size="100%,2400px"></dc-import>
+        </div>
+        <div data-theme="dark" style="display:flex;flex-direction:column;border:1px solid #2a2e2b;border-radius:14px;overflow:hidden">
+          <div style="padding:8px 24px;background:#111312;border-bottom:1px solid #2a2e2b;font:500 12px/1.3 Inter;letter-spacing:.1em;text-transform:uppercase;color:#9ca19c">Dark</div>
+          <dc-import name="DS Components" hint-size="100%,2400px"></dc-import>
+        </div>
+      </div>
+    </section>
+
+    <section style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;flex-direction:column;gap:6px;max-width:760px"><h2 style="margin:0;font:600 24px/1.2 Inter;letter-spacing:-.02em">Component boundaries (React + TypeScript)</h2><p style="margin:0;color:#3d423e">Props are derived from the records in operational-model.md. Counts are passed in already computed; no component stores one.</p></div>
+      <pre style="margin:0;padding:20px;border-radius:10px;background:#0a0b0a;color:#e8eae8;font:400 12px/1.6 'JetBrains Mono';overflow-x:auto;white-space:pre">type Theme = 'light' | 'dark';
+type Band = 'P1' | 'P2' | 'P3';
+type IncidentStatus = 'open' | 'acknowledged' | 'inProgress' | 'awaitingField' | 'recovered' | 'resolved';
+type StationState = 'online' | 'degraded' | 'signalDelayed' | 'offline' | 'outOfService';
+type Availability = 'all' | 'partial' | 'unknown' | 'none';
+type ParcelLabel = 'ready' | 'blockedOffline' | 'blockedOutOfService' | 'blockedRetrieval' | 'codeNotDelivered' | 'holdExpired' | 'pickedUp' | 'markedForReturn';
+
+ConceptLabel        { kind: 'illustrative' | 'proposed' | 'demoControl'; text?: string }
+DisclaimerBar       { compact?: boolean }                       // always rendered, every width
+AppHeader           { summary: { p1: number; p2: number; p3: number; offline: number; signalDelayed: number };
+                      role: 'operator' | 'supervisor'; clock: string; onSummaryClick(f: Filter): void;
+                      onRoleChange(r): void; onDemo(a: 'reset' | 'completeFieldTask' | 'stressTest'): void; layout: 'desktop' | 'phone' }
+Button              { variant: 'primary' | 'secondary' | 'quiet'; size?: 'md' | 'sm' | 'touch';
+                      state?: 'idle' | 'processing' | 'disabled' | 'locked'; processingLabel?: string; disabledReason?: string; onClick(): void }
+PriorityBadge       { band: Band }
+IncidentStatusChip  { status: IncidentStatus; size?: 'md' | 'sm' }
+StationStateChip    { state: StationState; availability: Availability }
+Freshness           { lastSeenAt: Date; now: Date }             // fresh ≤3 min, delayed 3–10, offline &gt;10 (illustrative)
+StaleValue          { value: ReactNode; asOf: Date }
+DeadlineCountdown   { deadlineAt: Date; now: Date; source: 'contract' | 'internal'; targetHours: number }  // normal / soon ≤30 m / breached
+ParcelLabel         { label: ParcelLabel; flags: ParcelLabel[]; availabilityUnknown?: boolean }
+OwnerChip           { owner: 'You' | 'Operator B' }             // hidden when owner is You
+FilterChip          { label: string; count: number; pressed: boolean; illustrative?: boolean; onToggle(): void }
+QueueSection        { kind: 'needsAttention' | 'inHand' | 'recovered' | 'resolvedToday'; count: number; collapsed: boolean; pinned?: boolean; onToggle(): void }
+QueueRow            { incident: IncidentView; selected: boolean; moved?: boolean; stationDelayed?: boolean; onSelect(): void }
+EmptyState          { kind: 'queue' | 'filtered'; text: string; onClear?(): void }
+SkeletonRow         {}
+IncidentHeader      { incident: IncidentView; station: StationView; onAcknowledge?(): void }
+RecommendedAction   { action: ActionId; reason: string }
+ActionBar           { actions: ActionView[]; running?: ActionId }   // ActionView: id, label, variant, state, disabledReason, confirm?
+InlineConfirm       { consequence: string; noteRequired?: boolean; onConfirm(note?: string): void; onCancel(): void }  // Esc cancels
+ResultNotice        { kind: 'success' | 'failure' | 'ownership' | 'submitFailed' | 'context'; text: string;
+                      onRetry?(): void; onTakeOver?(): void; onCancel?(): void }
+ParcelRow           { parcel: ParcelView; onOpen(): void }
+SignalGroup         { signals: { text: string; time: string }[] }
+TimelineEvent       { time: string; actor: 'System' | 'You' | 'Operator B' | 'Field'; text: string; outcome?: 'success' | 'failure' }
+Breadcrumb          { items: { label: string; href?: string }[] }
+Toast               { text: string; onView(): void; durationMs: 6000 }
+Tooltip             { text: string; for: string }
+PhoneActionBar      { primary: ActionView; more: ActionView[] }</pre>
+    </section>
+
+    <section style="display:flex;flex-direction:column;gap:16px;max-width:900px">
+      <h2 style="margin:0;font:600 24px/1.2 Inter;letter-spacing:-.02em">Deviations from the brand values</h2>
+      <ol style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px;color:#3d423e">
+        <li><b style="color:#111312;font-weight:600">Focus ring.</b> Lime at 45 % alpha is about 1.4:1 on white, below the 3:1 a focus indicator needs. Light uses a solid green-deep ring with the lime halo around it; dark uses solid lime-bright.</li>
+        <li><b style="color:#111312;font-weight:600">Status hues darkened / lightened.</b> All four kept their hue. Light ok tint moved from #eef6df to #e8f2de so "healthy" is not the same fill as lime-soft, which now means "selected".</li>
+        <li><b style="color:#111312;font-weight:600">Priority has no hue.</b> P1 in red would read as Offline or Breached. Bands use fill weight plus the "P1" text instead.</li>
+        <li><b style="color:#111312;font-weight:600">Muted text is #5f645f, not grey-500.</b> Grey-500 drops to about 4.5:1 on the canvas and sunken greys; #5f645f holds 5.6:1 or more on every light background.</li>
+        <li><b style="color:#111312;font-weight:600">Label tracking +0.1em, not +0.14em.</b> Tighter for narrow panel headers; uppercase kept.</li>
+        <li><b style="color:#111312;font-weight:600">Compact type scale 12–24 px, weight 400 body.</b> As instructed; 44 px is used only on this page title.</li>
+        <li><b style="color:#111312;font-weight:600">Confirm button is ink, not lime.</b> One lime button per panel (the recommended action). Confirm sits under it, so it takes the neutral high-contrast fill to avoid two competing primaries.</li>
+      </ol>
+    </section>
+
+    <section style="display:flex;flex-direction:column;gap:12px;max-width:900px;padding:20px;border:1px solid #bfc3bf;border-radius:14px;background:#fff">
+      <h2 style="margin:0;font:600 20px/1.25 Inter;letter-spacing:-.02em">For your approval</h2>
+      <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;color:#3d423e">
+        <li>Priority as monochrome weight (P1 solid, P2 outline, P3 hairline).</li>
+        <li>Incident status in the info hue; Recovered and Resolved in ok.</li>
+        <li>Selected row: lime-soft fill with a green-deep outline.</li>
+        <li>Phone header collapses counts to one row; role, clock and demo controls move behind "⋯".</li>
+      </ul>
+      <p style="margin:0;color:#3d423e">Screens (step 2) start once these are approved or adjusted.</p>
+    </section>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>
