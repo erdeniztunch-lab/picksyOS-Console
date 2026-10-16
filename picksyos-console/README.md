@@ -1,12 +1,12 @@
 # PicksyOS Operations Console
 
-React + TypeScript build of the PicksyOS console handoff. Independent concept, illustrative data.
+React + TypeScript build of the PicksyOS console. Independent concept, illustrative data. Start with the [repository README](../README.md); engineers, see [HANDOFF.md](../HANDOFF.md).
 
 ```bash
 npm install
 npm run dev        # http://localhost:5173
 npm run build      # typecheck + production build
-npm run check:live # with the dev server running: drives the live flows in headless Chrome (44 checks)
+npm run check:live # with the dev server running: drives the live flows in headless Chrome (57 checks)
 npm run check:a11y # keyboard, focus return, 200 % zoom, tablet overflow, 44 px targets, tour placement (16 checks)
 ```
 

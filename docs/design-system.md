@@ -2,7 +2,7 @@
 
 Independent concept. Not affiliated with or endorsed by Delivery One. Illustrative data.
 
-This is the canonical design document. It was seeded from the approved design-system page (`PicksyOS Screens.dc.html`) and the shipped console (`picksyos-console/`).
+This is the canonical design document. It was seeded from the approved design-system page (`design-handoff/PicksyOS Screens.dc.html`) and the shipped console (`picksyos-console/`).
 - `DESIGN.md` at the repo root is the machine-readable mirror for design tooling. `.impeccable/design.json` is its sidecar.
 - If they disagree with this file, this file wins, and they are updated in the same change.
 - Behaviour lives in `operational-model.md`; screens and flows in `product-brief.md`.

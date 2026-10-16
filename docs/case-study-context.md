@@ -127,7 +127,7 @@ Sources: `docs/design-system.md` (canonical) and `DESIGN.md`.
 1. Public-source research and brand reading, producing `evidence.md` (sources, facts, analogs, H1–H10, open questions, brand values with computed contrast).
 2. The product brief (`product-brief.md`): problem, user, decisions the user makes, incident types, scope (MUST / LATER / non-goals), 3 views, edge-state map, flows.
 3. The operational model (`operational-model.md`): entities, freshness, state machines (station, parcel, incident), actions catalog with success and failure for every action, the priority model with a worked example, and the illustrative dataset.
-4. A design system and a clickable prototype were produced as a design handoff (`PicksyOS Design System.dc.html` = the prototype, `PicksyOS Screens.dc.html` = the design-system page, `README.md` = tokens). The filenames were scrambled in the handoff, and the owner confirmed this was intended.
+4. A design system and a clickable prototype were produced as a design handoff (now in `design-handoff/`: `PicksyOS Design System.dc.html` = the prototype, `PicksyOS Screens.dc.html` = the design-system page, `tokens.ts.md` = tokens; see `design-handoff/README.md`). The filenames were scrambled in the handoff, and the owner confirmed this was intended.
 
 ### Phase B: build and spec alignment
 5. Implemented in React 18 + TypeScript (strict) + Vite, in `picksyos-console/`.
@@ -466,6 +466,6 @@ All paths are relative to the repository root `deliveryone/`.
 | `DESIGN.md` + `.impeccable/design.json` | Machine-readable mirror of the design system ("The Night-Shift Ledger") |
 | `docs/design-passes-changelog.md` | All 111 doc changes, pass by pass, as old → new |
 | `.impeccable/critique/*.md` | The two critique snapshots (25/40 and 33/40) with priority issues |
-| `PicksyOS Design System.dc.html` | The original prototype from the design handoff (despite its name) |
-| `PicksyOS Screens.dc.html` | The original design-system page from the handoff (despite its name) |
+| `design-handoff/PicksyOS Design System.dc.html` | The original prototype from the design handoff (despite its name) |
+| `design-handoff/PicksyOS Screens.dc.html` | The original design-system page from the handoff (despite its name) |
 | `picksyos-console/` | The shipped React app; `scripts/live-check.mjs` and `scripts/a11y-check.mjs` hold the checks |

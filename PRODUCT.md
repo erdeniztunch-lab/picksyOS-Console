@@ -45,7 +45,7 @@ The landing view is an exception queue ranked by a visible, written rule (time t
 ## Capabilities and Constraints
 
 - Front end only, illustrative mock data, no back end, no authentication, no real integrations. The app lives in `picksyos-console/` (React + TypeScript + Vite).
-- Behavioral spec: `operational-model.md` (entities, freshness, state models, actions catalog, priority model, dataset) and `product-brief.md` (flows, screen specs, interaction patterns, edge-state map). The console and these docs agree as of 16 Oct 2026; `npm run check:live` verifies 39 live behaviors.
+- Behavioral spec: `operational-model.md` (entities, freshness, state models, actions catalog, priority model, dataset) and `product-brief.md` (flows, screen specs, interaction patterns, edge-state map). The console and these docs agree as of 16 Oct 2026; `npm run check:live` verifies 57 live behaviors.
 - Incident types in scope (all "Illustrative", H2): Station offline, Retrieval failure, Pickup code notification failed, Pickup window expired.
 - Statuses: Open, Acknowledged, Action in progress, Awaiting field service, Recovered, Resolved.
 - Priority bands P1 to P3 by the written rule; Pickup window expired is always P3.
@@ -61,7 +61,7 @@ The landing view is an exception queue ranked by a visible, written rule (time t
 
 - Not affiliated with or endorsed by Delivery One. The label "Independent concept. Not affiliated with or endorsed by Delivery One. Illustrative data." is visible on every screen at every width. No Delivery One logo; the product name is plain text (D14).
 - The working screens read like v1 of an internal operations tool: no concept tags on the queue, panel, station or parcel pages. What is invented or proposed is disclosed through the footer disclaimer and Help → "About this concept"; the "Illustrative" / "Proposed" / "Demo control" tags remain only in Help and Concept controls.
-- Visual values are adapted from Delivery One's public website (see `evidence.md`, Brand reference): Inter and JetBrains Mono, brand lime as identity and focus only (never "healthy"), pill buttons, headlines ending in a lime full stop. Tokens: `README.md` / `picksyos-console/src/design/tokens.ts`. The canonical design doc is `docs/design-system.md`; `DESIGN.md` mirrors it.
+- Visual values are adapted from Delivery One's public website (see `evidence.md`, Brand reference): Inter and JetBrains Mono, brand lime as identity and focus only (never "healthy"), pill buttons, headlines ending in a lime full stop. Tokens: `design-handoff/tokens.ts.md` / `picksyos-console/src/design/tokens.ts`. The canonical design doc is `docs/design-system.md`; `DESIGN.md` mirrors it.
 - Voice: short, declarative, plain.
 
 ## Evidence on Hand

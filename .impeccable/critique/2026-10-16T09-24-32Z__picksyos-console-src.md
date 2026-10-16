@@ -5,7 +5,7 @@ max_score: 40
 na_heuristics: 
 p0_count: 0
 p1_count: 1
-target_identity: "file:C:\\Users\\yerde\\OneDrive\\Desktop\\deliveryone\\picksyos-console\\src"
+target_identity: "file:picksyos-console/src"
 timestamp: 2026-10-16T09-24-32Z
 slug: picksyos-console-src
 ---
