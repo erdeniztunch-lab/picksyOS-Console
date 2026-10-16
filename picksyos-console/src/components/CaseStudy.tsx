@@ -126,16 +126,26 @@ export function CaseStudy() {
           <section className="cs__sec" aria-labelledby="cs-did">
             <h2 id="cs-did">Ne yaptım</h2>
             <ul>
-              <li>
-                Delivery One’ın açıkça söylediklerini, varsaymak zorunda kaldığım şeylerden ayırdım. Bundan 10 hipotez ve şirkete sorulacak 8 soru
-                çıktı.
-              </li>
-              <li>Ekran çizmeye başlamadan önce olayın alabileceği durumları, aksiyonları ve yazılı bir öncelik kuralını modelledim.</li>
-              <li>Delivery One’ın renklerini ve tipografisini, gece vardiyasında saatlerce bakılacak bir ekrana uyarladım; kontrastı WCAG AA’ya göre ayarladım.</li>
-              <li>
-                Çalışan bir prototip kurdum, sonra tasarım kritiği, art arda tasarım turları ve hedef kullanıcı gözüyle oynanan 10 senaryoyla
-                geliştirdim. Bu sırada otomatik kontroller, görsel değişikliklerin davranışı bozmadığını doğruladı.
-              </li>
+              <li>Konsolu tek bir kullanıcı için tasarladım: merkezi uzaktan operasyon ekibinde, tüm müşterilerin istasyonlarını izleyen operatör. Aklımdaki sahne, gece 3'te dikkati dağınık biçimde vardiyasını sürdüren biriydi.
+</li>
+<li>1. Araştırma. Delivery One'ın sitesini ve ürün sayfalarını taradım. Kaynaklı bilgileri, varsayımlardan ayırdım. InPost, PagerDuty, Zendesk gibi benzer ürünlerden etkileşim kalıplarını inceledim.
+</li>
+<li>2. Varsayımlar ve kapsam. Bilinmeyenleri 10 hipotez ve şirkete sorulacak 8 soru olarak yazdım. Kapsamı istasyonlarla, 4 olay tipiyle ve 3 ekranla sınırladım.
+</li>
+<li>3. Operasyon modeli. Ekran çizmeden önce olay durumlarını, her aksiyonun başarı ve başarısızlık sonucunu, yazılı öncelik kuralını ve tutarlı bir örnek veri setini tanımladım.
+</li>
+<li>4. Akışlar ve ekran tanımları. Ana akışı (en üstteki olayı 3 tıklamada çözmek), başarısızlık ve saha ziyareti akışını ve uç durumları yazıyla tanımladım.
+</li>
+<li>5. Claude Design ile görsel tasarım. Delivery One'ın sitesinden okuduğum renk ve tipografiyle bir tasarım sistemi, yüksek çözünürlüklü ekranlar ve tıklanabilir bir prototip ürettim. Bunu zip olarak Claude Code'a devrettim.
+</li>
+<li>6. Claude Code ile ürünleştirme. Prototipi React ve TypeScript ile çalışan bir uygulamaya çevirdim. Uygulamayı dokümanlarla karşılaştırıp 7 tutarsızlığı düzelttim. Davranışı sabitleyen otomatik kontroller ekledim.
+</li>
+<li>7. Impeccable ile tasarım turları. Tasarım kritiğinin bulduğu sorunları sırayla ele aldım: sıralama kuralını netleştirdim, süre aşımını görünür kıldım, erişilebilirliği düzelttim, arayüzü sadeleştirdim ve Türkçeleştirdim. Bir olayın bittiğini hissettiren bir adım çubuğu ve kapanış kartı ekledim.
+</li>
+<li>8. Senaryo testi. Hedef kullanıcının gözünden 10 senaryoyu masaüstünde ve telefonda baştan sona oynadım. Çıkan 8 sorunu düzelttim.
+</li>
+Her adımda kararları ben verdim, araçları uygulamak ve denetlemek için kullandım.
+              
             </ul>
           </section>
 
